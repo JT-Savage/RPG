@@ -81,16 +81,31 @@ class TitleScreen:
         """Handle menu option selection"""
         if option == 'New Game':
             print("Starting new game...")
-            # TODO: Transition to game start
+            if hasattr(self.game_root, 'new_game'):
+                self.game_root.new_game()
+
         elif option == 'Continue':
             print("Continuing from autosave...")
-            # TODO: Load autosave
+            if hasattr(self.game_root, 'load_game_from_file'):
+                success = self.game_root.load_game_from_file('autosave.json')
+                if not success:
+                    print("No autosave found")
+
         elif option == 'Load Game':
             print("Opening load menu...")
-            # TODO: Open load game menu
+            if hasattr(self.game_root, 'load_game_from_file'):
+                success = self.game_root.load_game_from_file()
+                if not success:
+                    print("No save file found")
+
         elif option == 'Settings':
             print("Opening settings...")
-            # TODO: Open settings
+            # Settings menu not implemented yet
+
         elif option == 'Exit':
             print("Exiting game...")
-            # TODO: Exit application
+            if hasattr(self.game_root, 'quit_game'):
+                self.game_root.quit_game()
+            else:
+                import sys
+                sys.exit()
