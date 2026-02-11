@@ -78,7 +78,7 @@ class GameRoot(Scene):
         background(0, 0, 0)  # Black background
 
         # Apply transformation for logical resolution
-        with ui.GState():
+        with GState():
             translate(self.offset_x, self.offset_y)
             scale(self.scale, self.scale)
 
