@@ -220,15 +220,16 @@ class GameState:
             }
 
             # Calculate stats
-            self._recalculate_character_stats(char_id)
+            self._recalculate_character_stats(char_id, characters[char_id])
 
         return characters
 
-    def _recalculate_character_stats(self, char_id):
+    def _recalculate_character_stats(self, char_id, char=None):
         """Recalculate character stats based on level"""
         from data.characters import get_character_stats_at_level
 
-        char = self.characters[char_id]
+        if char is None:
+            char = self.characters[char_id]
         level = char['level']
 
         stats = get_character_stats_at_level(char_id, level)
@@ -482,6 +483,21 @@ class GameState:
             del self.items[item_id]
 
         return True
+
+    def has_item_in_inventory(self, item_id, quantity=1):
+        """
+        Check if player has item in inventory
+
+        Args:
+            item_id: Item ID to check
+            quantity: Minimum quantity required (default 1)
+
+        Returns:
+            bool: True if player has enough of the item
+        """
+        if item_id not in self.items:
+            return False
+        return self.items[item_id] >= quantity
 
     def check_ending_requirements(self):
         """

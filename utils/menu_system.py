@@ -51,7 +51,7 @@ class MenuSystem:
         """Get list of inventory items"""
         items = []
 
-        for item_id, count in self.game_state.inventory.items():
+        for item_id, count in self.game_state.items.items():
             from data.items import ITEMS
             item_data = ITEMS.get(item_id)
 

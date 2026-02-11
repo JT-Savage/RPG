@@ -54,7 +54,7 @@ class GameRoot:
         """Start new game"""
         # Initialize game state
         self.game_state = GameState()
-        self.game_state.initialize_new_game()
+        self.game_state.reset_new_game()
 
         # Initialize systems
         self.initialize_systems()

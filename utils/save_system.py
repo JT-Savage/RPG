@@ -399,3 +399,112 @@ class SaveSystem:
             bool: True if NG+ data exists
         """
         return os.path.exists(self.new_game_plus_file)
+
+
+# Module-level wrapper functions for convenience
+_save_system_instance = None
+
+def get_save_system():
+    """Get or create the global SaveSystem instance"""
+    global _save_system_instance
+    if _save_system_instance is None:
+        _save_system_instance = SaveSystem()
+    return _save_system_instance
+
+
+def save_game(game_state, filename=None):
+    """
+    Save game to file
+
+    Args:
+        game_state: GameState object
+        filename: Optional filename (e.g., 'autosave.json')
+
+    Returns:
+        bool: True if save successful
+    """
+    system = get_save_system()
+
+    # Determine save type and slot based on filename
+    if filename == 'autosave.json':
+        return system.save_game(game_state, save_type='autosave')
+    elif filename == 'quicksave.json':
+        return system.save_game(game_state, save_type='quicksave')
+    elif filename:
+        # Extract slot number if present (e.g., 'save_01.json' -> slot 1)
+        import re
+        match = re.search(r'save_(\d+)\.json', filename)
+        if match:
+            slot = int(match.group(1))
+            return system.save_game(game_state, slot=slot, save_type='manual')
+        else:
+            # Default to autosave if filename format not recognized
+            return system.save_game(game_state, save_type='autosave')
+    else:
+        # No filename provided, use autosave
+        return system.save_game(game_state, save_type='autosave')
+
+
+def load_game(filename=None):
+    """
+    Load game from file
+
+    Args:
+        filename: Optional filename (e.g., 'autosave.json')
+
+    Returns:
+        GameState: Loaded game state or None if failed
+    """
+    from utils.game_state import GameState
+
+    system = get_save_system()
+
+    # Determine save type and slot based on filename
+    if filename == 'autosave.json' or filename is None:
+        save_data = system.load_game(save_type='autosave')
+    elif filename == 'quicksave.json':
+        save_data = system.load_game(save_type='quicksave')
+    else:
+        # Extract slot number if present
+        import re
+        match = re.search(r'save_(\d+)\.json', filename)
+        if match:
+            slot = int(match.group(1))
+            save_data = system.load_game(slot=slot, save_type='manual')
+        else:
+            # Default to autosave
+            save_data = system.load_game(save_type='autosave')
+
+    if not save_data:
+        return None
+
+    # Create GameState from save data
+    game_state = GameState()
+
+    # Restore game state from save data
+    game_state.active_party = save_data['party']['active']
+    game_state.reserve_party = save_data['party']['reserves']
+    game_state.characters = save_data['party']['characters']
+    game_state.formation = save_data['party']['formation']
+
+    game_state.items = save_data['inventory']['items']
+    game_state.equipment = save_data['inventory']['equipment']
+    game_state.key_items = save_data['inventory']['key_items']
+
+    game_state.story_flags = save_data['progress']['story_flags']
+    game_state.sidequests = save_data['progress']['sidequests']
+    game_state.recruited_characters = save_data['progress']['recruited_characters']
+    game_state.discovered_locations = save_data['progress']['discovered_locations']
+    game_state.bestiary = save_data['progress']['bestiary']
+
+    game_state.current_location = save_data['world']['current_location']
+    game_state.world_state = save_data['world']['world_state']
+    game_state.time_of_day = save_data['world']['time_of_day']
+
+    game_state.gold = save_data['resources']['gold']
+    game_state.playtime = save_data['resources']['playtime']
+
+    if 'new_game_plus' in save_data:
+        game_state.new_game_plus = save_data['new_game_plus']
+
+    return game_state

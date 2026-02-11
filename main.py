@@ -129,7 +129,7 @@ class GameRoot(Scene):
 
         # Initialize game state
         self.game_state_data = GameState()
-        self.game_state_data.initialize_new_game()
+        self.game_state_data.reset_new_game()
 
         # Initialize systems
         self.initialize_game_systems()
