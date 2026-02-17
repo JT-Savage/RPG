@@ -33,148 +33,162 @@ class SaveSystem:
         Returns:
             dict: Save data
         """
+        # Support both dict and GameState object
+        def _get(key, default=None):
+            if isinstance(game_state, dict):
+                return game_state.get(key, default)
+            else:
+                return getattr(game_state, key, default)
+
+        # Get story flags (stored as a nested dict in GameState)
+        story_flags = _get('story_flags', {})
+        def _flag(key, default=False):
+            if isinstance(story_flags, dict):
+                return story_flags.get(key, default)
+            return default
+
         save_data = {
             'timestamp': datetime.now().isoformat(),
             'version': '0.1.0',
 
             # Party data
             'party': {
-                'active': game_state.get('active_party', []),
-                'reserves': game_state.get('reserve_party', []),
-                'characters': game_state.get('characters', {}),  # Character states
-                'formation': game_state.get('formation', 'default')
+                'active': _get('active_party', []),
+                'reserves': _get('reserve_party', []),
+                'characters': _get('characters', {}),  # Character states
+                'formation': _get('formation', 'default')
             },
 
             # Inventory
             'inventory': {
-                'items': game_state.get('items', {}),
-                'equipment': game_state.get('equipment', {}),
-                'key_items': game_state.get('key_items', []),
-                'gil': game_state.get('gil', 0)
+                'items': _get('items', {}),
+                'equipment': _get('equipment', {}),
+                'key_items': _get('key_items', []),
+                'gil': _get('gil', 0)
             },
 
             # Story flags - CRITICAL for game progression
             'story_flags': {
                 # Tutorial
-                'tutorial_complete': game_state.get('tutorial_complete', False),
-                'baby_dragon_saved': game_state.get('baby_dragon_saved', False),
+                'tutorial_complete': _flag('tutorial_complete'),
+                'baby_dragon_saved': _flag('baby_dragon_saved'),
 
                 # Warren events
-                'warren_infected': game_state.get('warren_infected', False),
-                'kella_went_to_wake_dragons': game_state.get('kella_went_to_wake_dragons', False),
+                'warren_infected': _flag('warren_infected'),
+                'kella_went_to_wake_dragons': _flag('kella_went_to_wake_dragons'),
 
                 # Surface events
-                'met_frostbite': game_state.get('met_frostbite', False),
-                'met_fei': game_state.get('met_fei', False),
+                'met_frostbite': _flag('met_frostbite'),
+                'met_fei': _flag('met_fei'),
 
                 # Imperial City
-                'imperial_city_visited': game_state.get('imperial_city_visited', False),
-                'shotgun_blueprint_purchased': game_state.get('shotgun_blueprint_purchased', False),
-                'sniper_rifle_blueprint_purchased': game_state.get('sniper_rifle_blueprint_purchased', False),
-                'met_michael': game_state.get('met_michael', False),
-                'met_flood': game_state.get('met_flood', False),
-                'met_hannah': game_state.get('met_hannah', False),
+                'imperial_city_visited': _flag('imperial_city_visited'),
+                'shotgun_blueprint_purchased': _flag('shotgun_blueprint_purchased'),
+                'sniper_rifle_blueprint_purchased': _flag('sniper_rifle_blueprint_purchased'),
+                'met_michael': _flag('met_michael'),
+                'met_flood': _flag('met_flood'),
+                'met_hannah': _flag('met_hannah'),
 
                 # Imperial Warren
-                'imperial_warren_explored': game_state.get('imperial_warren_explored', False),
-                'imperial_warren_escape': game_state.get('imperial_warren_escape', False),
-                'kobolds_released': game_state.get('kobolds_released', False),
+                'imperial_warren_explored': _flag('imperial_warren_explored'),
+                'imperial_warren_escape': _flag('imperial_warren_escape'),
+                'kobolds_released': _flag('kobolds_released'),
 
                 # Recruitment windows
-                'fritzzit_crankpot_available': game_state.get('fritzzit_crankpot_available', False),
+                'fritzzit_crankpot_available': _flag('fritzzit_crankpot_available'),
 
                 # Jerod's House
-                'crown_of_flowers_comment_triggered': game_state.get('crown_of_flowers_comment_triggered', False),
-                'jerod_house_explored': game_state.get('jerod_house_explored', False),
-                'jerod_boss_defeated': game_state.get('jerod_boss_defeated', False),
-                'jerod_house_explosion': game_state.get('jerod_house_explosion', False),
-                'fungal_enemies_removed': game_state.get('fungal_enemies_removed', False),
+                'crown_of_flowers_comment_triggered': _flag('crown_of_flowers_comment_triggered'),
+                'jerod_house_explored': _flag('jerod_house_explored'),
+                'jerod_boss_defeated': _flag('jerod_boss_defeated'),
+                'jerod_house_explosion': _flag('jerod_house_explosion'),
+                'fungal_enemies_removed': _flag('fungal_enemies_removed'),
 
                 # Halfling rescue
-                'cookie_iris_rescued': game_state.get('cookie_iris_rescued', False),
-                'fei_grooming_cutscene': game_state.get('fei_grooming_cutscene', False),
-                'panda_fur_available': game_state.get('panda_fur_available', False),
+                'cookie_iris_rescued': _flag('cookie_iris_rescued'),
+                'fei_grooming_cutscene': _flag('fei_grooming_cutscene'),
+                'panda_fur_available': _flag('panda_fur_available'),
 
                 # Yipp
-                'yipp_dungeon_determined': game_state.get('yipp_dungeon_determined', False),
-                'yipp_spawn_dungeon': game_state.get('yipp_spawn_dungeon', None),
-                'yipp_encountered': game_state.get('yipp_encountered', False),
+                'yipp_dungeon_determined': _flag('yipp_dungeon_determined'),
+                'yipp_spawn_dungeon': _flag('yipp_spawn_dungeon', None),
+                'yipp_encountered': _flag('yipp_encountered'),
 
                 # Warghoul
-                'warghoul_recruited_early': game_state.get('warghoul_recruited_early', False),
+                'warghoul_recruited_early': _flag('warghoul_recruited_early'),
 
                 # Orisia and Recruitment Deadline
-                'met_orisia': game_state.get('met_orisia', False),
-                'orisia_ready_warning_given': game_state.get('orisia_ready_warning_given', False),
-                'recruitment_deadline_passed': game_state.get('recruitment_deadline_passed', False),
+                'met_orisia': _flag('met_orisia'),
+                'orisia_ready_warning_given': _flag('orisia_ready_warning_given'),
+                'recruitment_deadline_passed': _flag('recruitment_deadline_passed'),
 
                 # Desert
-                'desert_entered': game_state.get('desert_entered', False),
-                'army_blocks_return': game_state.get('army_blocks_return', False),
+                'desert_entered': _flag('desert_entered'),
+                'army_blocks_return': _flag('army_blocks_return'),
 
                 # Dragon Bosses
-                'first_dragon_defeated': game_state.get('first_dragon_defeated', False),
-                'second_dragon_defeated': game_state.get('second_dragon_defeated', False),
-                'flood_dead': game_state.get('flood_dead', False),
-                'flood_death_cutscene': game_state.get('flood_death_cutscene', False),
-                'hannah_scream_triggered': game_state.get('hannah_scream_triggered', False),
+                'first_dragon_defeated': _flag('first_dragon_defeated'),
+                'second_dragon_defeated': _flag('second_dragon_defeated'),
+                'flood_dead': _flag('flood_dead'),
+                'flood_death_cutscene': _flag('flood_death_cutscene'),
+                'hannah_scream_triggered': _flag('hannah_scream_triggered'),
 
                 # Catacombs
-                'catacombs_unlocked': game_state.get('catacombs_unlocked', False),
+                'catacombs_unlocked': _flag('catacombs_unlocked'),
 
                 # Cure and Endings
-                'cure_found': game_state.get('cure_found', False),
-                'kella_saved': game_state.get('kella_saved', False),
+                'cure_found': _flag('cure_found'),
+                'kella_saved': _flag('kella_saved'),
 
                 # Final Battle
-                'necromancer_defeated': game_state.get('necromancer_defeated', False),
-                'yipp_alignment': game_state.get('yipp_alignment', None),  # 'saint', 'vampire', or None
-                'yipp_betrayed': game_state.get('yipp_betrayed', False),
+                'necromancer_defeated': _flag('necromancer_defeated'),
+                'yipp_alignment': _flag('yipp_alignment', None),  # 'saint', 'vampire', or None
+                'yipp_betrayed': _flag('yipp_betrayed'),
 
                 # Secret Boss
-                'kella_double_infected': game_state.get('kella_double_infected', False),
-                'secret_boss_defeated': game_state.get('secret_boss_defeated', False),
+                'kella_double_infected': _flag('kella_double_infected'),
+                'secret_boss_defeated': _flag('secret_boss_defeated'),
 
                 # Post-credits
-                'post_credits_unlocked': game_state.get('post_credits_unlocked', False),
-                'slaver_island_completed': game_state.get('slaver_island_completed', False),
-                'captain_donald_defeated': game_state.get('captain_donald_defeated', False),
+                'post_credits_unlocked': _flag('post_credits_unlocked'),
+                'slaver_island_completed': _flag('slaver_island_completed'),
+                'captain_donald_defeated': _flag('captain_donald_defeated'),
 
                 # Endings achieved
-                'ending_achieved': game_state.get('ending_achieved', None),  # 'best', 'good', 'normal', 'bad'
+                'ending_achieved': _flag('ending_achieved', None),  # 'best', 'good', 'normal', 'bad'
             },
 
             # Character recruitment tracking
-            'characters_recruited': game_state.get('characters_recruited', []),
-            'lost_characters': game_state.get('lost_characters', []),  # Un-recruited, become zombies
+            'characters_recruited': _get('characters_recruited', []),
+            'lost_characters': _get('lost_characters', []),  # Un-recruited, become zombies
 
             # Orisia sidequests completed
-            'orisia_sidequests_completed': game_state.get('orisia_sidequests_completed', []),
+            'orisia_sidequests_completed': _get('orisia_sidequests_completed', []),
 
             # Character evolutions
-            'character_classes': game_state.get('character_classes', {}),  # character_id: current_class
+            'character_classes': _get('character_classes', {}),  # character_id: current_class
 
             # Level caps
-            'level_caps': game_state.get('level_caps', {}),  # character_id: max_level
+            'level_caps': _get('level_caps', {}),  # character_id: max_level
 
             # Ultimate weapons obtained
-            'ultimate_weapons': game_state.get('ultimate_weapons', []),
+            'ultimate_weapons': _get('ultimate_weapons', []),
 
             # Fei and Iris special tracking
-            'fei_dead': game_state.get('fei_dead', False),  # For Iris berserk
-            'iris_berserk': game_state.get('iris_berserk', False),
+            'fei_dead': _get('fei_dead', False),  # For Iris berserk
+            'iris_berserk': _get('iris_berserk', False),
 
             # Position and location
-            'current_location': game_state.get('current_location', 'warren'),
-            'player_position': game_state.get('player_position', {'x': 0, 'y': 0}),
-            'map_data': game_state.get('map_data', {}),
+            'current_location': _get('current_location', 'warren'),
+            'player_position': _get('player_position', {'x': 0, 'y': 0}),
+            'map_data': _get('map_data', {}),
 
             # Playtime
-            'playtime_seconds': game_state.get('playtime_seconds', 0),
+            'playtime_seconds': _get('playtime_seconds', 0),
 
             # New Game+ data
-            'new_game_plus': game_state.get('new_game_plus', False),
-            'playthrough_count': game_state.get('playthrough_count', 1),
+            'new_game_plus': _get('new_game_plus', False),
+            'playthrough_count': _get('playthrough_count', 1),
         }
 
         return save_data
@@ -329,41 +343,56 @@ class SaveSystem:
         Returns:
             bool: Success
         """
+        # Support both dict and GameState object
+        def _get(key, default=None):
+            if isinstance(game_state, dict):
+                return game_state.get(key, default)
+            else:
+                return getattr(game_state, key, default)
+
+        # Story flags are stored in a nested dict on GameState
+        story_flags = _get('story_flags', {})
+        def _flag(key, default=None):
+            if isinstance(story_flags, dict):
+                return story_flags.get(key, default)
+            return default
+
         ng_plus_data = {
             'timestamp': datetime.now().isoformat(),
-            'playthrough_count': game_state.get('playthrough_count', 1),
+            'playthrough_count': _get('playthrough_count', 1),
 
             # Characters recruited this playthrough
-            'characters_recruited': game_state.get('characters_recruited', []),
-            'lost_characters': game_state.get('lost_characters', []),
+            'characters_recruited': _get('characters_recruited', []),
+            'lost_characters': _get('lost_characters', []),
 
             # Yipp alignment choice
-            'yipp_alignment_previous': game_state.get('yipp_alignment'),
+            'yipp_alignment_previous': _flag('yipp_alignment'),
 
             # Key choices
-            'baby_dragon_saved': game_state.get('baby_dragon_saved', False),
-            'cure_found': game_state.get('cure_found', False),
-            'flood_died': game_state.get('flood_dead', False),
+            'baby_dragon_saved': _flag('baby_dragon_saved', False),
+            'cure_found': _flag('cure_found', False),
+            'flood_died': _flag('flood_dead', False),
 
             # Ending achieved
-            'ending_achieved': game_state.get('ending_achieved'),
+            'ending_achieved': _flag('ending_achieved'),
 
             # Yipp spawn location (for Frostbite comment)
-            'yipp_spawn_dungeon': game_state.get('yipp_spawn_dungeon'),
+            'yipp_spawn_dungeon': _flag('yipp_spawn_dungeon'),
 
             # Character final levels and classes
             'character_levels': {},
-            'character_classes': game_state.get('character_classes', {}),
+            'character_classes': _get('character_classes', {}),
 
             # Ultimate weapons obtained
-            'ultimate_weapons': game_state.get('ultimate_weapons', []),
+            'ultimate_weapons': _get('ultimate_weapons', []),
 
             # Sidequests completed
-            'orisia_sidequests_completed': game_state.get('orisia_sidequests_completed', [])
+            'orisia_sidequests_completed': _get('orisia_sidequests_completed', [])
         }
 
         # Extract character levels
-        for char_id, char_data in game_state.get('characters', {}).items():
+        characters = _get('characters', {})
+        for char_id, char_data in characters.items():
             ng_plus_data['character_levels'][char_id] = char_data.get('level', 1)
 
         try:
@@ -481,30 +510,41 @@ def load_game(filename=None):
     # Create GameState from save data
     game_state = GameState()
 
-    # Restore game state from save data
+    # Restore party data
     game_state.active_party = save_data['party']['active']
     game_state.reserve_party = save_data['party']['reserves']
     game_state.characters = save_data['party']['characters']
-    game_state.formation = save_data['party']['formation']
 
+    # Restore inventory
     game_state.items = save_data['inventory']['items']
     game_state.equipment = save_data['inventory']['equipment']
     game_state.key_items = save_data['inventory']['key_items']
+    game_state.gil = save_data['inventory'].get('gil', 0)
 
-    game_state.story_flags = save_data['progress']['story_flags']
-    game_state.sidequests = save_data['progress']['sidequests']
-    game_state.recruited_characters = save_data['progress']['recruited_characters']
-    game_state.discovered_locations = save_data['progress']['discovered_locations']
-    game_state.bestiary = save_data['progress']['bestiary']
+    # Restore story flags
+    game_state.story_flags = save_data.get('story_flags', {})
 
-    game_state.current_location = save_data['world']['current_location']
-    game_state.world_state = save_data['world']['world_state']
-    game_state.time_of_day = save_data['world']['time_of_day']
+    # Restore character/party tracking
+    game_state.characters_recruited = save_data.get('characters_recruited', [])
+    game_state.lost_characters = save_data.get('lost_characters', [])
+    game_state.orisia_sidequests_completed = save_data.get('orisia_sidequests_completed', [])
+    game_state.character_classes = save_data.get('character_classes', {})
+    game_state.level_caps = save_data.get('level_caps', {})
+    game_state.ultimate_weapons = save_data.get('ultimate_weapons', [])
 
-    game_state.gold = save_data['resources']['gold']
-    game_state.playtime = save_data['resources']['playtime']
+    # Restore special flags
+    game_state.fei_dead = save_data.get('fei_dead', False)
+    game_state.iris_berserk = save_data.get('iris_berserk', False)
 
-    if 'new_game_plus' in save_data:
-        game_state.new_game_plus = save_data['new_game_plus']
+    # Restore position and world state
+    game_state.current_location = save_data.get('current_location', 'tutorial_warren')
+    game_state.player_position = save_data.get('player_position', {'x': 0, 'y': 0})
+
+    # Restore playtime
+    game_state.playtime_seconds = save_data.get('playtime_seconds', 0)
+
+    # Restore NG+ data
+    game_state.new_game_plus = save_data.get('new_game_plus', False)
+    game_state.playthrough_count = save_data.get('playthrough_count', 1)
 
     return game_state

@@ -163,6 +163,13 @@ class GameState:
         # Playtime
         self.playtime_seconds = 0
 
+        # Combat state
+        self.in_battle = False
+
+        # Quest tracking
+        self.active_quests = []
+        self.completed_quests = []
+
         # Yipp spawn dungeon determination (randomized at game start)
         self._determine_yipp_spawn()
 

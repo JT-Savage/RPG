@@ -391,7 +391,7 @@ class ShopSystem:
                 return int(item_data['price'] * 0.5)
 
         elif item_type == 'equipment':
-            equip_data = EQUIPMENT.get(equip_id)
+            equip_data = EQUIPMENT.get(item_id)
             if equip_data:
                 return int(equip_data['price'] * 0.5)
 
