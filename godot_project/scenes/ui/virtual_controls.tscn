@@ -1,0 +1,55 @@
+[gd_scene load_steps=2 format=3 uid="uid://virtual_controls"]
+
+[ext_resource type="Script" path="res://scenes/ui/virtual_controls.gd" id="1"]
+
+[node name="VirtualControls" type="CanvasLayer"]
+layer = 10
+script = ExtResource("1")
+
+[node name="DPad" type="Control" parent="."]
+anchor_left = 0.0
+anchor_top = 1.0
+anchor_right = 0.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = -96.0
+offset_right = 96.0
+offset_bottom = -8.0
+
+[node name="Up" type="TouchScreenButton" parent="DPad"]
+position = Vector2(28, 0)
+shape = RectangleShape2D new()
+
+[node name="Down" type="TouchScreenButton" parent="DPad"]
+position = Vector2(28, 56)
+shape = RectangleShape2D new()
+
+[node name="Left" type="TouchScreenButton" parent="DPad"]
+position = Vector2(0, 28)
+shape = RectangleShape2D new()
+
+[node name="Right" type="TouchScreenButton" parent="DPad"]
+position = Vector2(56, 28)
+shape = RectangleShape2D new()
+
+[node name="Buttons" type="Control" parent="."]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -100.0
+offset_top = -100.0
+offset_right = -8.0
+offset_bottom = -8.0
+
+[node name="A" type="TouchScreenButton" parent="Buttons"]
+position = Vector2(60, 40)
+
+[node name="B" type="TouchScreenButton" parent="Buttons"]
+position = Vector2(30, 60)
+
+[node name="X" type="TouchScreenButton" parent="Buttons"]
+position = Vector2(30, 10)
+
+[node name="Y" type="TouchScreenButton" parent="Buttons"]
+position = Vector2(0, 40)
