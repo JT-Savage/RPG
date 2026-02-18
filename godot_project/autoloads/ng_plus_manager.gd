@@ -112,7 +112,7 @@ func _resolve_flag(flag_name: String) -> bool:
 			return GameManager.ng_plus_data.get("vampire_recruited", false)
 		"yipp_dungeon_differs_from_previous":
 			var prev_yipp: String = GameManager.ng_plus_data.get("yipp_dungeon", "")
-			var current_yipp: String = FlagManager.get_flag("yipp_spawn_location")
+			var current_yipp: String = FlagManager.get_flag("yipp_spawn_dungeon")
 			return prev_yipp != current_yipp and not prev_yipp.is_empty()
 		_:
 			return FlagManager.is_flag(flag_name)
@@ -142,7 +142,10 @@ func try_inject(location_trigger: String) -> bool:
 	if text.is_empty():
 		return false
 
-	DialogueManager.start_dialogue_direct(speaker, text)
+	DialogueManager.start_dialogue_direct([
+		{"id": "line", "type": "text", "speaker": speaker, "text": text, "next": "end"},
+		{"id": "end", "type": "end"}
+	])
 	return true
 
 

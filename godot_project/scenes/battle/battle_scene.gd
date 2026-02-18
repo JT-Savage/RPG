@@ -31,8 +31,9 @@ func _ready() -> void:
 	BattleManager.status_applied.connect(_on_status_applied)
 	BattleManager.status_removed.connect(_on_status_removed)
 
-	# Hide command menu initially
+	# Hide command menu initially and connect its signal
 	command_menu.visible = false
+	command_menu.action_selected.connect(_on_command_selected)
 
 	# Set background
 	var bg_name: String = _battle_data.get("background", "dungeon")

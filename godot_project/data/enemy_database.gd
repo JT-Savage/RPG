@@ -741,6 +741,601 @@ static func _build_enemy_db() -> Dictionary:
 			"sprite_size": "32x32",
 		},
 
+		# ===================================================================
+		# FOREST ENEMIES  (easy-medium)
+		# ===================================================================
+
+		"goblin": {
+			"id": "goblin",
+			"name": "Goblin",
+			"region": "surface_forest",
+			"difficulty": "easy",
+			"type": "normal",
+			"hp": 60,
+			"atk": 14,
+			"def": 6,
+			"speed": 15,
+			"exp": 10,
+			"gil": 6,
+			"weaknesses": [],
+			"immunities": [],
+			"actions": [
+				{"id": "attack",     "weight": 70, "tags": []},
+				{"id": "cheap_shot", "weight": 30, "tags": []},
+			],
+			"sprite_size": "16x16",
+		},
+
+		"forest_troll": {
+			"id": "forest_troll",
+			"name": "Forest Troll",
+			"region": "surface_forest",
+			"difficulty": "easy_medium",
+			"type": "wildlife",
+			"hp": 200,
+			"atk": 28,
+			"def": 18,
+			"speed": 9,
+			"exp": 40,
+			"gil": 25,
+			"weaknesses": ["fire"],
+			"immunities": [],
+			"actions": [
+				{"id": "attack",     "weight": 60, "tags": []},
+				{"id": "club_slam",  "weight": 25, "tags": []},
+				{"id": "regenerate", "weight": 15, "tags": ["self_heal", "restore_30_hp"]},
+			],
+			"sprite_size": "16x16",
+		},
+
+		# ===================================================================
+		# CATACOMB ENEMIES  (hard, additions)
+		# ===================================================================
+
+		"zombie": {
+			"id": "zombie",
+			"name": "Zombie",
+			"region": "catacombs",
+			"difficulty": "hard",
+			"type": "undead",
+			"hp": 400,
+			"atk": 55,
+			"def": 30,
+			"speed": 7,
+			"exp": 110,
+			"gil": 70,
+			"weaknesses": ["light", "fire"],
+			"immunities": ["poison", "sleep"],
+			"actions": [
+				{"id": "attack",      "weight": 70, "tags": []},
+				{"id": "heavy_slam",  "weight": 30, "tags": []},
+			],
+			"sprite_size": "16x16",
+		},
+
+		"ghost": {
+			"id": "ghost",
+			"name": "Ghost",
+			"region": "catacombs",
+			"difficulty": "hard",
+			"type": "undead",
+			"hp": 320,
+			"atk": 50,
+			"def": 20,
+			"speed": 24,
+			"exp": 140,
+			"gil": 100,
+			"weaknesses": ["light"],
+			"immunities": ["poison", "sleep", "earth"],
+			"actions": [
+				{"id": "attack",       "weight": 40, "tags": []},
+				{"id": "haunt",        "weight": 30, "tags": ["inflicts_confuse"]},
+				{"id": "phase_through","weight": 30, "tags": ["inflicts_blind"]},
+			],
+			"sprite_size": "16x16",
+		},
+
+		"lich_minion": {
+			"id": "lich_minion",
+			"name": "Lich Minion",
+			"region": "catacombs",
+			"difficulty": "hard",
+			"type": "undead",
+			"hp": 480,
+			"atk": 60,
+			"def": 38,
+			"speed": 17,
+			"exp": 200,
+			"gil": 160,
+			"weaknesses": ["light"],
+			"immunities": ["poison", "sleep"],
+			"actions": [
+				{"id": "attack",     "weight": 30, "tags": []},
+				{"id": "dark_spell", "weight": 45, "tags": ["element:darkness", "power:55"]},
+				{"id": "drain",      "weight": 25, "tags": ["drain_hp"]},
+			],
+			"sprite_size": "16x16",
+		},
+
+		# ===================================================================
+		# CATACOMB BOSS
+		# ===================================================================
+
+		"catacomb_lich": {
+			"id": "catacomb_lich",
+			"name": "Catacomb Lich",
+			"region": "catacombs",
+			"difficulty": "boss",
+			"type": "undead",
+			"is_boss": true,
+			"hp": 12000,
+			"atk": 88,
+			"def": 62,
+			"mag_pow": 100,
+			"sp_res": 75,
+			"speed": 16,
+			"weaknesses": ["light"],
+			"immunities": ["poison", "sleep", "ice"],
+			"phase_2_threshold": 0.5,
+			"actions": [
+				{
+					"id": "summon_undead",
+					"weight": 20,
+					"tags": ["summon", "adds_zombie_enemies"],
+				},
+				{
+					"id": "dark_nova",
+					"weight": 30,
+					"tags": ["aoe", "element:darkness"],
+				},
+				{
+					"id": "drain_life",
+					"weight": 25,
+					"tags": ["single_target", "drain_hp"],
+				},
+				{
+					"id": "bone_storm",
+					"weight": 25,
+					"tags": ["aoe", "physical", "phase_2_only"],
+				},
+			],
+			"sprite_size": "64x64",
+		},
+
+		# ===================================================================
+		# SWAMP ENEMIES  (hard)
+		# ===================================================================
+
+		"swamp_witch": {
+			"id": "swamp_witch",
+			"name": "Swamp Witch",
+			"region": "swamp",
+			"difficulty": "hard",
+			"type": "normal",
+			"hp": 360,
+			"atk": 48,
+			"def": 26,
+			"speed": 16,
+			"exp": 160,
+			"gil": 130,
+			"weaknesses": ["fire"],
+			"immunities": [],
+			"actions": [
+				{"id": "attack",       "weight": 20, "tags": []},
+				{"id": "poison_cloud", "weight": 35, "tags": ["aoe", "inflicts_poison"]},
+				{"id": "hex",          "weight": 30, "tags": ["inflicts_slow", "inflicts_blind"]},
+				{"id": "dark_spell",   "weight": 15, "tags": ["element:darkness", "power:50"]},
+			],
+			"sprite_size": "16x16",
+		},
+
+		"poison_frog": {
+			"id": "poison_frog",
+			"name": "Poison Frog",
+			"region": "swamp",
+			"difficulty": "hard",
+			"type": "wildlife",
+			"hp": 290,
+			"atk": 52,
+			"def": 22,
+			"speed": 20,
+			"exp": 120,
+			"gil": 80,
+			"weaknesses": ["fire"],
+			"immunities": ["poison"],
+			"actions": [
+				{"id": "tongue_lash",  "weight": 50, "tags": []},
+				{"id": "toxic_spit",   "weight": 50, "tags": ["inflicts_poison"]},
+			],
+			"sprite_size": "16x16",
+		},
+
+		"swamp_beast": {
+			"id": "swamp_beast",
+			"name": "Swamp Beast",
+			"region": "swamp",
+			"difficulty": "hard",
+			"type": "wildlife",
+			"hp": 520,
+			"atk": 68,
+			"def": 48,
+			"speed": 11,
+			"exp": 180,
+			"gil": 120,
+			"weaknesses": ["fire", "thunder"],
+			"immunities": ["poison"],
+			"actions": [
+				{"id": "attack",      "weight": 55, "tags": []},
+				{"id": "body_slam",   "weight": 30, "tags": []},
+				{"id": "mud_splash",  "weight": 15, "tags": ["aoe", "inflicts_slow"]},
+			],
+			"sprite_size": "16x16",
+		},
+
+		# ===================================================================
+		# ARMY CAMP ENEMIES  (hard)
+		# ===================================================================
+
+		"imperial_guard": {
+			"id": "imperial_guard",
+			"name": "Imperial Guard",
+			"region": "army_camp",
+			"difficulty": "hard",
+			"type": "normal",
+			"hp": 440,
+			"atk": 62,
+			"def": 50,
+			"speed": 13,
+			"exp": 145,
+			"gil": 105,
+			"weaknesses": [],
+			"immunities": [],
+			"actions": [
+				{"id": "attack",      "weight": 65, "tags": []},
+				{"id": "shield_bash", "weight": 35, "tags": []},
+			],
+			"sprite_size": "16x16",
+		},
+
+		"imperial_elite": {
+			"id": "imperial_elite",
+			"name": "Imperial Elite",
+			"region": "army_camp",
+			"difficulty": "hard",
+			"type": "normal",
+			"hp": 520,
+			"atk": 72,
+			"def": 58,
+			"speed": 15,
+			"exp": 200,
+			"gil": 150,
+			"weaknesses": [],
+			"immunities": [],
+			"actions": [
+				{"id": "attack",       "weight": 55, "tags": []},
+				{"id": "shield_bash",  "weight": 25, "tags": []},
+				{"id": "power_strike", "weight": 20, "tags": []},
+			],
+			"sprite_size": "16x16",
+		},
+
+		"captain": {
+			"id": "captain",
+			"name": "Captain",
+			"region": "army_camp",
+			"difficulty": "hard",
+			"type": "normal",
+			"hp": 600,
+			"atk": 78,
+			"def": 60,
+			"speed": 17,
+			"exp": 250,
+			"gil": 200,
+			"weaknesses": [],
+			"immunities": [],
+			"actions": [
+				{"id": "attack",       "weight": 45, "tags": []},
+				{"id": "rally",        "weight": 25, "tags": ["buff_all_allies", "atk_up"]},
+				{"id": "power_strike", "weight": 30, "tags": []},
+			],
+			"sprite_size": "16x16",
+		},
+
+		# ===================================================================
+		# ARMY CAMP / DESERT BOSS
+		# ===================================================================
+
+		"desert_warlord": {
+			"id": "desert_warlord",
+			"name": "Desert Warlord",
+			"region": "desert",
+			"difficulty": "boss",
+			"type": "normal",
+			"is_boss": true,
+			"hp": 9000,
+			"atk": 95,
+			"def": 70,
+			"mag_pow": 50,
+			"sp_res": 45,
+			"speed": 18,
+			"weaknesses": ["water", "ice"],
+			"immunities": [],
+			"phase_2_threshold": 0.4,
+			"actions": [
+				{
+					"id": "blade_storm",
+					"weight": 35,
+					"tags": ["aoe", "physical"],
+				},
+				{
+					"id": "power_strike",
+					"weight": 30,
+					"tags": ["single_target", "heavy"],
+				},
+				{
+					"id": "war_cry",
+					"weight": 20,
+					"tags": ["self_buff", "atk_up", "haste_self"],
+				},
+				{
+					"id": "execute",
+					"weight": 15,
+					"tags": ["single_target", "heavy", "phase_2_only"],
+				},
+			],
+			"sprite_size": "32x32",
+		},
+
+		# ===================================================================
+		# FLOATING ISLAND ENEMIES  (very hard)
+		# ===================================================================
+
+		"sky_serpent": {
+			"id": "sky_serpent",
+			"name": "Sky Serpent",
+			"region": "floating_island",
+			"difficulty": "very_hard",
+			"type": "wildlife",
+			"hp": 650,
+			"atk": 85,
+			"def": 55,
+			"speed": 22,
+			"exp": 280,
+			"gil": 220,
+			"weaknesses": ["earth", "ice"],
+			"immunities": ["wind"],
+			"actions": [
+				{"id": "attack",       "weight": 50, "tags": []},
+				{"id": "wind_slash",   "weight": 30, "tags": ["element:wind"]},
+				{"id": "aerial_dive",  "weight": 20, "tags": ["heavy"]},
+			],
+			"sprite_size": "16x16",
+		},
+
+		"wind_elemental": {
+			"id": "wind_elemental",
+			"name": "Wind Elemental",
+			"region": "floating_island",
+			"difficulty": "very_hard",
+			"type": "elemental",
+			"hp": 480,
+			"atk": 78,
+			"def": 35,
+			"speed": 28,
+			"exp": 260,
+			"gil": 200,
+			"weaknesses": ["earth", "ice"],
+			"immunities": ["wind", "poison", "sleep"],
+			"actions": [
+				{"id": "wind_slash",    "weight": 40, "tags": ["element:wind"]},
+				{"id": "cyclone",       "weight": 35, "tags": ["aoe", "element:wind"]},
+				{"id": "gale_force",    "weight": 25, "tags": ["inflicts_slow", "aoe"]},
+			],
+			"sprite_size": "16x16",
+		},
+
+		# ===================================================================
+		# MOUNTAIN ENEMIES  (very hard)
+		# ===================================================================
+
+		"ice_witch": {
+			"id": "ice_witch",
+			"name": "Ice Witch",
+			"region": "mountain",
+			"difficulty": "very_hard",
+			"type": "normal",
+			"hp": 560,
+			"atk": 70,
+			"def": 42,
+			"speed": 18,
+			"exp": 300,
+			"gil": 240,
+			"weaknesses": ["fire"],
+			"immunities": ["ice"],
+			"actions": [
+				{"id": "attack",       "weight": 20, "tags": []},
+				{"id": "blizzard",     "weight": 40, "tags": ["element:ice", "power:65"]},
+				{"id": "ice_storm",    "weight": 25, "tags": ["aoe", "element:ice"]},
+				{"id": "freeze",       "weight": 15, "tags": ["inflicts_stop"]},
+			],
+			"sprite_size": "16x16",
+		},
+
+		"ice_knight": {
+			"id": "ice_knight",
+			"name": "Ice Knight",
+			"region": "mountain",
+			"difficulty": "very_hard",
+			"type": "normal",
+			"hp": 720,
+			"atk": 90,
+			"def": 70,
+			"speed": 14,
+			"exp": 320,
+			"gil": 260,
+			"weaknesses": ["fire"],
+			"immunities": ["ice"],
+			"actions": [
+				{"id": "attack",       "weight": 55, "tags": []},
+				{"id": "ice_blade",    "weight": 30, "tags": ["element:ice"]},
+				{"id": "shield_bash",  "weight": 15, "tags": []},
+			],
+			"sprite_size": "16x16",
+		},
+
+		"mountain_troll": {
+			"id": "mountain_troll",
+			"name": "Mountain Troll",
+			"region": "mountain",
+			"difficulty": "very_hard",
+			"type": "wildlife",
+			"hp": 900,
+			"atk": 100,
+			"def": 80,
+			"speed": 10,
+			"exp": 350,
+			"gil": 280,
+			"weaknesses": ["fire", "thunder"],
+			"immunities": [],
+			"actions": [
+				{"id": "attack",      "weight": 55, "tags": []},
+				{"id": "boulder",     "weight": 30, "tags": ["element:earth", "heavy"]},
+				{"id": "regenerate",  "weight": 15, "tags": ["self_heal", "restore_80_hp"]},
+			],
+			"sprite_size": "16x16",
+		},
+
+		# ===================================================================
+		# FINAL DUNGEON ENEMIES  (endgame)
+		# ===================================================================
+
+		"void_knight": {
+			"id": "void_knight",
+			"name": "Void Knight",
+			"region": "final_dungeon",
+			"difficulty": "endgame",
+			"type": "normal",
+			"hp": 1100,
+			"atk": 120,
+			"def": 95,
+			"speed": 16,
+			"exp": 500,
+			"gil": 400,
+			"weaknesses": ["light"],
+			"immunities": ["darkness"],
+			"actions": [
+				{"id": "attack",       "weight": 50, "tags": []},
+				{"id": "void_strike",  "weight": 30, "tags": ["element:darkness", "heavy"]},
+				{"id": "shield_bash",  "weight": 20, "tags": []},
+			],
+			"sprite_size": "16x16",
+		},
+
+		"shadow_dragon": {
+			"id": "shadow_dragon",
+			"name": "Shadow Dragon",
+			"region": "final_dungeon",
+			"difficulty": "endgame",
+			"type": "dragon",
+			"hp": 1400,
+			"atk": 130,
+			"def": 100,
+			"speed": 18,
+			"exp": 600,
+			"gil": 500,
+			"weaknesses": ["light"],
+			"immunities": ["darkness", "poison", "sleep"],
+			"actions": [
+				{"id": "attack",        "weight": 40, "tags": []},
+				{"id": "shadow_breath", "weight": 35, "tags": ["aoe", "element:darkness"]},
+				{"id": "dark_claw",     "weight": 25, "tags": ["element:darkness", "heavy"]},
+			],
+			"sprite_size": "16x16",
+		},
+
+		"corrupted_saint": {
+			"id": "corrupted_saint",
+			"name": "Corrupted Saint",
+			"region": "final_dungeon",
+			"difficulty": "endgame",
+			"type": "normal",
+			"hp": 950,
+			"atk": 108,
+			"def": 85,
+			"speed": 20,
+			"exp": 550,
+			"gil": 450,
+			"weaknesses": ["darkness"],
+			"immunities": ["light", "poison"],
+			"actions": [
+				{"id": "attack",        "weight": 30, "tags": []},
+				{"id": "holy_dark",     "weight": 35, "tags": ["element:light", "element:darkness", "power:75"]},
+				{"id": "corrupt_heal",  "weight": 20, "tags": ["self_heal", "restore_200_hp"]},
+				{"id": "smite",         "weight": 15, "tags": ["inflicts_confuse", "inflicts_slow"]},
+			],
+			"sprite_size": "16x16",
+		},
+
+		# ===================================================================
+		# FINAL BOSS
+		# ===================================================================
+
+		"void_architect": {
+			"id": "void_architect",
+			"name": "Void Architect",
+			"region": "final_dungeon",
+			"difficulty": "boss",
+			"type": "normal",
+			"is_boss": true,
+			"hp": 30000,
+			"atk": 140,
+			"def": 110,
+			"mag_pow": 150,
+			"sp_res": 100,
+			"speed": 22,
+			"weaknesses": ["light"],
+			"immunities": ["darkness", "poison", "sleep", "stop"],
+			"phase_2_threshold": 0.5,
+			"actions": [
+				{
+					"id": "void_beam",
+					"weight": 30,
+					"tags": ["aoe", "element:darkness"],
+				},
+				{
+					"id": "annihilate",
+					"weight": 25,
+					"tags": ["single_target", "heavy", "element:darkness"],
+				},
+				{
+					"id": "reality_fracture",
+					"weight": 20,
+					"tags": ["aoe", "inflicts_confuse", "inflicts_slow"],
+				},
+				{
+					"id": "summon_voids",
+					"weight": 15,
+					"tags": ["summon", "adds_void_knight"],
+				},
+				{
+					"id": "absolute_zero",
+					"weight": 30,
+					"tags": ["aoe", "phase_2_only", "heavy"],
+				},
+				{
+					"id": "unmaking",
+					"weight": 20,
+					"tags": ["single_target", "instant_kill", "phase_2_only"],
+				},
+				{
+					"id": "void_regeneration",
+					"weight": 10,
+					"tags": ["self_heal", "once_per_battle", "restore_5000_hp", "phase_2_only"],
+				},
+			],
+			"sprite_size": "64x64",
+		},
+
 	}
 
 

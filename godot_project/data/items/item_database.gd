@@ -310,6 +310,19 @@ const ITEMS: Dictionary = {
 		"use_restriction": "save_point_only",
 		"category": "misc"
 	},
+	# --- Swamp Region Consumable ---
+	"swamp_root": {
+		"name": "Swamp Root",
+		"description": "A bitter root harvested from the mire. Draws out and neutralises poison.",
+		"price": 45,
+		"sell_price": 20,
+		"effect": "cure_status",
+		"value": "poison",
+		"target": "single",
+		"sold_in_shops": true,
+		"category": "status_cure"
+	},
+
 }
 
 static func get_item(item_id: String) -> Dictionary:

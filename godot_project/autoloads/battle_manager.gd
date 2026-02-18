@@ -528,24 +528,24 @@ func _execute_item(char_id: String, action: Dictionary) -> void:
 				_remove_status(target_id, s)
 		"holy_water":
 			_remove_status(target_id, "burn")
-			_deal_damage_to_enemy(0, int(50 * 1.5), "magical")  # Water element vs burn
+			_deal_damage_to_enemy(0, "water", DamageType.MAGICAL, 75, "holy_water")
 		# Battle items (deal damage to enemies)
 		"fire_bomb":
-			_deal_damage_to_enemy(0, 200, "magical")
+			_deal_damage_to_enemy(0, "fire", DamageType.MAGICAL, 200, "fire_bomb")
 			AudioManager.play_sfx("spell_fire")
 		"thunder_gem":
 			for i in range(current_enemies.size()):
-				_deal_damage_to_enemy(i, 300, "magical")
+				_deal_damage_to_enemy(i, "thunder", DamageType.MAGICAL, 300, "thunder_gem")
 			AudioManager.play_sfx("spell_thunder")
 		"earth_crystal":
 			for i in range(current_enemies.size()):
-				_deal_damage_to_enemy(i, 300, "magical")
+				_deal_damage_to_enemy(i, "earth", DamageType.MAGICAL, 300, "earth_crystal")
 			AudioManager.play_sfx("spell_earth")
 		"darkness_shard":
-			_deal_damage_to_enemy(0, 150, "magical")
+			_deal_damage_to_enemy(0, "dark", DamageType.MAGICAL, 150, "darkness_shard")
 		"void_essence":
 			for i in range(current_enemies.size()):
-				_deal_damage_to_enemy(i, 9999, "psychic")
+				_deal_damage_to_enemy(i, "void", DamageType.PSYCHIC, 9999, "void_essence")
 		# Buff items
 		"bubble_flask":
 			_apply_status(target_id, "bubble")
@@ -568,7 +568,7 @@ func _execute_item(char_id: String, action: Dictionary) -> void:
 				"revive":
 					_revive_character(target_id, float(value) / 100.0)
 				"damage_fire":
-					_deal_damage_to_enemy(0, value, "magical")
+					_deal_damage_to_enemy(0, "fire", DamageType.MAGICAL, value, item_id)
 				_:
 					push_warning("BattleManager._execute_item: Unknown item '%s'" % item_id)
 
@@ -869,7 +869,7 @@ func _is_ko(char_id: String) -> bool:
 
 func _get_spell_data(spell_id: String) -> Dictionary:
 	# Load from SpellDatabase resource
-	return SpellDatabase.get_spell(spell_id) if Engine.has_singleton("SpellDatabase") else {}
+	return SpellDatabase.get_spell(spell_id)
 
 func _get_equipment_attack_bonus(char_id: String) -> int:
 	return 0  # Expanded by equipment system

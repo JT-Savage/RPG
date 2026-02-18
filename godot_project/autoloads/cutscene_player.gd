@@ -305,7 +305,7 @@ func play(cutscene_id: String, context: Dictionary = {}) -> void:
 	_is_playing = false
 	_current_cutscene_id = ""
 	_context = {}
-	emit_signal("cutscene_finished", cutscene_id)
+	cutscene_finished.emit(cutscene_id)
 
 
 ## Returns true if a cutscene is currently running.
@@ -322,7 +322,7 @@ func cancel() -> void:
 	_is_playing = false
 	_current_cutscene_id = ""
 	_context = {}
-	emit_signal("cutscene_finished", interrupted_id)
+	cutscene_finished.emit(interrupted_id)
 
 # ---------------------------------------------------------------------------
 # Sequence executor
@@ -556,9 +556,9 @@ func _action_dialogue(action: Dictionary) -> void:
 	if Engine.has_singleton("DialogueManager"):
 		# Await dialogue completion via signal.
 		var dm := Engine.get_singleton("DialogueManager")
-		if dm.has_method("play_dialogue"):
-			dm.play_dialogue(dialogue_id)
-			await dm.dialogue_finished
+		if dm.has_method("start_dialogue"):
+			dm.start_dialogue(dialogue_id)
+			await dm.dialogue_ended
 	else:
 		push_warning("CutscenePlayer: no DialogueManager autoload found for dialogue '%s'." % dialogue_id)
 

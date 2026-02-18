@@ -597,4 +597,198 @@ static func _build_equipment_db() -> Dictionary:
 			"description": "A worn pouch Michael has carried since his journey began. +30 HP, +15 MP. Michael-exclusive story accessory.",
 		},
 
+		# ===================================================================
+		# SHOP-REFERENCED EQUIPMENT  (added to satisfy shop_database.gd)
+		# ===================================================================
+
+		# -------------------------------------------------------------------
+		# Weapons — Bows  (early-mid game ranged, usable by Fritzzit)
+		# -------------------------------------------------------------------
+
+		"short_bow": {
+			"id": "short_bow",
+			"name": "Short Bow",
+			"slot": "weapon",
+			"weapon_type": "bow",
+			"classes": ["fritzzit"],
+			"atk": 18,
+			"crit_bonus": 5,
+			"description": "A compact wooden bow suited to quick, accurate shots. +5% critical hit chance.",
+		},
+
+		# -------------------------------------------------------------------
+		# Weapons — Staves  (early-mid game magic, shared caster pool)
+		# -------------------------------------------------------------------
+
+		"wooden_staff": {
+			"id": "wooden_staff",
+			"name": "Wooden Staff",
+			"slot": "weapon",
+			"weapon_type": "staff",
+			"classes": ["flood", "hannah", "michael", "cookie", "yipp", "crankpot"],
+			"atk": 8,
+			"mag": 10,
+			"description": "A plain wooden staff. A reliable first choice for any budding caster.",
+		},
+
+		"silver_staff": {
+			"id": "silver_staff",
+			"name": "Silver Staff",
+			"slot": "weapon",
+			"weapon_type": "staff",
+			"classes": ["flood", "hannah", "michael", "cookie", "yipp", "crankpot"],
+			"atk": 18,
+			"mag": 35,
+			"element": "light",
+			"description": "A staff capped with polished silver. Channels light-aligned magic with ease.",
+		},
+
+		# -------------------------------------------------------------------
+		# Weapons — Swords  (mid game, shared sword users)
+		# -------------------------------------------------------------------
+
+		"steel_sword": {
+			"id": "steel_sword",
+			"name": "Steel Sword",
+			"slot": "weapon",
+			"weapon_type": "sword",
+			"classes": ["fei", "michael", "warghoul"],
+			"atk": 38,
+			"description": "A well-balanced steel blade. A solid mid-game upgrade for any sword user.",
+		},
+
+		# -------------------------------------------------------------------
+		# Weapons — Wands  (late game, floating island)
+		# -------------------------------------------------------------------
+
+		"crystal_wand": {
+			"id": "crystal_wand",
+			"name": "Crystal Wand",
+			"slot": "weapon",
+			"weapon_type": "wand",
+			"classes": ["cookie", "crankpot", "yipp"],
+			"mag": 50,
+			"best_in_slot_region": "floating_island",
+			"description": "A wand carved from a single resonant crystal. Dramatically amplifies spell output. Best-in-slot wand on the floating island.",
+		},
+
+		# -------------------------------------------------------------------
+		# Weapons — Bows  (late game, floating island)
+		# -------------------------------------------------------------------
+
+		"wind_bow": {
+			"id": "wind_bow",
+			"name": "Wind Bow",
+			"slot": "weapon",
+			"weapon_type": "bow",
+			"classes": ["fritzzit"],
+			"atk": 65,
+			"crit_bonus": 20,
+			"element": "wind",
+			"best_in_slot_region": "floating_island",
+			"description": "A bow strung with condensed gale-force wind. Deals wind elemental damage. Best-in-slot bow on the floating island.",
+		},
+
+		# -------------------------------------------------------------------
+		# Weapons — Final dungeon tier
+		# -------------------------------------------------------------------
+
+		"void_blade": {
+			"id": "void_blade",
+			"name": "Void Blade",
+			"slot": "weapon",
+			"weapon_type": "sword",
+			"classes": ["fei", "michael", "warghoul"],
+			"atk": 90,
+			"element": "darkness",
+			"description": "A sword forged from compressed void energy. The pinnacle of dark-aligned blades.",
+		},
+
+		"ultima_staff": {
+			"id": "ultima_staff",
+			"name": "Ultima Staff",
+			"slot": "weapon",
+			"weapon_type": "staff",
+			"classes": ["flood", "hannah", "michael", "cookie", "yipp", "crankpot"],
+			"atk": 35,
+			"mag": 80,
+			"description": "A staff radiating raw magical force. The mightiest staff available in the final dungeon.",
+		},
+
+		# -------------------------------------------------------------------
+		# Armor — Medium  (early-mid game)
+		# -------------------------------------------------------------------
+
+		"chain_mail": {
+			"id": "chain_mail",
+			"name": "Chain Mail",
+			"slot": "body",
+			"armor_type": "medium",
+			"def": 25,
+			"description": "A coat of closely woven iron rings. Offers reliable protection without excessive weight.",
+		},
+
+		# -------------------------------------------------------------------
+		# Armor — Robes / Light  (mid game, mage-oriented)
+		# -------------------------------------------------------------------
+
+		"mage_coat": {
+			"id": "mage_coat",
+			"name": "Mage Coat",
+			"slot": "body",
+			"armor_type": "robe",
+			"def": 12,
+			"sp_res": 28,
+			"mag": 8,
+			"classes": ["flood", "hannah", "michael", "cookie", "yipp", "crankpot"],
+			"description": "A long coat lined with spell-dampening thread. Balances modest physical protection with useful magical resistance.",
+		},
+
+		# -------------------------------------------------------------------
+		# Armor — Medium  (late game, floating island)
+		# -------------------------------------------------------------------
+
+		"spirit_armor": {
+			"id": "spirit_armor",
+			"name": "Spirit Armor",
+			"slot": "body",
+			"armor_type": "medium",
+			"def": 45,
+			"sp_res": 15,
+			"best_in_slot_region": "floating_island",
+			"description": "Armor imbued with ethereal energy. Provides strong physical and moderate magical defence. Best-in-slot medium armour on the floating island.",
+		},
+
+		# -------------------------------------------------------------------
+		# Armor — Robe  (late game, floating island)
+		# -------------------------------------------------------------------
+
+		"enchanted_robe": {
+			"id": "enchanted_robe",
+			"name": "Enchanted Robe",
+			"slot": "body",
+			"armor_type": "robe",
+			"def": 18,
+			"sp_res": 55,
+			"mag": 25,
+			"best_in_slot_region": "floating_island",
+			"classes": ["flood", "hannah", "michael", "cookie", "yipp", "crankpot"],
+			"description": "A robe woven with active enchantments that deflect hostile spells. Best-in-slot robe on the floating island.",
+		},
+
+		# -------------------------------------------------------------------
+		# Armor — Heavy  (final dungeon tier)
+		# -------------------------------------------------------------------
+
+		"sacred_armor": {
+			"id": "sacred_armor",
+			"name": "Sacred Armor",
+			"slot": "body",
+			"armor_type": "heavy",
+			"def": 65,
+			"sp_res": 20,
+			"element_resistance_all": 10,
+			"description": "Armor blessed by ancient rites. Grants outstanding physical defence and blanket elemental resistance.",
+		},
+
 	}
