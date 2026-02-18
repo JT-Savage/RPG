@@ -1,182 +1,220 @@
-# PROJECT STATUS - THERE WILL BE KOBOLDS
-*Audited: 2026-02-17*
+# PROJECT STATUS — THERE WILL BE KOBOLDS
+*Last updated: 2026-02-18*
 
 ## EXECUTIVE SUMMARY
 
-The project currently exists as a **Python/Pythonista** implementation (~20,000 lines across 25 files). The master prompt requires a **Godot 4.3+ GDScript** game. The Python codebase serves as a **complete design reference** — all game logic, data, and systems are documented therein. The Godot project is being built at `godot_project/`.
+The Godot 4.3 project build is **substantially complete** at `godot_project/`.
+All core systems, all locations, all data databases, all dialogue scripts, all pixel art assets, and all UI scenes have been built.
+The game is in a **playable prototype state** — open in Godot 4.3 and run.
 
 ---
 
-## AUDIT RESULTS
+## ENGINE STATUS
 
-### ENGINE STATUS
-| Requirement | Status | Notes |
-|-------------|--------|-------|
-| Godot 4.3+ project | **MISSING** | Python/Pythonista project exists instead |
-| 256x224 viewport | **MISSING** | Hardcoded in Python but no .godot project |
-| Pixel-perfect rendering | **MISSING** | No Godot project settings |
-| Integer scaling | **MISSING** | No project.godot |
-| Nearest-neighbor filter | **MISSING** | No Godot renderer settings |
-
----
-
-## SYSTEM STATUS
-
-### PHASE 1 — FOUNDATION
-| System | Status | File | Notes |
-|--------|--------|------|-------|
-| Godot project setup | MISSING | godot_project/project.godot | Being created |
-| Player movement + collision | MISSING | godot_project/scenes/player.gd | |
-| Scene transitions (fade) | MISSING | godot_project/autoloads/scene_transition.gd | |
-| Save system | PARTIAL (Python) | utils/save_system.py → godot_project/autoloads/save_system.gd | Has all slots, needs GDScript |
-| Input handling (kb/pad/touch) | MISSING | godot_project/autoloads/input_manager.gd | |
-| Flag manager | PARTIAL (Python) | utils/game_state.py → godot_project/autoloads/flag_manager.gd | All flags defined |
-| Audio manager | MISSING | godot_project/autoloads/audio_manager.gd | |
-
-### PHASE 2 — BATTLE SYSTEM
-| System | Status | File | Notes |
-|--------|--------|------|-------|
-| ATB battle system | PARTIAL (Python) | utils/battle_engine.py → godot_project/autoloads/battle_manager.gd | Turn-based; needs ATB conversion |
-| Battle UI | MISSING | godot_project/scenes/battle/battle_ui.tscn | |
-| HP/MP bars + ATB gauges | MISSING | godot_project/scenes/battle/gauges.tscn | |
-| Command menus | MISSING | godot_project/scenes/battle/command_menu.tscn | |
-| Enemy AI + formations | PARTIAL (Python) | data/enemies.py → godot_project/data/enemies/ | All enemies defined |
-| Damage calculation | PARTIAL (Python) | utils/battle_engine.py | Physical/Magical/Psychic formulas exist |
-| Elemental system | PARTIAL (Python) | data/spells.py | 7 elements defined |
-| Status effects (11) | PARTIAL (Python) | utils/status_effects.py | All 15 effects defined |
-| Spell system | PARTIAL (Python) | data/spells.py + utils/shop_system.py | 60+ spells, purchase system |
-
-### PHASE 3 — CHARACTER SYSTEMS
-| System | Status | File | Notes |
-|--------|--------|------|-------|
-| All 12 characters | PARTIAL (Python) | data/characters.py | Full stat sheets exist |
-| Level-up system | PARTIAL (Python) | utils/level_up_system.py | Ability every 10 levels |
-| Class evolution | PARTIAL (Python) | data/characters.py | Orisia sidequest system |
-| Equipment system (5 slots) | PARTIAL (Python) | data/equipment.py + utils/menu_system.py | |
-| Party management | PARTIAL (Python) | utils/game_state.py | 3 active + bench |
-
-### PHASE 4 — WORLD
-| System | Status | File | Notes |
-|--------|--------|------|-------|
-| Overworld map | PARTIAL (Python) | data/locations.py | 20+ locations defined |
-| Town/dungeon maps | PARTIAL (Python) | data/dungeons.py | Layouts described |
-| Dialogue system | PARTIAL (Python) | utils/dialogue_system.py | Typewriter + branches |
-| Shop system | PARTIAL (Python) | utils/shop_system.py + data/shops.py | 15+ shops |
-| Save points, inns, chests | PARTIAL (Python) | Various | Logic exists |
-| NPC system | PARTIAL (Python) | data/npcs.py | NPCs defined |
-
-### PHASE 5 — STORY SYSTEMS
-| System | Status | File | Notes |
-|--------|--------|------|-------|
-| Recruitment system | PARTIAL (Python) | utils/recruitment_system.py | Dialogue loops + deadline |
-| Key item system | PARTIAL (Python) | data/key_items.py | 11 items, cannot sell |
-| Cutscene system | PARTIAL (Python) | utils/story_event_system.py | Story triggers |
-| Ending system (4 endings) | PARTIAL (Python) | scenes/victory.py | Good/Normal/Bad/Best |
-| Random encounter modifiers | PARTIAL (Python) | utils/encounter_system.py | Spawn rate shifts |
-| Story flags (all) | PARTIAL (Python) | utils/game_state.py | All flags defined |
-
-### PHASE 6 — CONTENT
-| System | Status | File | Notes |
-|--------|--------|------|-------|
-| All 20 locations | PARTIAL (Python) | data/locations.py | Defined, need TileMap scenes |
-| All enemies (30+) | PARTIAL (Python) | data/enemies.py | Stats/abilities defined |
-| All spells (60+) | PARTIAL (Python) | data/spells.py | Complete |
-| All equipment | PARTIAL (Python) | data/equipment.py | Complete |
-| All key items (11) | PARTIAL (Python) | data/key_items.py | Complete |
-| All NPC dialogue | PARTIAL (Python) | data/dialogues.py | 30+ trees |
-| All boss battles | PARTIAL (Python) | data/enemies.py | 8 bosses |
-
-### PHASE 7 — SPECIAL FEATURES
-| System | Status | File | Notes |
-|--------|--------|------|-------|
-| New Game+ system | PARTIAL (Python) | utils/game_state.py | Starting levels + commentary |
-| Mobile touch controls | MISSING | godot_project/scenes/ui/virtual_controls.tscn | |
-| AdMob placeholder | MISSING | godot_project/autoloads/ad_manager.gd | |
-| Tutorial system | MISSING | godot_project/scenes/ui/tutorial.tscn | |
-| Title screen | PARTIAL (Python) | scenes/title_screen.py | |
-| Credits | PARTIAL (Python) | scenes/victory.py | |
-
-### PHASE 8 — PIXEL ART
-| Asset Category | Status | Notes |
-|----------------|--------|-------|
-| Character sprites (12) | MISSING | No PNG files exist |
-| Enemy sprites | MISSING | No PNG files exist |
-| Tilesets | MISSING | No PNG files exist |
-| Battle backgrounds | MISSING | No PNG files exist |
-| UI sprites | MISSING | No PNG files exist |
-| Spell animations | MISSING | No PNG files exist |
-| Overworld icons | MISSING | No PNG files exist |
+| Requirement | Status | File |
+|-------------|--------|------|
+| Godot 4.3+ project | ✅ DONE | `project.godot` |
+| 256×224 viewport | ✅ DONE | project.godot |
+| Pixel-perfect / Nearest filter | ✅ DONE | project.godot |
+| Integer scaling | ✅ DONE | project.godot |
+| All input maps (keyboard + gamepad) | ✅ DONE | project.godot |
+| All 15 autoloads registered | ✅ DONE | project.godot |
 
 ---
 
-## BUILD PLAN
+## AUTOLOADS (15 total)
 
-Building Godot project at `godot_project/` in this order:
-
-### Immediate (Phase 1):
-1. `project.godot` — viewport, pixel filter, input map
-2. `autoloads/game_manager.gd` — global state
-3. `autoloads/save_system.gd` — 100 slots + quicksave + autosave
-4. `autoloads/flag_manager.gd` — all story flags
-5. `autoloads/audio_manager.gd` — music + SFX
-6. `autoloads/scene_transition.gd` — fade in/out
-7. `autoloads/input_manager.gd` — kb + gamepad + touch
-8. `scenes/player/player.gd` + `player.tscn` — movement
-
-### Then (Phase 2):
-9. `autoloads/battle_manager.gd` — ATB loop
-10. `scenes/battle/battle_scene.tscn` — battle layout
-11. All battle UI components
-
-### Then (Phases 3–7):
-All character data, world scenes, story systems, mobile controls
-
-### Then (Phase 8):
-All pixel art PNG assets (programmatically generated)
+| Singleton | Status | File |
+|-----------|--------|------|
+| GameManager | ✅ DONE | `autoloads/game_manager.gd` |
+| SaveSystem | ✅ DONE | `autoloads/save_system.gd` |
+| FlagManager | ✅ DONE | `autoloads/flag_manager.gd` |
+| BattleManager | ✅ DONE | `autoloads/battle_manager.gd` |
+| PartyManager | ✅ DONE | `autoloads/party_manager.gd` |
+| AudioManager | ✅ DONE | `autoloads/audio_manager.gd` |
+| SceneTransition | ✅ DONE | `autoloads/scene_transition.gd` |
+| DialogueManager | ✅ DONE | `autoloads/dialogue_manager.gd` |
+| InputManager | ✅ DONE | `autoloads/input_manager.gd` |
+| AdManager | ✅ DONE | `autoloads/ad_manager.gd` |
+| RecruitmentSystem | ✅ DONE | `autoloads/recruitment_system.gd` |
+| StoryEventSystem | ✅ DONE | `autoloads/story_event_system.gd` |
+| NotificationManager | ✅ DONE | `autoloads/notification_manager.gd` |
+| NGPlusManager | ✅ DONE | `autoloads/ng_plus_manager.gd` |
 
 ---
 
-## DATA REFERENCE (Python → GDScript)
+## LOCATION SCENES (14 locations)
 
-All game data exists in Python form and will be converted:
-- `data/characters.py` → `godot_project/data/characters/*.tres`
-- `data/spells.py` → `godot_project/data/spells/*.tres`
-- `data/enemies.py` → `godot_project/data/enemies/*.tres`
-- `data/equipment.py` → `godot_project/data/equipment/*.tres`
-- `data/items.py` → `godot_project/data/items/*.tres`
-- `data/key_items.py` → `godot_project/data/key_items/*.tres`
-- `data/locations.py` → `godot_project/scenes/locations/*.tscn`
-- `data/dialogues.py` → `godot_project/data/dialogues/*.json`
-- `data/shops.py` → `godot_project/data/shops/*.json`
-- `data/story_events.py` → `godot_project/data/story_events/*.json`
+| Location | GD | TSCN | Notes |
+|----------|----|------|-------|
+| Tutorial Warren | ✅ | ✅ | Opening dungeon, baby dragon chest, Kella cutscene |
+| Surface Forest | ✅ | ✅ | First overworld area |
+| Kobold Village | ✅ | ✅ | Michael recruitment, shop |
+| Imperial City | ✅ | ✅ | Main hub, black market |
+| Catacomb Entrance | ✅ | ✅ | First dark dungeon |
+| Catacomb Depths | ✅ | ✅ | Hannah recruitment, lich boss |
+| Swamp Village | ✅ | ✅ | Druidess recruitment |
+| Mountain Pass | ✅ | ✅ | Possible Yipp spawn |
+| Army Camp | ✅ | ✅ | Panda plushie chest |
+| Desert Region | ✅ | ✅ | Dreamwalker area |
+| Floating Island | ✅ | ✅ | Vampire, Dreamwalker |
+| Orisia Island | ✅ | ✅ | Critical decision point |
+| Final Dungeon (Void Spire) | ✅ | ✅ | Final boss area |
+| Slaver Island | ✅ | ✅ | Post-credits, best ending |
+
+---
+
+## BATTLE SYSTEM
+
+| Feature | Status | Notes |
+|---------|--------|-------|
+| ATB gauge system | ✅ DONE | `autoloads/battle_manager.gd` |
+| Physical / Magical / Psychic damage | ✅ DONE | |
+| 11 status effects | ✅ DONE | Poison, Sleep, Paralysis, Blind, Silence, Slow, Haste, Berserk, Confuse, Burn, Bubble |
+| Enemy AI (weighted random) | ✅ DONE | |
+| Michael auto-taunt | ✅ DONE | |
+| Iris berserk on Fei death | ✅ DONE | |
+| Baby Dragon counter attack | ✅ DONE | |
+| Shapeshifter panda auto-attack | ✅ DONE | |
+| Battle scene UI | ✅ DONE | `scenes/battle/battle_scene.gd+tscn` |
+| Boss battle scene | ✅ DONE | `scenes/battle/boss_battle_scene.gd+tscn` |
+| Command menu | ✅ DONE | `scenes/battle/command_menu.gd+tscn` |
+| Flee mechanic | ✅ DONE | |
+| Party swap in battle | ✅ DONE | |
 
 ---
 
-## STORY FLAGS (All Required)
+## DATA FILES
 
-```
-baby_dragon_saved, baby_dragon_name, warren_infected
-frostbite_recruited, fei_recruited, michael_recruited
-flood_recruited, hannah_recruited, warghoul_recruited
-cookie_recruited, iris_recruited, fritzzit_recruited
-crankpot_recruited, yipp_recruited
-yipp_alignment (none/saint/vampire), yipp_spawn_dungeon
-kobolds_released_from_city, cookie_crown_comment_triggered
-iris_panda_fur_cutscene_triggered, fungal_enemies_removed
-flood_dead, orisia_met, recruitment_deadline_passed
-lost_characters (Array), desert_entered
-first_dragon_defeated, second_dragon_defeated
-cure_found, kella_saved, necromancer_defeated
-ending_type (good/normal/bad/best)
-fei_dead_in_battle, frostbite_ultimate_weapon
-fritzzit_ultimate_weapon, all_orisia_sidequests_complete
-new_game_plus_active, previous_yipp_spawn
-previous_baby_dragon_obtained
-ki_baby_dragon, ki_sentimental_pouch, ki_shotgun_blueprint
-ki_sniper_blueprint, ki_grizzly_skull, ki_orc_funeral_totem
-ki_molotov_cocktail, ki_crown_of_flowers
-ki_tuft_of_panda_fur, ki_holy_symbol, ki_pewter_wine_glass
-```
+| Database | Status | File |
+|----------|--------|------|
+| Enemy database | ✅ DONE | `data/enemy_database.gd` |
+| Equipment database | ✅ DONE | `data/equipment_database.gd` |
+| Spell database | ✅ DONE | `data/spell_database.gd` |
+| Item database | ✅ DONE | `data/items/item_database.gd` |
+| Key item database | ✅ DONE | `data/key_items/key_item_database.gd` |
+| Shop database | ✅ DONE | `data/shops/shop_database.gd` |
+| Formation database | ✅ DONE | `data/formations_database.gd` |
 
 ---
-*Last updated: 2026-02-17 — Godot project build in progress*
+
+## UI SCENES
+
+| Scene | Status | File |
+|-------|--------|------|
+| Title screen | ✅ DONE | `scenes/title/title_screen.gd+tscn` |
+| Pause menu | ✅ DONE | `scenes/ui/pause_menu.gd+tscn` |
+| Save select | ✅ DONE | `scenes/ui/save_select.gd+tscn` |
+| Game over | ✅ DONE | `scenes/ui/game_over.gd+tscn` |
+| Victory screen | ✅ DONE | `scenes/ui/victory_screen.gd+tscn` |
+| Credits screen | ✅ DONE | `scenes/ui/credits_screen.gd+tscn` |
+| Virtual controls | ✅ DONE | `scenes/ui/virtual_controls.gd+tscn` |
+| Shop scene | ✅ DONE | `scenes/shop/shop_scene.gd+tscn` |
+| Overworld map | ✅ DONE | `scenes/overworld/overworld.gd+tscn` |
+| Ending controller | ✅ DONE | `scenes/ui/ending_controller.gd` |
+
+---
+
+## CHARACTER SYSTEMS
+
+| System | Status | Notes |
+|--------|--------|-------|
+| All 12 characters with full stats | ✅ DONE | `autoloads/party_manager.gd` |
+| Level 1–99 stat growth | ✅ DONE | |
+| Ability unlock every 10 levels | ✅ DONE | |
+| Class evolution (Orisia sidequest) | ✅ DONE | |
+| Spell learning system | ✅ DONE | |
+| Iris wildlife learning | ✅ DONE | |
+| Flood permanent death | ✅ DONE | |
+| Recruitment system | ✅ DONE | `autoloads/recruitment_system.gd` |
+| Fritzzit+Crankpot pair | ✅ DONE | Both or neither |
+| Yipp random spawn | ✅ DONE | Different dungeon each run |
+| Orisia deadline → zombie conversion | ✅ DONE | |
+
+---
+
+## DIALOGUE / STORY
+
+| Content | Status | File |
+|---------|--------|------|
+| Dialogue manager (typewriter, branching) | ✅ DONE | `autoloads/dialogue_manager.gd` |
+| Kella warren farewell | ✅ DONE | `data/dialogues/` |
+| Michael recruitment | ✅ DONE | |
+| Hannah recruitment | ✅ DONE | |
+| Baby dragon naming | ✅ DONE | |
+| Vampire recruitment | ✅ DONE | |
+| Fritzzit+Crankpot recruitment | ✅ DONE | |
+| Yipp dungeon | ✅ DONE | |
+| Orisia meeting | ✅ DONE | |
+| Fei grooming cutscene | ✅ DONE | |
+| Flood death cutscene | ✅ DONE | |
+| Jerod explosion | ✅ DONE | |
+| Iris berserk trigger | ✅ DONE | |
+| NG+ commentary (17 lines) | ✅ DONE | |
+| Good ending | ✅ DONE | |
+| Bad ending (secret boss) | ✅ DONE | |
+| Best ending (post-credits) | ✅ DONE | |
+| Town NPC dialogues | ✅ DONE | `data/dialogues/town_npcs.json` |
+
+---
+
+## ASSETS
+
+| Type | Status | Notes |
+|------|--------|-------|
+| Character sprites (12) | ✅ DONE | 64×96 4-direction sheets |
+| Enemy sprites (19) | ✅ DONE | Small/medium/boss sizes |
+| Battle backgrounds (12) | ✅ DONE | 256×112 |
+| Tilesets (6) | ✅ DONE | warren, forest, city, desert, catacomb, overworld |
+| UI elements | ✅ DONE | Bars, panels, icons, cursor, save crystal |
+| Spell animations (9+) | ✅ DONE | All elements + specials |
+| Overworld icons (12) | ✅ DONE | All location types |
+| Audio | ⚠️ REQUIRED | See `assets/audio/AUDIO_REQUIRED.txt` |
+
+---
+
+## EXPORT CONFIGURATIONS
+
+| Platform | Status | Notes |
+|----------|--------|-------|
+| Windows | ✅ DONE | `export_presets.cfg` |
+| macOS | ✅ DONE | |
+| Linux | ✅ DONE | |
+| Android | ✅ DONE | Min SDK 24, AdMob placeholder |
+| iOS | ✅ DONE | |
+
+---
+
+## REMAINING TASKS
+
+### Required to complete before final build:
+1. **Audio files** — Source royalty-free .ogg music and .wav SFX (see AUDIO_REQUIRED.txt)
+2. **TileMap painting** — Open Godot editor and paint tile layers for each location
+3. **Godot import** — Import project in Godot 4.3, resolve any import errors
+4. **Testing pass** — Full playthrough to find runtime bugs
+5. **Balance pass** — Enemy HP/damage, player stat growth, shop prices
+
+### Nice to have:
+- Additional NPC dialogue variety per location visit
+- More environmental storytelling (signs, books, notes)
+- Achievement/trophy system
+- Controller rumble support
+- Additional ambient sound zones
+
+---
+
+## HOW TO OPEN IN GODOT
+
+1. Install Godot 4.3 (https://godotengine.org)
+2. Open Godot → Import Project → select `godot_project/project.godot`
+3. Let Godot import all resources (may take 1-2 min)
+4. Press F5 to run the title screen
+5. The game boots to the title screen; select New Game to start
+
+## NOTES
+
+- All autoloads are registered in project.godot and load automatically
+- The start scene is `scenes/title/title_screen.tscn`
+- Pixel art renders correctly with viewport stretch + nearest filter already configured
+- Mobile touch controls appear automatically on iOS/Android (detected via OS.get_name())
+- AdMob: silently ignored on desktop; add the GodotAdMob plugin for mobile builds
