@@ -1,0 +1,79 @@
+[gd_scene load_steps=2 format=3 uid="uid://command_menu"]
+
+[ext_resource type="Script" path="res://scenes/battle/command_menu.gd" id="1"]
+
+[node name="CommandMenu" type="Control"]
+script = ExtResource("1")
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="MainMenu" type="Panel" parent="."]
+offset_left = 0.0
+offset_top = 168.0
+offset_right = 256.0
+offset_bottom = 224.0
+visible = false
+
+[node name="VBox" type="VBoxContainer" parent="MainMenu"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = -4.0
+offset_bottom = -4.0
+
+[node name="AttackBtn" type="Button" parent="MainMenu/VBox"]
+text = "Attack"
+
+[node name="MagicBtn" type="Button" parent="MainMenu/VBox"]
+text = "Magic"
+
+[node name="ItemBtn" type="Button" parent="MainMenu/VBox"]
+text = "Item"
+
+[node name="DefendBtn" type="Button" parent="MainMenu/VBox"]
+text = "Defend"
+
+[node name="FleeBtn" type="Button" parent="MainMenu/VBox"]
+text = "Flee"
+
+[node name="SwapBtn" type="Button" parent="MainMenu/VBox"]
+text = "Swap"
+
+[node name="SubMenu" type="Panel" parent="."]
+offset_left = 64.0
+offset_top = 112.0
+offset_right = 256.0
+offset_bottom = 224.0
+visible = false
+
+[node name="SubList" type="ItemList" parent="SubMenu"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = -4.0
+offset_bottom = -4.0
+
+[node name="TargetMenu" type="Panel" parent="."]
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 256.0
+offset_bottom = 168.0
+visible = false
+
+[node name="TargetList" type="ItemList" parent="TargetMenu"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = -4.0
+offset_bottom = -4.0
+
+[node name="Cursor" type="Sprite2D" parent="."]
+z_index = 10
+visible = false
+texture_filter = 1

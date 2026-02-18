@@ -1,0 +1,39 @@
+AUDIO FILES REQUIRED
+====================
+All audio must be royalty-free or original compositions.
+
+MUSIC (.ogg format):
+- title_theme.ogg
+- overworld.ogg
+- battle.ogg
+- battle_kobold_heavy.ogg
+- boss_battle.ogg
+- final_boss.ogg
+- town.ogg
+- desert.ogg
+- dungeon.ogg
+- catacomb.ogg
+- sad_theme.ogg (Flood death scene)
+- victory.ogg
+- game_over.ogg
+- ending_good.ogg
+- ending_best.ogg
+- new_game_plus.ogg
+
+SFX (.wav format):
+- menu_select.wav, menu_confirm.wav, menu_cancel.wav
+- battle_hit_physical.wav, battle_hit_magical.wav, battle_miss.wav
+- spell_fire.wav, spell_ice.wav, spell_thunder.wav, spell_heal.wav, spell_psychic.wav
+- status_burn_tick.wav, bubble_pop.wav
+- level_up.wav, key_item_get.wav, treasure_chest.wav
+- save_point.wav, door_open.wav, character_join.wav
+- flood_death_impact.wav
+- hannah_scream.wav (needs: pitch shift UP, distortion, reverb, echo)
+- iris_berserk_roar.wav
+- skeleton_summon.wav, panda_transform.wav
+- hannah_ultimate_spell.wav
+
+Recommended free sources:
+- freesound.org (CC0 or CC-BY)
+- OpenGameArt.org
+- Godot's built-in AudioStreamGenerator for procedural SFX
