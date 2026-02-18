@@ -1,0 +1,282 @@
+{
+  "id": "dreamwalker_recruitment",
+  "characters": {
+    "dreamwalker": "Vesper",
+    "player": "Player"
+  },
+  "notes": "Vesper uses psychic awareness; some lines respond to unspoken thoughts or future moments. Pacing is deliberate. Portrait 'vesper_distant' signals they are perceiving something the player cannot.",
+  "nodes": [
+    {
+      "id": "start",
+      "speaker": "narrator",
+      "text": "The floating island has no dock. You crossed on a rope bridge that swayed badly. At the center of the island, surrounded by windchimes that are not moving, sits a figure in gray.",
+      "portrait": null,
+      "next": "vesper_01"
+    },
+    {
+      "id": "vesper_01",
+      "speaker": "dreamwalker",
+      "text": "You don't need to announce yourself.",
+      "portrait": "vesper_neutral",
+      "next": "vesper_02"
+    },
+    {
+      "id": "vesper_02",
+      "speaker": "dreamwalker",
+      "text": "I have been watching you since the valley. Not on purpose. You are simply... loud. In the way that matters.",
+      "portrait": "vesper_distant",
+      "next": "vesper_03"
+    },
+    {
+      "id": "vesper_03",
+      "speaker": "player",
+      "text": "...",
+      "portrait": "player_uneasy",
+      "next": "vesper_04"
+    },
+    {
+      "id": "vesper_04",
+      "speaker": "dreamwalker",
+      "text": "You were going to ask how I knew you were coming. Then you decided not to, because you thought the answer would unsettle you.",
+      "portrait": "vesper_neutral",
+      "next": "vesper_05"
+    },
+    {
+      "id": "vesper_05",
+      "speaker": "dreamwalker",
+      "text": "You were right.",
+      "portrait": "vesper_faint_smile",
+      "next": "vesper_06"
+    },
+    {
+      "id": "vesper_06",
+      "speaker": "player",
+      "text": "We came because we need someone with your abilities. The blight —",
+      "portrait": "player_neutral",
+      "next": "vesper_07"
+    },
+    {
+      "id": "vesper_07",
+      "speaker": "dreamwalker",
+      "text": "I know about the blight.",
+      "portrait": "vesper_neutral",
+      "next": "vesper_08"
+    },
+    {
+      "id": "vesper_08",
+      "speaker": "dreamwalker",
+      "text": "I know about the warren. I know about the creature you fought in the salt flats. I know that one of your party still has nightmares about what they saw at the Threshold Gate.",
+      "portrait": "vesper_distant",
+      "next": "vesper_09"
+    },
+    {
+      "id": "vesper_09",
+      "speaker": "dreamwalker",
+      "text": "I know the little dragon's name.",
+      "portrait": "vesper_faint_smile",
+      "next": "vesper_10"
+    },
+    {
+      "id": "vesper_10",
+      "speaker": "player",
+      "text": "We never told anyone the dragon's name.",
+      "portrait": "player_uneasy",
+      "next": "vesper_11"
+    },
+    {
+      "id": "vesper_11",
+      "speaker": "dreamwalker",
+      "text": "No. You didn't.",
+      "portrait": "vesper_neutral",
+      "next": "vesper_12"
+    },
+    {
+      "id": "vesper_12",
+      "speaker": "dreamwalker",
+      "text": "She thinks of herself in warmth and the color orange. I am approximating.",
+      "portrait": "vesper_distant",
+      "next": "flood_check"
+    },
+    {
+      "id": "flood_check",
+      "speaker": null,
+      "text": null,
+      "portrait": null,
+      "type": "condition_flag",
+      "flag": "flood_died",
+      "next_true": "flood_line_01",
+      "next_false": "vesper_recruitment_pitch"
+    },
+    {
+      "id": "flood_line_01",
+      "speaker": "dreamwalker",
+      "text": "...",
+      "portrait": "vesper_distant",
+      "next": "flood_line_02"
+    },
+    {
+      "id": "flood_line_02",
+      "speaker": "dreamwalker",
+      "text": "The one you lost. Flood.",
+      "portrait": "vesper_distant",
+      "next": "flood_line_03"
+    },
+    {
+      "id": "flood_line_03",
+      "speaker": "dreamwalker",
+      "text": "They are not in pain. I want you to know that. I am not saying this to comfort you. I am saying it because it is true and you deserve to have true things.",
+      "portrait": "vesper_distant",
+      "next": "flood_line_04"
+    },
+    {
+      "id": "flood_line_04",
+      "speaker": "narrator",
+      "text": "No one speaks for a moment.",
+      "portrait": null,
+      "next": "vesper_recruitment_pitch"
+    },
+    {
+      "id": "vesper_recruitment_pitch",
+      "speaker": "player",
+      "text": "Then you know why we're here.",
+      "portrait": "player_neutral",
+      "next": "vesper_13"
+    },
+    {
+      "id": "vesper_13",
+      "speaker": "dreamwalker",
+      "text": "You want me to come with you.",
+      "portrait": "vesper_neutral",
+      "next": "vesper_14"
+    },
+    {
+      "id": "vesper_14",
+      "speaker": "dreamwalker",
+      "text": "I have been on this island for four years. I came here because it is quiet. The minds of birds are very simple. Fish have almost no minds at all. It is restful.",
+      "portrait": "vesper_neutral",
+      "next": "vesper_15"
+    },
+    {
+      "id": "vesper_15",
+      "speaker": "player",
+      "text": "And?",
+      "portrait": "player_neutral",
+      "next": "vesper_16"
+    },
+    {
+      "id": "vesper_16",
+      "speaker": "dreamwalker",
+      "text": "And I have seen what comes next if no one stops it.",
+      "portrait": "vesper_grim",
+      "next": "vesper_17"
+    },
+    {
+      "id": "vesper_17",
+      "speaker": "dreamwalker",
+      "text": "I have seen it many times. In different shapes. The shape changes but the end does not.",
+      "portrait": "vesper_grim",
+      "next": "vesper_18"
+    },
+    {
+      "id": "vesper_18",
+      "speaker": "player",
+      "text": "What do you see?",
+      "portrait": "player_neutral",
+      "next": "vesper_19"
+    },
+    {
+      "id": "vesper_19",
+      "speaker": "dreamwalker",
+      "text": "Silence. The kind that comes after.",
+      "portrait": "vesper_distant",
+      "next": "vesper_20"
+    },
+    {
+      "id": "vesper_20",
+      "speaker": "dreamwalker",
+      "text": "Even the fish would not survive that.",
+      "portrait": "vesper_faint_smile",
+      "next": "vesper_21"
+    },
+    {
+      "id": "vesper_21",
+      "speaker": "dreamwalker",
+      "text": "I will come with you. I am not doing this easily or cheerfully. I want that noted.",
+      "portrait": "vesper_neutral",
+      "next": "vesper_warning_01"
+    },
+    {
+      "id": "vesper_warning_01",
+      "speaker": "dreamwalker",
+      "text": "But there are conditions.",
+      "portrait": "vesper_neutral",
+      "next": "vesper_warning_02"
+    },
+    {
+      "id": "vesper_warning_02",
+      "speaker": "player",
+      "text": "Name them.",
+      "portrait": "player_neutral",
+      "next": "vesper_warning_03"
+    },
+    {
+      "id": "vesper_warning_03",
+      "speaker": "dreamwalker",
+      "text": "Do not ask me how I got this way.",
+      "portrait": "vesper_neutral",
+      "next": "vesper_warning_04"
+    },
+    {
+      "id": "vesper_warning_04",
+      "speaker": "dreamwalker",
+      "text": "Do not ask what I see when I look at you. Some of your party would not benefit from knowing.",
+      "portrait": "vesper_neutral",
+      "next": "vesper_warning_05"
+    },
+    {
+      "id": "vesper_warning_05",
+      "speaker": "dreamwalker",
+      "text": "And if I go quiet — if I put my hands over my ears and stop speaking — leave me alone until I come back. It won't take long. It usually doesn't.",
+      "portrait": "vesper_neutral",
+      "next": "player_agree"
+    },
+    {
+      "id": "player_agree",
+      "speaker": "player",
+      "text": "Agreed.",
+      "portrait": "player_neutral",
+      "next": "vesper_final_01"
+    },
+    {
+      "id": "vesper_final_01",
+      "speaker": "dreamwalker",
+      "text": "Good.",
+      "portrait": "vesper_faint_smile",
+      "next": "vesper_final_02"
+    },
+    {
+      "id": "vesper_final_02",
+      "speaker": "dreamwalker",
+      "text": "Also the dragon is glad you're here, for what it's worth. She was getting worried.",
+      "portrait": "vesper_distant",
+      "next": "recruit_action"
+    },
+    {
+      "id": "recruit_action",
+      "speaker": null,
+      "text": null,
+      "portrait": null,
+      "type": "action",
+      "action": "recruit_character",
+      "character_id": "dreamwalker",
+      "next": "end"
+    },
+    {
+      "id": "end",
+      "speaker": null,
+      "text": null,
+      "portrait": null,
+      "type": "end"
+    }
+  ]
+}

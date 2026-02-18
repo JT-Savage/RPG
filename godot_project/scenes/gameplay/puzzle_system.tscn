@@ -1,0 +1,9 @@
+[gd_scene load_steps=1 format=3 uid="uid://puzzle_system"]
+
+[ext_resource type="Script" path="res://scenes/gameplay/puzzle_system.gd" id="1"]
+
+[node name="PuzzleSystem" type="Node"]
+script = ExtResource("1")
+puzzle_id = ""
+puzzle_type = "pressure_plate"
+save_flag = ""

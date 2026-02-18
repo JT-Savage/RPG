@@ -70,10 +70,9 @@ func _init_from_database() -> void:
 	if "dialogue" in npc_data and dialogue_id.is_empty():
 		dialogue_id = npc_data["dialogue"]
 	if "sprite" in npc_data and sprite:
-		var frames_path: String = "res://assets/sprites/characters/%s.png" % npc_data["sprite"]
-		if ResourceLoader.exists(frames_path):
-			var tex: Texture2D = load(frames_path)
-			sprite.texture = tex
+		var frames: SpriteFrames = SpriteCache.get_character_frames(npc_data["sprite"])
+		sprite.sprite_frames = frames
+		sprite.play("walk_down")
 
 
 func _get_npc_data(id: String) -> Dictionary:

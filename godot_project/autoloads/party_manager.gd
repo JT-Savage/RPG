@@ -504,3 +504,20 @@ func flood_permanent_death() -> void:
 		FlagManager.set_flag("flood_dead", true)
 		GameManager.active_party.erase("flood")
 		GameManager.reserve_party.erase("flood")
+
+## Restores all active party HP and MP to max (used at save points and tent)
+func restore_all_hp_mp() -> void:
+	var active: Array = GameManager.active_party + GameManager.reserve_party
+	for char_id in active:
+		if character_states.has(char_id):
+			var cs: Dictionary = character_states[char_id]
+			cs["hp"] = cs.get("max_hp", cs.get("hp", 1))
+			cs["mp"] = cs.get("max_mp", cs.get("mp", 0))
+
+## Returns the active party character ID list
+func get_active_party() -> Array:
+	return GameManager.active_party.duplicate()
+
+## Returns current stat block for a character (alias for get_character)
+func get_character_stats(char_id: String) -> Dictionary:
+	return character_states.get(char_id, {})

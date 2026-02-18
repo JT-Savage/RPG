@@ -467,28 +467,110 @@ func _execute_item(char_id: String, action: Dictionary) -> void:
 	if not GameManager.remove_item(item_id, 1):
 		return
 
-	# Simple item effects
+	# Load item data to handle effects generically
+	var ItemDB = load("res://data/items/item_database.gd")
+	var item_data: Dictionary = {}
+	if ItemDB:
+		item_data = ItemDB.get_item(item_id)
+
+	# Use item_data effect field for generic handling, with specific overrides
+	var effect: String = item_data.get("effect", "")
+	var value: int = item_data.get("value", 0)
+
 	match item_id:
+		# Healing items
 		"potion":
-			_heal_simple(target_id, 150)
+			_heal_simple(target_id, 100)
+			AudioManager.play_sfx("spell_heal")
 		"hi_potion":
 			_heal_simple(target_id, 500)
+			AudioManager.play_sfx("spell_heal")
+		"mega_potion":
+			_heal_simple(target_id, 2000)
+			AudioManager.play_sfx("spell_heal")
 		"elixir":
-			_heal_simple(target_id, 9999)
+			_heal_simple(target_id, 99999)
+			_restore_mp(target_id, 99999)
+			AudioManager.play_sfx("spell_heal")
+		# MP restore
 		"ether":
 			_restore_mp(target_id, 50)
+			AudioManager.play_sfx("spell_heal")
 		"hi_ether":
-			_restore_mp(target_id, 150)
+			_restore_mp(target_id, 200)
+			AudioManager.play_sfx("spell_heal")
+		# Revive
+		"phoenix_down":
+			_revive_character(target_id, 0.25)
+			AudioManager.play_sfx("level_up")
+		"mega_phoenix":
+			# Revive all KO'd party members
+			for cid in PartyManager.get_active_party():
+				var cs := PartyManager.get_character(cid)
+				if not cs.is_empty() and cs.get("hp", 1) <= 0:
+					_revive_character(cid, 0.5)
+			AudioManager.play_sfx("level_up")
+		# Status cures
 		"antidote":
 			_remove_status(target_id, "poison")
 		"eye_drops":
 			_remove_status(target_id, "blind")
-		"echo_screen":
+		"echo_herb", "echo_screen":
 			_remove_status(target_id, "silence")
-		"phoenix_down":
-			_revive_character(target_id, 0.3)
+		"soft":
+			_remove_status(target_id, "paralysis")
+		"dream_powder":
+			_remove_status(target_id, "sleep")
+		"smelling_salts":
+			_remove_status(target_id, "confuse")
+		"remedy":
+			for s in ["poison", "blind", "silence", "paralysis", "sleep", "confuse"]:
+				_remove_status(target_id, s)
+		"holy_water":
+			_remove_status(target_id, "burn")
+			_deal_damage_to_enemy(0, int(50 * 1.5), "magical")  # Water element vs burn
+		# Battle items (deal damage to enemies)
+		"fire_bomb":
+			_deal_damage_to_enemy(0, 200, "magical")
+			AudioManager.play_sfx("spell_fire")
+		"thunder_gem":
+			for i in range(current_enemies.size()):
+				_deal_damage_to_enemy(i, 300, "magical")
+			AudioManager.play_sfx("spell_thunder")
+		"earth_crystal":
+			for i in range(current_enemies.size()):
+				_deal_damage_to_enemy(i, 300, "magical")
+			AudioManager.play_sfx("spell_earth")
+		"darkness_shard":
+			_deal_damage_to_enemy(0, 150, "magical")
+		"void_essence":
+			for i in range(current_enemies.size()):
+				_deal_damage_to_enemy(i, 9999, "psychic")
+		# Buff items
+		"bubble_flask":
+			_apply_status(target_id, "bubble")
+		"haste_tonic":
+			_apply_status(target_id, "haste")
+		"iron_shield_pill":
+			var cs := PartyManager.get_character(target_id)
+			if not cs.is_empty():
+				cs["iron_shield"] = true
+		"tent":
+			# Tent can only be used at save points, not in battle
+			GameManager.add_item(item_id, 1)  # Return it
 		_:
-			pass
+			# Generic fallback using item_data effect
+			match effect:
+				"heal_hp":
+					_heal_simple(target_id, value)
+				"heal_mp":
+					_restore_mp(target_id, value)
+				"revive":
+					_revive_character(target_id, float(value) / 100.0)
+				"damage_fire":
+					_deal_damage_to_enemy(0, value, "magical")
+				_:
+					push_warning("BattleManager._execute_item: Unknown item '%s'" % item_id)
 
 func _heal_simple(char_id: String, amount: int) -> void:
 	var char_state := PartyManager.get_character(char_id)

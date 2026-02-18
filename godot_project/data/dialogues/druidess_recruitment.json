@@ -1,0 +1,297 @@
+{
+  "id": "druidess_recruitment",
+  "characters": {
+    "druidess": "Maren",
+    "player": "Player",
+    "hannah": "Hannah"
+  },
+  "nodes": [
+    {
+      "id": "start",
+      "speaker": "narrator",
+      "text": "You find her in the center of the refugee camp, kneeling in the mud beside a man whose leg has gone the color of old bark. She doesn't look up.",
+      "portrait": null,
+      "next": "maren_01"
+    },
+    {
+      "id": "maren_01",
+      "speaker": "druidess",
+      "text": "Don't step on the moss poultice. Took me an hour to cultivate.",
+      "portrait": "maren_neutral",
+      "next": "maren_02"
+    },
+    {
+      "id": "maren_02",
+      "speaker": "druidess",
+      "text": "You're standing there with weapons on your hips and I've got seventeen people who can't walk. Whatever you're selling, I'm not buying it today.",
+      "portrait": "maren_irritated",
+      "next": "player_choice_01"
+    },
+    {
+      "id": "player_choice_01",
+      "speaker": "player",
+      "text": null,
+      "portrait": null,
+      "type": "choice",
+      "choices": [
+        {
+          "text": "We're not selling anything. We need your help.",
+          "next": "approach_honest"
+        },
+        {
+          "text": "The blight is spreading north. You know that better than anyone.",
+          "next": "approach_necessity"
+        },
+        {
+          "text": "[Wait and watch her work]",
+          "next": "approach_observe"
+        }
+      ],
+      "next": null
+    },
+    {
+      "id": "approach_honest",
+      "speaker": "player",
+      "text": "We're not selling anything. We need your help.",
+      "portrait": "player_neutral",
+      "next": "maren_honest_response"
+    },
+    {
+      "id": "maren_honest_response",
+      "speaker": "druidess",
+      "text": "At least you're direct. Half the people who come through here want something and spend twenty minutes not saying what it is.",
+      "portrait": "maren_neutral",
+      "next": "maren_honest_response_02"
+    },
+    {
+      "id": "maren_honest_response_02",
+      "speaker": "druidess",
+      "text": "Doesn't change the answer. I have people here who need me.",
+      "portrait": "maren_neutral",
+      "next": "maren_smell_01"
+    },
+    {
+      "id": "approach_necessity",
+      "speaker": "player",
+      "text": "The blight is spreading north. You know that better than anyone.",
+      "portrait": "player_neutral",
+      "next": "maren_necessity_response"
+    },
+    {
+      "id": "maren_necessity_response",
+      "speaker": "druidess",
+      "text": "...",
+      "portrait": "maren_neutral",
+      "next": "maren_necessity_response_02"
+    },
+    {
+      "id": "maren_necessity_response_02",
+      "speaker": "druidess",
+      "text": "I've been watching the root-lines for three weeks. The gray rot hit the eastern fen last month. The herons left the marshes two days ago.",
+      "portrait": "maren_grim",
+      "next": "maren_necessity_response_03"
+    },
+    {
+      "id": "maren_necessity_response_03",
+      "speaker": "druidess",
+      "text": "Herons don't leave. Not unless the water's already dead.",
+      "portrait": "maren_grim",
+      "next": "maren_smell_01"
+    },
+    {
+      "id": "approach_observe",
+      "speaker": "narrator",
+      "text": "You say nothing. You watch her work. Her hands move without hesitation — pressing, folding, binding. She knows what she's doing. She's done it a thousand times.",
+      "portrait": null,
+      "next": "maren_observe_response"
+    },
+    {
+      "id": "maren_observe_response",
+      "speaker": "druidess",
+      "text": "You're still there.",
+      "portrait": "maren_neutral",
+      "next": "maren_observe_response_02"
+    },
+    {
+      "id": "maren_observe_response_02",
+      "speaker": "druidess",
+      "text": "Most warriors get bored after thirty seconds. They want to be doing something loud.",
+      "portrait": "maren_neutral",
+      "next": "maren_observe_response_03"
+    },
+    {
+      "id": "maren_observe_response_03",
+      "speaker": "druidess",
+      "text": "Fine. Say what you came to say.",
+      "portrait": "maren_neutral",
+      "next": "maren_smell_01"
+    },
+    {
+      "id": "maren_smell_01",
+      "speaker": "druidess",
+      "text": "I don't trust warriors. I've stitched too many people back together after warriors decided something. No offense.",
+      "portrait": "maren_neutral",
+      "next": "maren_smell_02"
+    },
+    {
+      "id": "maren_smell_02",
+      "speaker": "druidess",
+      "text": "But I can smell it on the wind. The blight. It's not staying in the lowlands anymore.",
+      "portrait": "maren_grim",
+      "next": "maren_smell_03"
+    },
+    {
+      "id": "maren_smell_03",
+      "speaker": "druidess",
+      "text": "Something is pushing it. Something with intent.",
+      "portrait": "maren_grim",
+      "next": "hannah_check"
+    },
+    {
+      "id": "hannah_check",
+      "speaker": null,
+      "text": null,
+      "portrait": null,
+      "type": "condition_flag",
+      "flag": "hannah_recruited",
+      "next_true": "hannah_moment_01",
+      "next_false": "maren_no_hannah"
+    },
+    {
+      "id": "hannah_moment_01",
+      "speaker": "druidess",
+      "text": "Wait.",
+      "portrait": "maren_neutral",
+      "next": "hannah_moment_02"
+    },
+    {
+      "id": "hannah_moment_02",
+      "speaker": "druidess",
+      "text": "You. In the back. You've been running your own field triage since you got here, haven't you. The woman with the light magic.",
+      "portrait": "maren_neutral",
+      "next": "hannah_moment_03"
+    },
+    {
+      "id": "hannah_moment_03",
+      "speaker": "hannah",
+      "text": "The man by the cart had a wound that needed closing. I closed it.",
+      "portrait": "hannah_calm",
+      "next": "hannah_moment_04"
+    },
+    {
+      "id": "hannah_moment_04",
+      "speaker": "druidess",
+      "text": "You didn't waste the light on his pain. Just the infection.",
+      "portrait": "maren_neutral",
+      "next": "hannah_moment_05"
+    },
+    {
+      "id": "hannah_moment_05",
+      "speaker": "hannah",
+      "text": "Pain is survivable. Infection isn't.",
+      "portrait": "hannah_calm",
+      "next": "hannah_moment_06"
+    },
+    {
+      "id": "hannah_moment_06",
+      "speaker": "druidess",
+      "text": "Hm.",
+      "portrait": "maren_considering",
+      "next": "maren_concede_01"
+    },
+    {
+      "id": "maren_no_hannah",
+      "speaker": "druidess",
+      "text": "You have anyone in your group who heals? Actually heals, not just waves a wand and hopes?",
+      "portrait": "maren_neutral",
+      "next": "maren_no_hannah_02"
+    },
+    {
+      "id": "maren_no_hannah_02",
+      "speaker": "player",
+      "text": "We manage.",
+      "portrait": "player_neutral",
+      "next": "maren_no_hannah_03"
+    },
+    {
+      "id": "maren_no_hannah_03",
+      "speaker": "druidess",
+      "text": "That's not a yes.",
+      "portrait": "maren_neutral",
+      "next": "maren_concede_01"
+    },
+    {
+      "id": "maren_concede_01",
+      "speaker": "druidess",
+      "text": "These people will be stable by morning. The village has two others who know basic wound-craft. They don't need me standing over them.",
+      "portrait": "maren_grim",
+      "next": "maren_concede_02"
+    },
+    {
+      "id": "maren_concede_02",
+      "speaker": "druidess",
+      "text": "What they need — what everyone in this swamp needs — is for whatever is killing the root-lines to stop.",
+      "portrait": "maren_grim",
+      "next": "maren_concede_03"
+    },
+    {
+      "id": "maren_concede_03",
+      "speaker": "druidess",
+      "text": "I don't like parties. I don't like noise. I don't like people who make decisions with swords before they've thought for five seconds.",
+      "portrait": "maren_irritated",
+      "next": "maren_concede_04"
+    },
+    {
+      "id": "maren_concede_04",
+      "speaker": "druidess",
+      "text": "But someone has to go. Might as well be someone who knows which end of a root is poisoned.",
+      "portrait": "maren_neutral",
+      "next": "maren_join_01"
+    },
+    {
+      "id": "maren_join_01",
+      "speaker": "druidess",
+      "text": "I'm not a soldier. I won't do things because you say so. I'll do things because they need doing.",
+      "portrait": "maren_neutral",
+      "next": "maren_join_02"
+    },
+    {
+      "id": "maren_join_02",
+      "speaker": "druidess",
+      "text": "That agreeable to you?",
+      "portrait": "maren_neutral",
+      "next": "player_accept"
+    },
+    {
+      "id": "player_accept",
+      "speaker": "player",
+      "text": "That's agreeable.",
+      "portrait": "player_neutral",
+      "next": "maren_final"
+    },
+    {
+      "id": "maren_final",
+      "speaker": "druidess",
+      "text": "Good. Give me until dawn. I want to finish the poultice.",
+      "portrait": "maren_neutral",
+      "next": "recruit_action"
+    },
+    {
+      "id": "recruit_action",
+      "speaker": null,
+      "text": null,
+      "portrait": null,
+      "type": "action",
+      "action": "recruit_character",
+      "character_id": "druidess",
+      "next": "end"
+    },
+    {
+      "id": "end",
+      "speaker": null,
+      "text": null,
+      "portrait": null,
+      "type": "end"
+    }
+  ]
+}

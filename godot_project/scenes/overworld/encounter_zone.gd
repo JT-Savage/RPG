@@ -4,13 +4,37 @@ extends Area2D
 @export var encounter_rate: float = 0.12   # Chance per step (0.0–1.0)
 @export var min_steps: int = 8             # Minimum steps before encounter possible
 @export var background: String = "dungeon"
+@export var battle_background: String = "dungeon"
 
 # Enemy formations: each is an array of enemy dicts
 @export var enemy_pool: Array = []
 
 var _steps_since_last := 0
 
-func check_encounter(total_steps: int) -> Dictionary:
+## Configure this zone from a Rect2, rate, pool, and background string.
+## Called at runtime when zones are built procedurally from map data.
+func configure(rect: Rect2, rate: float, pool: Array, bg: String) -> void:
+	var shape_node: CollisionShape2D = $CollisionShape2D if has_node("CollisionShape2D") else null
+	if shape_node == null:
+		shape_node = CollisionShape2D.new()
+		add_child(shape_node)
+	var rect_shape := RectangleShape2D.new()
+	rect_shape.size = rect.size
+	shape_node.shape = rect_shape
+	shape_node.position = rect.get_center()
+
+	encounter_rate = rate
+	enemy_pool = pool
+	battle_background = bg
+	background = bg
+	min_steps = max(1, int(rect.get_area() / 256.0))
+
+
+## Called each time the player takes a step inside this zone.
+## player_node: the player Node (unused directly but available for future hooks).
+## Returns a formation Dictionary (with "formation", "background", "music" keys)
+## or an empty Dictionary if no encounter triggers.
+func check_encounter(player_node: Node) -> Dictionary:
 	_steps_since_last += 1
 	if _steps_since_last < min_steps:
 		return {}
@@ -66,6 +90,6 @@ func _pick_formation() -> Dictionary:
 
 	return {
 		"formation": chosen_pool.get("enemies", []),
-		"background": background,
+		"background": battle_background,
 		"music": music_track,
 	}
