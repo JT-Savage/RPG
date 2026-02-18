@@ -1,208 +1,48 @@
 {
-  "id": "druid_dreamwalker_banter",
-  "notes": "In-battle banter lines, triggered by BattleManager when specific character pairs are present in the active party. Each pair_key maps to an array of exchange objects. BattleManager should pick one exchange at random and play lines sequentially.",
+  "_comment": "In-battle banter data for There Will Be Kobolds. Top-level key 'banter' holds pairs keyed by 'char1_char2'. Each pair is an array of { speaker, text } objects. The BanterSystem autoload reads this file.",
+
   "banter": {
-
-    "druidess_dreamwalker": [
+    "druid_dreamwalker": [
       {
-        "exchange_id": "dd_01",
-        "lines": [
-          { "speaker": "druidess", "text": "Stop doing that." },
-          { "speaker": "dreamwalker", "text": "I haven't done anything." },
-          { "speaker": "druidess", "text": "You were about to say something I was already thinking. Stop it." },
-          { "speaker": "dreamwalker", "text": "...That's not exactly how it works." },
-          { "speaker": "druidess", "text": "I don't care how it works." }
-        ]
+        "speaker": "Dreamwalker",
+        "text": "You know, most druids I have met prefer to avoid confrontation. You seem to be the exception."
       },
       {
-        "exchange_id": "dd_02",
-        "lines": [
-          { "speaker": "dreamwalker", "text": "You're planning to use the root-bind on the one in the back." },
-          { "speaker": "druidess", "text": "I was." },
-          { "speaker": "dreamwalker", "text": "It won't hold. The soil here is wrong." },
-          { "speaker": "druidess", "text": "I can feel the soil, thank you." },
-          { "speaker": "dreamwalker", "text": "I know. I just wanted to say it first." }
-        ]
+        "speaker": "Druid",
+        "text": "And most dreamwalkers I have met prefer to stay asleep. So here we are."
       },
       {
-        "exchange_id": "dd_03",
-        "lines": [
-          { "speaker": "druidess", "text": "Do you find this amusing?" },
-          { "speaker": "dreamwalker", "text": "A little. The way you bristle. It's like watching a cat at a reflection." },
-          { "speaker": "druidess", "text": "I am going to put a thistle in your bedroll." },
-          { "speaker": "dreamwalker", "text": "I know. It was worth it." }
-        ]
+        "speaker": "Dreamwalker",
+        "text": "That root spell of yours — the growth pattern was almost... musical. I nearly stopped to listen."
       },
       {
-        "exchange_id": "dd_04",
-        "lines": [
-          { "speaker": "dreamwalker", "text": "You grew up near a fen." },
-          { "speaker": "druidess", "text": "Don't." },
-          { "speaker": "dreamwalker", "text": "It was a nice fen." },
-          { "speaker": "druidess", "text": "Focus on the enemies." }
-        ]
-      }
-    ],
-
-    "kella_michael": [
-      {
-        "exchange_id": "km_01",
-        "lines": [
-          { "speaker": "michael", "text": "You're holding the line too far forward. If they flank—" },
-          { "speaker": "kella", "text": "They won't have time to flank." },
-          { "speaker": "michael", "text": "Kella—" },
-          { "speaker": "kella", "text": "Watch." }
-        ]
+        "speaker": "Druid",
+        "text": "Nearly. You are welcome to join in next time. The forest does not mind an audience."
       },
       {
-        "exchange_id": "km_02",
-        "lines": [
-          { "speaker": "kella", "text": "You trust me." },
-          { "speaker": "michael", "text": "I trust your instincts. It's your joints I'm worried about." },
-          { "speaker": "kella", "text": "My joints are fine." },
-          { "speaker": "michael", "text": "You've said that three fights in a row." },
-          { "speaker": "kella", "text": "They're fine." }
-        ]
+        "speaker": "Dreamwalker",
+        "text": "Do you ever miss the quiet? Before all of this?"
       },
       {
-        "exchange_id": "km_03",
-        "lines": [
-          { "speaker": "michael", "text": "Afterwards, I want you to actually rest. Not sit at camp and sharpen things." },
-          { "speaker": "kella", "text": "The swords need sharpening." },
-          { "speaker": "michael", "text": "After. You rest." },
-          { "speaker": "kella", "text": "...Yes, all right." }
-        ]
+        "speaker": "Druid",
+        "text": "The quiet is still there. You just have to know where to put it."
       },
       {
-        "exchange_id": "km_04",
-        "lines": [
-          { "speaker": "kella", "text": "If something goes wrong, go left." },
-          { "speaker": "michael", "text": "Why left?" },
-          { "speaker": "kella", "text": "Because I'll be going right." },
-          { "speaker": "michael", "text": "That's not reassuring." },
-          { "speaker": "kella", "text": "It's efficient." }
-        ]
-      }
-    ],
-
-    "hannah_vampire": [
-      {
-        "exchange_id": "hv_01",
-        "lines": [
-          { "speaker": "hannah", "text": "You're looking pale. More than usual. Let me—" },
-          { "speaker": "vampire", "text": "I assure you, Saint, I am precisely as dead as I need to be." },
-          { "speaker": "hannah", "text": "Your left hand is trembling." },
-          { "speaker": "vampire", "text": "It does that. It has done that for two hundred years. I find it characterful." }
-        ]
+        "speaker": "Dreamwalker",
+        "text": "You called that creature by name. Before you struck it."
       },
       {
-        "exchange_id": "hv_02",
-        "lines": [
-          { "speaker": "hannah", "text": "I have a restorative salve. It works on most tissue." },
-          { "speaker": "vampire", "text": "Most." },
-          { "speaker": "hannah", "text": "It's never been tested on—" },
-          { "speaker": "vampire", "text": "Hannah. I am fine. I am, in point of fact, technically not anything at all. It would be very difficult for me to be less fine than I already am." },
-          { "speaker": "hannah", "text": "...I'm putting it in your bag." },
-          { "speaker": "vampire", "text": "Of course you are." }
-        ]
+        "speaker": "Druid",
+        "text": "Everything has a name. It is polite."
       },
       {
-        "exchange_id": "hv_03",
-        "lines": [
-          { "speaker": "hannah", "text": "Doesn't it bother you? Not being able to heal?" },
-          { "speaker": "vampire", "text": "I heal. Slowly. And messily. And generally in the wrong order." },
-          { "speaker": "hannah", "text": "That sounds terrible." },
-          { "speaker": "vampire", "text": "It is deeply unglamorous, yes." }
-        ]
+        "speaker": "Dreamwalker",
+        "text": "What is it like — feeling the blight through the roots? I see echoes of it in dreams. You must feel the whole thing."
       },
       {
-        "exchange_id": "hv_04",
-        "lines": [
-          { "speaker": "vampire", "text": "I notice you heal the others first." },
-          { "speaker": "hannah", "text": "You always say you're fine." },
-          { "speaker": "vampire", "text": "I am always fine." },
-          { "speaker": "hannah", "text": "And yet." },
-          { "speaker": "vampire", "text": "...Fair point, Saint." }
-        ]
-      }
-    ],
-
-    "baby_dragon_iris": [
-      {
-        "exchange_id": "bi_01",
-        "lines": [
-          { "speaker": "narrator", "text": "Iris glances at the baby dragon. The baby dragon looks back." },
-          { "speaker": "iris", "text": "...", "sfx": "iris_soft_exhale" },
-          { "speaker": "narrator", "text": "The baby dragon butts its head against her knee once, then turns back to the fight." },
-          { "speaker": "iris", "text": "...", "sfx": "iris_soft_laugh" }
-        ]
-      },
-      {
-        "exchange_id": "bi_02",
-        "lines": [
-          { "speaker": "narrator", "text": "Iris holds out her hand before the baby dragon can charge forward. The dragon pauses." },
-          { "speaker": "iris", "text": "...", "sfx": null },
-          { "speaker": "narrator", "text": "The dragon sits. Waits. Then Iris nods, and they move together." }
-        ]
-      },
-      {
-        "exchange_id": "bi_03",
-        "lines": [
-          { "speaker": "narrator", "text": "After the fight the baby dragon climbs Iris's arm without asking. She lets it." }
-        ]
-      }
-    ],
-
-    "fritzzit_crankpot_battle": [
-      {
-        "exchange_id": "fc_01",
-        "lines": [
-          { "speaker": "fritzzit", "text": "The big one has a cast-iron chassis but the rivets are copper! Copper! Do you know what that means??" },
-          { "speaker": "crankpot", "text": "It means you should hit it instead of explaining it." },
-          { "speaker": "fritzzit", "text": "It means a Type-4 galvanic pulse would—" },
-          { "speaker": "crankpot", "text": "Fritzzit." },
-          { "speaker": "fritzzit", "text": "Right, yes, hitting." }
-        ]
-      },
-      {
-        "exchange_id": "fc_02",
-        "lines": [
-          { "speaker": "fritzzit", "text": "That automaton is running on a secondary power loop! If we sever the tertiary conduit on its LEFT side—" },
-          { "speaker": "crankpot", "text": "I severed it thirty seconds ago." },
-          { "speaker": "fritzzit", "text": "...Oh." },
-          { "speaker": "crankpot", "text": "You were still talking." }
-        ]
-      },
-      {
-        "exchange_id": "fc_03",
-        "lines": [
-          { "speaker": "fritzzit", "text": "It's beautiful, actually. As a machine. Don't you think? Functionally it's a masterpiece of horrible design but the tolerances on the—" },
-          { "speaker": "crankpot", "text": "It is trying to kill us." },
-          { "speaker": "fritzzit", "text": "Admiringly! I'm saying I admire it admiringly!" },
-          { "speaker": "crankpot", "text": "I'm going to admire it with my wrench." }
-        ]
-      },
-      {
-        "exchange_id": "fc_04",
-        "lines": [
-          { "speaker": "fritzzit", "text": "The smaller units are running hot. If we could somehow introduce a coolant—" },
-          { "speaker": "crankpot", "text": "I have fourteen potions of water." },
-          { "speaker": "fritzzit", "text": "That's — wait, why do you have fourteen—" },
-          { "speaker": "crankpot", "text": "I am always prepared." },
-          { "speaker": "fritzzit", "text": "You are magnificent." }
-        ]
-      },
-      {
-        "exchange_id": "fc_05",
-        "lines": [
-          { "speaker": "fritzzit", "text": "THAT EXHAUST MANIFOLD IS LOAD-BEARING—" },
-          { "speaker": "crankpot", "text": "I see it." },
-          { "speaker": "fritzzit", "text": "IF IT GOES WE'LL HAVE ABOUT FOUR SECONDS—" },
-          { "speaker": "crankpot", "text": "I see it, Fritzzit." },
-          { "speaker": "fritzzit", "text": "Okay. Okay. You see it. Good. Good." }
-        ]
+        "speaker": "Druid",
+        "text": "Like a song played in the wrong key. The melody is still there. You can still tell what it was supposed to be."
       }
     ]
-
   }
 }

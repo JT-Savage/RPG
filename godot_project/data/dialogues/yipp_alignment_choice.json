@@ -1,0 +1,140 @@
+{
+  "id": "yipp_alignment_choice",
+  "title": "Yipp's Alignment Decision",
+  "nodes": [
+    {
+      "id": "start",
+      "speaker": "Narrator",
+      "text": "[You've found all the items. You've found Yipp. But something about them is uncertain — like they haven't fully decided what they are yet.]",
+      "portrait": "",
+      "next": "yipp_intro"
+    },
+    {
+      "id": "yipp_intro",
+      "speaker": "Yipp",
+      "text": "You found the things. Both of them. The symbol and the glass.",
+      "portrait": "yipp_wondering",
+      "next": "yipp_intro_2"
+    },
+    {
+      "id": "yipp_intro_2",
+      "speaker": "Yipp",
+      "text": "Most people who find Yipp only bring one. Or none. You brought both.",
+      "portrait": "yipp_surprised",
+      "next": "yipp_question"
+    },
+    {
+      "id": "yipp_question",
+      "speaker": "Yipp",
+      "text": "The holy symbol wants Yipp to be... good. Pure. Saint-ish. The wine glass wants Yipp to be something else.",
+      "portrait": "yipp_conflicted",
+      "next": "yipp_question_2"
+    },
+    {
+      "id": "yipp_question_2",
+      "speaker": "Yipp",
+      "text": "What should Yipp be?",
+      "portrait": "yipp_open",
+      "next": "choice"
+    },
+    {
+      "id": "choice",
+      "type": "choice",
+      "prompt": "Help Yipp choose their path:",
+      "options": [
+        {
+          "text": "Be who you want to be.",
+          "goto": "neutral_path"
+        },
+        {
+          "text": "The holy symbol. Stay pure.",
+          "goto": "saint_path"
+        },
+        {
+          "text": "The wine glass. Embrace the darkness.",
+          "goto": "dark_path"
+        }
+      ]
+    },
+    {
+      "id": "neutral_path",
+      "speaker": "Yipp",
+      "text": "...",
+      "portrait": "yipp_thinking",
+      "next": "neutral_path_2"
+    },
+    {
+      "id": "neutral_path_2",
+      "speaker": "Yipp",
+      "text": "Yipp hasn't thought about it that way.",
+      "portrait": "yipp_soft",
+      "next": "neutral_path_3"
+    },
+    {
+      "id": "neutral_path_3",
+      "speaker": "Yipp",
+      "text": "Yipp thinks... Yipp will figure it out as Yipp goes.",
+      "portrait": "yipp_decided",
+      "next": "set_neutral"
+    },
+    {
+      "id": "set_neutral",
+      "type": "flag_set",
+      "flag": "yipp_alignment",
+      "value": "neutral",
+      "next": "recruit"
+    },
+    {
+      "id": "saint_path",
+      "speaker": "Yipp",
+      "text": "Pure. Yes. Yipp can be that. Yipp will try very hard.",
+      "portrait": "yipp_earnest",
+      "next": "set_saint"
+    },
+    {
+      "id": "set_saint",
+      "type": "flag_set",
+      "flag": "yipp_alignment",
+      "value": "saint",
+      "next": "recruit"
+    },
+    {
+      "id": "dark_path",
+      "speaker": "Yipp",
+      "text": "The other thing. Yes. Yipp has always been better at the other thing.",
+      "portrait": "yipp_sly",
+      "next": "dark_path_2"
+    },
+    {
+      "id": "dark_path_2",
+      "speaker": "Yipp",
+      "text": "Don't worry. Yipp is on your side. Mostly.",
+      "portrait": "yipp_unsettling_smile",
+      "next": "set_dark"
+    },
+    {
+      "id": "set_dark",
+      "type": "flag_set",
+      "flag": "yipp_alignment",
+      "value": "dark",
+      "next": "recruit"
+    },
+    {
+      "id": "recruit",
+      "type": "recruit",
+      "character": "yipp",
+      "next": "end_line"
+    },
+    {
+      "id": "end_line",
+      "speaker": "Narrator",
+      "text": "[Yipp joins the party. Whatever they become, they become it with you.]",
+      "portrait": "",
+      "next": "end"
+    },
+    {
+      "id": "end",
+      "type": "end"
+    }
+  ]
+}

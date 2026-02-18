@@ -1,0 +1,131 @@
+{
+  "_comment": "Flood optional backstory dialogue for There Will Be Kobolds. Triggered when Kella speaks to Flood while traveling. Flood is understated and honest — she does not perform grief or resolution, she has simply arrived at them. Player responses are optional branches that deepen the conversation without changing the destination.",
+
+  "dialogue": {
+    "start_node": "kella_open",
+
+    "nodes": {
+      "kella_open": {
+        "speaker": "Kella",
+        "text": "You don't talk much about where you're from.",
+        "next": "flood_01"
+      },
+
+      "flood_01": {
+        "speaker": "Flood",
+        "text": "No.",
+        "next": "kella_follow_01"
+      },
+
+      "kella_follow_01": {
+        "speaker": "Kella",
+        "text": "Is it gone? The place?",
+        "next": "flood_02"
+      },
+
+      "flood_02": {
+        "speaker": "Flood",
+        "text": "No. It's not gone. I just stopped calling it home. There's a difference.",
+        "next": "player_choice_01"
+      },
+
+      "player_choice_01": {
+        "type": "choice",
+        "speaker": "Kella",
+        "prompt": "(What do you say?)",
+        "choices": [
+          {
+            "text": "What made you stop?",
+            "next": "branch_why_01"
+          },
+          {
+            "text": "Fair enough. I won't push.",
+            "next": "branch_drop_01"
+          }
+        ]
+      },
+
+      "branch_why_01": {
+        "speaker": "Flood",
+        "text": "A coastal village. Small. The kind of place where everyone knows what you had for breakfast. I left when I was seventeen, came back twice, and then stopped coming back. It wasn't any one thing. It was that I had become something that didn't fit there anymore, and I had stopped pretending otherwise.",
+        "next": "branch_why_02"
+      },
+
+      "branch_why_02": {
+        "speaker": "Kella",
+        "text": "Do you miss it?",
+        "next": "flood_miss"
+      },
+
+      "branch_drop_01": {
+        "speaker": "Flood",
+        "text": "Coastal village. Not far from the Solen Straits. Seventeen when I left.",
+        "next": "flood_miss"
+      },
+
+      "flood_miss": {
+        "speaker": "Flood",
+        "text": "I miss the smell of the water in the morning. That's about as specific as I can get. The rest of it — the people, the life — that belonged to a version of me that isn't here anymore. Missing it would be like missing a coat you grew out of.",
+        "next": "kella_jerod_lead"
+      },
+
+      "kella_jerod_lead": {
+        "speaker": "Kella",
+        "text": "How did you meet Jerod?",
+        "next": "flood_jerod_01"
+      },
+
+      "flood_jerod_01": {
+        "speaker": "Flood",
+        "text": "Previous conflict. I don't know which one you'd call it — there were several, that decade. He was trying to hold a bridge with four people and no particular plan. I was trying to get across it. We negotiated.",
+        "next": "player_choice_02"
+      },
+
+      "player_choice_02": {
+        "type": "choice",
+        "speaker": "Kella",
+        "prompt": "(A beat.)",
+        "choices": [
+          {
+            "text": "You knew what you were getting into.",
+            "next": "branch_knew_01"
+          },
+          {
+            "text": "And that was enough to build something on?",
+            "next": "branch_build_01"
+          }
+        ]
+      },
+
+      "branch_knew_01": {
+        "speaker": "Flood",
+        "text": "Yes. I knew the shape of him before I knew his name. People like us — people who've been in it long enough — you can see it. He doesn't stop. And neither do I. That's either a foundation or a collision, depending.",
+        "next": "flood_no_illusions"
+      },
+
+      "branch_build_01": {
+        "speaker": "Flood",
+        "text": "I don't know if I'd call it building. More like — we were both still standing after the bridge, and then after the next thing, and it turned out we kept ending up in the same places. At some point that stops being a coincidence.",
+        "next": "flood_no_illusions"
+      },
+
+      "flood_no_illusions": {
+        "speaker": "Flood",
+        "text": "I have no illusions about how this ends. Neither does he. We've talked about it. We decided to try anyway. That's the whole of it.",
+        "next": "kella_response_final"
+      },
+
+      "kella_response_final": {
+        "speaker": "Kella",
+        "text": "I think that might be the bravest thing I've heard anyone say.",
+        "next": "flood_final"
+      },
+
+      "flood_final": {
+        "speaker": "Flood",
+        "text": "It's not bravery. It's just honesty. Bravery is when it costs you something to say it. This doesn't cost me anything anymore.",
+        "next": null
+      }
+    }
+  }
+}

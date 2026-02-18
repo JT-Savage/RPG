@@ -14,6 +14,7 @@ var _battle_data: Dictionary = {}
 var _enemy_slots: Array = []
 var _party_slots: Array = []
 var _waiting_for_input := false
+var _banter_popup: Control = null
 
 func _ready() -> void:
 	# Get pending battle data
@@ -43,6 +44,15 @@ func _ready() -> void:
 	var formation: Array = _battle_data.get("formation", [])
 	var bg: String = _battle_data.get("background", "dungeon")
 	BattleManager.start_battle(formation, bg)
+
+	# Reset banter system for a fresh battle
+	BanterSystem.reset_for_battle()
+
+	# Instantiate banter popup overlay
+	var popup_scene := load("res://scenes/ui/banter_popup.tscn")
+	if popup_scene:
+		_banter_popup = popup_scene.instantiate()
+		add_child(_banter_popup)
 
 	# Build UI slots
 	_build_party_ui()
@@ -208,6 +218,8 @@ func _on_command_selected(char_id: String, action: Dictionary) -> void:
 	command_menu.visible = false
 	BattleManager.execute_player_action(char_id, action)
 	_update_all_ui()
+	# Try to fire banter between turns (non-blocking; BanterPopup handles display)
+	BanterSystem.try_trigger_banter(GameManager.get_active_characters())
 
 func _on_damage_dealt(target: Dictionary, damage: int, descriptor: String, element: String) -> void:
 	_show_damage_number(target, damage, descriptor)
@@ -257,6 +269,8 @@ func _on_status_removed(target: Dictionary, status: String) -> void:
 
 func _on_battle_ended(result: String) -> void:
 	command_menu.visible = false
+	if _banter_popup != null:
+		_banter_popup.dismiss()
 	match result:
 		"victory":
 			await get_tree().create_timer(1.5).timeout

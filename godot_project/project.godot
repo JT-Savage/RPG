@@ -31,6 +31,8 @@ StoryEventSystem="*res://autoloads/story_event_system.gd"
 NotificationManager="*res://autoloads/notification_manager.gd"
 NGPlusManager="*res://autoloads/ng_plus_manager.gd"
 SpriteCache="*res://autoloads/sprite_cache.gd"
+CutscenePlayer="*res://autoloads/cutscene_player.gd"
+BanterSystem="*res://autoloads/banter_system.gd"
 
 [display]
 

@@ -1,0 +1,155 @@
+{
+  "id": "orisia_sidequest",
+  "title": "Orisia's Offer — Class Evolution",
+  "nodes": [
+    {
+      "id": "start",
+      "speaker": "Orisia",
+      "text": "You've been thinking about my offer.",
+      "portrait": "orisia_knowing",
+      "next": "line_2"
+    },
+    {
+      "id": "line_2",
+      "speaker": "Kella",
+      "text": "We've been thinking about everything. It's been a busy few months.",
+      "portrait": "kella_wry",
+      "next": "line_3"
+    },
+    {
+      "id": "line_3",
+      "speaker": "Orisia",
+      "text": "There is something I can offer beyond alliance. For those of your companions who have grown. Who are ready.",
+      "portrait": "orisia_offering",
+      "next": "line_4"
+    },
+    {
+      "id": "line_4",
+      "speaker": "Orisia",
+      "text": "Power has a shape. Most people's shapes are fixed by the time they're grown. But not all.",
+      "portrait": "orisia_wise",
+      "next": "line_5"
+    },
+    {
+      "id": "line_5",
+      "speaker": "Orisia",
+      "text": "Your healer is becoming something more than a healer. Your warrior knows things warriors aren't supposed to know. Your shapeshifter has been a shape-shifter all along.",
+      "portrait": "orisia_perceptive",
+      "next": "kella_reaction"
+    },
+    {
+      "id": "kella_reaction",
+      "speaker": "Kella",
+      "text": "What are you offering?",
+      "portrait": "kella_direct",
+      "next": "orisia_explains"
+    },
+    {
+      "id": "orisia_explains",
+      "speaker": "Orisia",
+      "text": "Evolution. Not change — arrival. Becoming what they have always been moving toward.",
+      "portrait": "orisia_solemn",
+      "next": "choice"
+    },
+    {
+      "id": "choice",
+      "type": "choice",
+      "prompt": "Accept Orisia's offer?",
+      "options": [
+        {
+          "text": "Accept — let our companions evolve.",
+          "goto": "accept_evolution"
+        },
+        {
+          "text": "Decline — we don't need your power.",
+          "goto": "decline_evolution"
+        },
+        {
+          "text": "Ask what the cost is.",
+          "goto": "ask_cost"
+        }
+      ]
+    },
+    {
+      "id": "ask_cost",
+      "speaker": "Orisia",
+      "text": "The cost is loyalty. Nothing more. If the time comes when I need your help, you give it.",
+      "portrait": "orisia_honest",
+      "next": "ask_cost_2"
+    },
+    {
+      "id": "ask_cost_2",
+      "speaker": "Kella",
+      "text": "Define 'help.'",
+      "portrait": "kella_careful",
+      "next": "ask_cost_3"
+    },
+    {
+      "id": "ask_cost_3",
+      "speaker": "Orisia",
+      "text": "I need the world to survive. Everything I ask will serve that end.",
+      "portrait": "orisia_sincere",
+      "next": "choice_2"
+    },
+    {
+      "id": "choice_2",
+      "type": "choice",
+      "prompt": "Accept on those terms?",
+      "options": [
+        { "text": "Yes.", "goto": "accept_evolution" },
+        { "text": "No.", "goto": "decline_evolution" }
+      ]
+    },
+    {
+      "id": "accept_evolution",
+      "type": "cutscene",
+      "cutscene_id": "orisia_class_evolution",
+      "next": "accept_flag"
+    },
+    {
+      "id": "accept_flag",
+      "type": "flag_set",
+      "flag": "orisia_sidequest_complete",
+      "next": "accept_dialogue"
+    },
+    {
+      "id": "accept_dialogue",
+      "speaker": "Kella",
+      "text": "...",
+      "portrait": "kella_awed",
+      "next": "accept_dialogue_2"
+    },
+    {
+      "id": "accept_dialogue_2",
+      "speaker": "Kella",
+      "text": "I felt that.",
+      "portrait": "kella_surprised",
+      "next": "orisia_after_accept"
+    },
+    {
+      "id": "orisia_after_accept",
+      "speaker": "Orisia",
+      "text": "You will feel stronger, too. In time.",
+      "portrait": "orisia_warm",
+      "next": "end"
+    },
+    {
+      "id": "decline_evolution",
+      "speaker": "Orisia",
+      "text": "I understand.",
+      "portrait": "orisia_neutral",
+      "next": "decline_2"
+    },
+    {
+      "id": "decline_2",
+      "speaker": "Orisia",
+      "text": "The offer stands if you change your mind. The world needs you strong — however you define strength.",
+      "portrait": "orisia_gracious",
+      "next": "end"
+    },
+    {
+      "id": "end",
+      "type": "end"
+    }
+  ]
+}

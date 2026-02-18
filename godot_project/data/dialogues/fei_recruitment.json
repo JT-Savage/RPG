@@ -1,0 +1,134 @@
+{
+  "_comment": "Fei recruitment dialogue for There Will Be Kobolds. Fei is a bookish ex-Imperial mage found hiding from soldiers. Her death in battle triggers Iris's berserk mode — seeded here via her observation about Iris's intensity. Dialogue engine reads nodes in sequence; 'choices' branches to node IDs.",
+
+  "dialogue": {
+    "start_node": "fei_intro_01",
+
+    "nodes": {
+      "fei_intro_01": {
+        "speaker": "Fei",
+        "text": "Oh! Oh, you are not— you do not have the crest. Good. That is very good. Sorry. I have been in here for approximately four hours and I have not established whether the structural integrity of the west beam is—",
+        "next": "kella_01"
+      },
+
+      "kella_01": {
+        "speaker": "Kella",
+        "text": "Can you walk?",
+        "next": "fei_intro_02"
+      },
+
+      "fei_intro_02": {
+        "speaker": "Fei",
+        "text": "Yes. Yes, my legs are functional. I just — the rubble shifted when I tried to move the larger piece and I ran the probability of secondary collapse and decided that stationary was the safer— yes. I can walk.",
+        "next": "kella_02"
+      },
+
+      "kella_02": {
+        "speaker": "Kella",
+        "text": "Then walk. We need to be out of this street before their next patrol.",
+        "next": "fei_stance_01"
+      },
+
+      "fei_stance_01": {
+        "speaker": "Fei",
+        "text": "Your stance suggests self-taught — the weight distribution is unconventional but remarkably efficient. Did you develop the footwork independently or was there a period of formal— ",
+        "next": "kella_cutoff_01"
+      },
+
+      "kella_cutoff_01": {
+        "speaker": "Kella",
+        "text": "Walking. Now.",
+        "next": "fei_compliance_01"
+      },
+
+      "fei_compliance_01": {
+        "speaker": "Fei",
+        "text": "Right. Yes. Sorry.",
+        "next": "fei_iris_observation"
+      },
+
+      "fei_iris_observation": {
+        "speaker": "Fei",
+        "text": "The tall one — with the white hair. She has been watching me since you pulled me out. With an intensity I find both flattering and alarming. Is she... always like that?",
+        "next": "kella_iris_answer"
+      },
+
+      "kella_iris_answer": {
+        "speaker": "Kella",
+        "text": "Iris is protective. Don't read into it.",
+        "next": "fei_academy_01"
+      },
+
+      "fei_academy_01": {
+        "speaker": "Fei",
+        "text": "I left the Imperial Mage Academy two seasons ago. The curriculum became... politically motivated. They stopped teaching the theoretical basis for containment spells and started teaching us how to identify blight-sympathizers in civilian populations. I decided my education would be better pursued independently.",
+        "next": "fei_blight_worry"
+      },
+
+      "fei_blight_worry": {
+        "speaker": "Fei",
+        "text": "The blight worries me more than the soldiers, honestly. The theoretical implications of what it is doing to the ley lines — I have been trying to model it, but I lack sufficient field data. The rate of propagation alone suggests something is actively— sorry. You did not ask.",
+        "next": "player_choice_01"
+      },
+
+      "player_choice_01": {
+        "type": "choice",
+        "speaker": "Kella",
+        "prompt": "(How do you respond?)",
+        "choices": [
+          {
+            "text": "Tell me more about the blight. What have you figured out?",
+            "next": "branch_magic_01"
+          },
+          {
+            "text": "We could use someone who understands magic. Come with us.",
+            "next": "branch_accept_01"
+          }
+        ]
+      },
+
+      "branch_magic_01": {
+        "speaker": "Fei",
+        "text": "Oh. You actually want to know. Alright. The blight is not decaying the ley lines — it is rerouting them. Like someone is trying to build a new infrastructure on top of the old one, except they do not know what they are doing, or they do not care about the damage. Either possibility is deeply troubling.",
+        "next": "branch_magic_02"
+      },
+
+      "branch_magic_02": {
+        "speaker": "Kella",
+        "text": "Can it be stopped?",
+        "next": "branch_magic_03"
+      },
+
+      "branch_magic_03": {
+        "speaker": "Fei",
+        "text": "Theoretically? Yes. Practically? I would need access to one of the source points. And someone to keep things from killing me while I work. I am competent in combat applications of thaumic theory, but I am considerably better at not being killed when someone else is handling the violence.",
+        "next": "branch_merge_join"
+      },
+
+      "branch_accept_01": {
+        "speaker": "Fei",
+        "text": "I— yes. Yes, I would like that. I have been managing alone for two months and I will be honest with you, the loneliness has been nearly as dangerous as the soldiers. I talk to my notes. They have stopped being good conversationalists.",
+        "next": "branch_merge_join"
+      },
+
+      "branch_merge_join": {
+        "speaker": "Fei",
+        "text": "I want to help. I know I do not look like much in a fight. But I am very good at staying alive when properly motivated, and understanding the blight is the most important problem anyone could be working on right now. I would like to be useful.",
+        "next": "kella_final"
+      },
+
+      "kella_final": {
+        "speaker": "Kella",
+        "text": "Good. Stay close, don't get stepped on, and try to save the theoretical implications for after the stabbing.",
+        "next": "fei_final"
+      },
+
+      "fei_final": {
+        "speaker": "Fei",
+        "text": "I can do that. Probably. I make no guarantees about the commentary.",
+        "next": null,
+        "triggers": ["fei_joins_party"]
+      }
+    }
+  }
+}

@@ -1,0 +1,80 @@
+{
+  "id": "normal_ending",
+  "title": "Normal Ending — The Long Way",
+  "nodes": [
+    {
+      "id": "start",
+      "speaker": "Narrator",
+      "text": "[The Void Spire falls. Not dramatically — it sags, like something very old and very tired finally giving up.]",
+      "portrait": "",
+      "next": "line_2"
+    },
+    {
+      "id": "line_2",
+      "speaker": "Kella",
+      "text": "We did it.",
+      "portrait": "kella_exhausted",
+      "next": "line_3"
+    },
+    {
+      "id": "line_3",
+      "speaker": "Narrator",
+      "text": "[Somewhere distant, a wolf howls. Not the infected kind. The regular kind, who found something to eat and is announcing it to no one in particular.]",
+      "portrait": "",
+      "next": "line_4"
+    },
+    {
+      "id": "line_4",
+      "speaker": "Kella",
+      "text": "Some of them are still out there. The infected. The blight doesn't just... stop.",
+      "portrait": "kella_tired",
+      "next": "line_5"
+    },
+    {
+      "id": "line_5",
+      "speaker": "Narrator",
+      "text": "[She's right. It will take years. Decades, maybe. But the source is gone. For the first time, the ground beneath them is simply ground.]",
+      "portrait": "",
+      "next": "michael_check"
+    },
+    {
+      "id": "michael_check",
+      "type": "branch",
+      "conditions": [
+        { "flag": "michael_recruited", "goto": "michael_line" }
+      ],
+      "default": "kella_final"
+    },
+    {
+      "id": "michael_line",
+      "speaker": "Michael",
+      "text": "So we keep going.",
+      "portrait": "michael_steady",
+      "next": "kella_response_michael"
+    },
+    {
+      "id": "kella_response_michael",
+      "speaker": "Kella",
+      "text": "Yeah.",
+      "portrait": "kella_quiet",
+      "next": "kella_final"
+    },
+    {
+      "id": "kella_final",
+      "speaker": "Kella",
+      "text": "We keep going.",
+      "portrait": "kella_forward",
+      "next": "credits"
+    },
+    {
+      "id": "credits",
+      "type": "cutscene",
+      "cutscene_id": "good_ending_credits",
+      "next": "end"
+    },
+    {
+      "id": "end",
+      "type": "end"
+    }
+  ]
+}
