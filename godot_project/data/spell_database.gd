@@ -1,4 +1,5 @@
 extends Node
+class_name SpellDatabase
 ## SpellDatabase - All spells: MP cost = spell level, class restrictions, elements
 
 const SPELLS := {

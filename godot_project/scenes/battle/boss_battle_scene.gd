@@ -48,18 +48,15 @@ func _connect_battle_signals() -> void:
 		return
 	BattleManager.turn_ready.connect(_on_turn_ready)
 	BattleManager.damage_dealt.connect(_on_damage_dealt)
-	BattleManager.character_died.connect(_on_character_died)
-	BattleManager.enemy_died.connect(_on_enemy_died)
-	BattleManager.battle_won.connect(_on_battle_won)
-	BattleManager.battle_lost.connect(_on_battle_lost)
+	BattleManager.character_ko.connect(_on_character_ko)
+	BattleManager.enemy_ko.connect(_on_enemy_ko)
+	BattleManager.battle_ended.connect(_on_battle_ended)
 	BattleManager.status_applied.connect(_on_status_applied)
 
 
 func _load_boss_data() -> void:
 	boss_id = GameManager.get_meta("pending_boss_id") if GameManager.has_meta("pending_boss_id") else "void_architect"
-	var EnemyDB = load("res://data/enemy_database.gd")
-	if EnemyDB:
-		boss_data = EnemyDB.get_enemy(boss_id)
+	boss_data = EnemyDatabase.get_enemy(boss_id)
 
 
 func _build_boss_ui() -> void:
@@ -79,7 +76,7 @@ func _build_boss_ui() -> void:
 func _update_boss_hp() -> void:
 	if not BattleManager or not boss_panel:
 		return
-	var enemies: Array = BattleManager.get_enemy_states()
+	var enemies: Array = BattleManager.current_enemies
 	if enemies.is_empty():
 		return
 	var boss_state: Dictionary = enemies[0]
@@ -105,7 +102,7 @@ func _build_party_ui() -> void:
 		child.queue_free()
 	_party_ui_nodes.clear()
 
-	var party: Array = BattleManager.get_party_states() if BattleManager else []
+	var party: Array = _get_party_states()
 	for member in party:
 		var panel: Panel = Panel.new()
 		panel.custom_minimum_size = Vector2(80, 40)
@@ -138,14 +135,26 @@ func _build_party_ui() -> void:
 		_party_ui_nodes.append(panel)
 
 
+# Returns an array of character state dicts for each active combatant.
+func _get_party_states() -> Array:
+	if not BattleManager:
+		return []
+	var result: Array = []
+	for char_id in BattleManager.active_combatants:
+		var data: Dictionary = PartyManager.get_character(char_id)
+		if not data.is_empty():
+			result.append(data)
+	return result
+
+
 func _spawn_command_menu() -> void:
 	var scene: PackedScene = load(COMMAND_MENU_SCENE)
 	if scene:
 		_command_menu = scene.instantiate()
 		command_menu_container.add_child(_command_menu)
 		_command_menu.visible = false
-		if _command_menu.has_signal("action_chosen"):
-			_command_menu.action_chosen.connect(BattleManager.execute_player_action)
+		if _command_menu.has_signal("action_selected"):
+			_command_menu.action_selected.connect(BattleManager.execute_player_action)
 
 
 func _start_battle() -> void:
@@ -172,7 +181,7 @@ func _update_all_ui() -> void:
 func _update_party_panels() -> void:
 	if not BattleManager:
 		return
-	var states: Array = BattleManager.get_party_states()
+	var states: Array = _get_party_states()
 	for panel in _party_ui_nodes:
 		var char_id: String = panel.get_meta("char_id", "")
 		for state in states:
@@ -189,22 +198,26 @@ func _update_party_panels() -> void:
 # ---------------------------------------------------------------------------
 # Signal handlers
 # ---------------------------------------------------------------------------
-func _on_turn_ready(actor_id: String, _is_enemy: bool) -> void:
-	if _is_enemy:
+# BattleManager.turn_ready emits {type: "character"/"enemy", id: String/int}
+func _on_turn_ready(actor: Dictionary) -> void:
+	if actor.get("type", "") == "enemy":
 		if _command_menu:
 			_command_menu.visible = false
 		turn_label.text = ""
 		return
 
-	turn_label.text = "%s's turn" % actor_id.capitalize()
+	var char_id: String = str(actor.get("id", ""))
+	turn_label.text = "%s's turn" % char_id.capitalize()
 	if _command_menu:
 		_command_menu.visible = true
 		if _command_menu.has_method("setup_for_character"):
-			_command_menu.setup_for_character(actor_id)
+			_command_menu.setup_for_character(char_id)
 
 
-func _on_damage_dealt(target_id: String, amount: int, _damage_type: String) -> void:
-	_show_damage_number(amount, Color.RED)
+# BattleManager.damage_dealt emits (target: Dictionary, damage: int, descriptor: String, element: String)
+func _on_damage_dealt(target: Dictionary, damage: int, _descriptor: String, _element: String) -> void:
+	var color: Color = Color.RED if target.get("type", "") == "enemy" else Color.ORANGE
+	_show_damage_number(damage, color)
 	_update_boss_hp()
 
 
@@ -222,7 +235,8 @@ func _show_damage_number(amount: int, color: Color) -> void:
 	tween.tween_callback(lbl.queue_free)
 
 
-func _on_character_died(char_id: String) -> void:
+# BattleManager.character_ko emits (char_id: String)
+func _on_character_ko(char_id: String) -> void:
 	AudioManager.play_sfx("player_death")
 	# Check for Iris berserk (if Fei died)
 	if char_id == "fei" and "iris" in GameManager.active_party:
@@ -230,50 +244,47 @@ func _on_character_died(char_id: String) -> void:
 			DialogueManager.start_dialogue("iris_berserk")
 
 
-func _on_enemy_died(_enemy_id: String) -> void:
+# BattleManager.enemy_ko emits (enemy_index: int)
+func _on_enemy_ko(_enemy_index: int) -> void:
 	# Boss death — could trigger phase 2 if needed
 	pass
 
 
-func _on_status_applied(target_id: String, status: String) -> void:
+# BattleManager.status_applied emits (target: Dictionary, status: String)
+func _on_status_applied(_target: Dictionary, _status: String) -> void:
 	_show_damage_number(0, Color.YELLOW)  # Status indicator
 
 
-func _on_battle_won(exp: int, gil: int) -> void:
+# BattleManager.battle_ended emits result: "victory" / "defeat" / "fled"
+func _on_battle_ended(result: String) -> void:
 	_battle_active = false
 	if _command_menu:
 		_command_menu.visible = false
-	AudioManager.play_sfx("victory_fanfare")
-	await get_tree().create_timer(1.5).timeout
 
-	# Check if this was the final boss
-	if boss_id == "void_architect":
-		var EndingCtrl = load("res://scenes/ui/ending_controller.gd")
-		if EndingCtrl:
-			var ctrl = EndingCtrl.new()
+	if result == "victory":
+		AudioManager.play_sfx("victory_fanfare")
+		await get_tree().create_timer(1.5).timeout
+
+		# Check if this was the final boss
+		if boss_id == "void_architect":
+			var ctrl: EndingController = EndingController.new()
 			add_child(ctrl)
-			var ending = StoryEventSystem.determine_ending()
+			var ending: String = StoryEventSystem.determine_ending()
 			ctrl.play_ending(ending)
-	elif boss_id == "the_architect":
-		# Secret boss
-		var EndingCtrl = load("res://scenes/ui/ending_controller.gd")
-		if EndingCtrl:
-			var ctrl = EndingCtrl.new()
+		elif boss_id == "the_architect":
+			# Secret boss
+			var ctrl: EndingController = EndingController.new()
 			add_child(ctrl)
 			ctrl.play_ending("bad")
-	else:
-		# Normal boss – return to location
-		var victory_scene: PackedScene = load("res://scenes/ui/victory_screen.tscn")
-		if victory_scene:
-			var victory: Node = victory_scene.instantiate()
-			victory.set_meta("exp_gained", exp)
-			victory.set_meta("gil_gained", gil)
-			add_child(victory)
 		else:
-			SceneTransition.back()
-
-
-func _on_battle_lost() -> void:
-	_battle_active = false
-	await get_tree().create_timer(1.0).timeout
-	SceneTransition.change_scene("res://scenes/ui/game_over.tscn")
+			# Normal boss – show victory screen then return to location
+			var victory_scene: PackedScene = load("res://scenes/ui/victory_screen.tscn")
+			if victory_scene:
+				var victory: Node = victory_scene.instantiate()
+				add_child(victory)
+			else:
+				SceneTransition.back()
+	else:
+		# "defeat" or "fled"
+		await get_tree().create_timer(1.0).timeout
+		SceneTransition.change_scene("res://scenes/ui/game_over.tscn")
