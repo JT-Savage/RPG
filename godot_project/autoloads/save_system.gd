@@ -192,3 +192,26 @@ func load_ng_plus_data() -> Dictionary:
 
 func has_ng_plus_data() -> bool:
 	return FileAccess.file_exists("user://saves/ng_plus_data.dat")
+
+## Open the save-select UI in save mode
+func open_save_menu() -> void:
+	var save_select_scene: PackedScene = load("res://scenes/ui/save_select.tscn")
+	if save_select_scene == null:
+		push_error("SaveSystem.open_save_menu: Could not load save_select.tscn")
+		return
+	var menu: Node = save_select_scene.instantiate()
+	menu.set_meta("mode", "save")
+	# Add to current scene root so it overlays everything
+	var root: Node = Engine.get_main_loop().root
+	root.add_child(menu)
+
+## Open the save-select UI in load mode
+func open_load_menu() -> void:
+	var save_select_scene: PackedScene = load("res://scenes/ui/save_select.tscn")
+	if save_select_scene == null:
+		push_error("SaveSystem.open_load_menu: Could not load save_select.tscn")
+		return
+	var menu: Node = save_select_scene.instantiate()
+	menu.set_meta("mode", "load")
+	var root: Node = Engine.get_main_loop().root
+	root.add_child(menu)

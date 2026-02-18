@@ -26,6 +26,10 @@ SceneTransition="*res://autoloads/scene_transition.gd"
 DialogueManager="*res://autoloads/dialogue_manager.gd"
 InputManager="*res://autoloads/input_manager.gd"
 AdManager="*res://autoloads/ad_manager.gd"
+RecruitmentSystem="*res://autoloads/recruitment_system.gd"
+StoryEventSystem="*res://autoloads/story_event_system.gd"
+NotificationManager="*res://autoloads/notification_manager.gd"
+NGPlusManager="*res://autoloads/ng_plus_manager.gd"
 
 [display]
 

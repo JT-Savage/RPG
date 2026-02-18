@@ -77,6 +77,29 @@ func remove_item(item_id: String, quantity: int = 1) -> bool:
 func has_item(item_id: String, quantity: int = 1) -> bool:
 	return items.get(item_id, 0) >= quantity
 
+func get_item_quantity(item_id: String) -> int:
+	return items.get(item_id, 0)
+
+func get_all_items() -> Dictionary:
+	return items.duplicate()
+
+## Equipment inventory (separate from consumables)
+func add_equipment(equip_id: String) -> void:
+	if not equip_id in equipment:
+		equipment[equip_id] = 0
+	equipment[equip_id] += 1
+
+func remove_equipment(equip_id: String) -> bool:
+	if not equip_id in equipment or equipment[equip_id] <= 0:
+		return false
+	equipment[equip_id] -= 1
+	if equipment[equip_id] <= 0:
+		equipment.erase(equip_id)
+	return true
+
+func has_equipment(equip_id: String) -> bool:
+	return equipment.get(equip_id, 0) > 0
+
 func add_key_item(key_item_id: String) -> void:
 	if not key_item_id in key_items:
 		key_items.append(key_item_id)

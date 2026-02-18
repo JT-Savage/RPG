@@ -5,6 +5,10 @@ var fade_rect: ColorRect
 var is_transitioning := false
 var pending_scene := ""
 var pending_spawn := ""
+var requested_spawn_point := ""
+
+# History stack for back() navigation
+var _scene_history: Array[String] = []
 
 signal transition_completed
 
@@ -21,8 +25,17 @@ func change_scene(scene_path: String, spawn_point: String = "", fade_duration: f
 	if is_transitioning:
 		return
 	is_transitioning = true
+
+	# Record current scene for back() navigation
+	var current := get_tree().current_scene
+	if current and current.scene_file_path != "":
+		_scene_history.append(current.scene_file_path)
+		if _scene_history.size() > 20:
+			_scene_history.pop_front()
+
 	pending_scene = scene_path
 	pending_spawn = spawn_point
+	requested_spawn_point = spawn_point
 
 	await _fade_out(fade_duration)
 
@@ -45,6 +58,15 @@ func change_scene(scene_path: String, spawn_point: String = "", fade_duration: f
 	await _fade_in(fade_duration)
 	is_transitioning = false
 	transition_completed.emit()
+
+
+## Navigate back to the previous scene
+func back(fade_duration: float = 0.5) -> void:
+	if _scene_history.is_empty():
+		push_warning("SceneTransition.back: No history to go back to.")
+		return
+	var prev: String = _scene_history.pop_back()
+	change_scene(prev, "", fade_duration)
 
 func fade_out(duration: float = 0.5) -> void:
 	await _fade_out(duration)
