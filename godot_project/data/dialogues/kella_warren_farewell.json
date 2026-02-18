@@ -1,0 +1,45 @@
+{
+  "id": "kella_warren_farewell",
+  "title": "Farewell to the Warren",
+  "nodes": [
+    {
+      "id": "start",
+      "speaker": "Kella",
+      "text": "...This is it, then. The only home I've ever known.",
+      "portrait": "kella_sad",
+      "next": "line_2"
+    },
+    {
+      "id": "line_2",
+      "speaker": "Kella",
+      "text": "They're all gone. The elders, the children... infected or worse.",
+      "portrait": "kella_sad",
+      "next": "line_3"
+    },
+    {
+      "id": "line_3",
+      "speaker": "Narrator",
+      "text": "[Something stirs in the back of the warren. A low, wet sound. Getting closer.]",
+      "portrait": "",
+      "next": "line_4"
+    },
+    {
+      "id": "line_4",
+      "speaker": "Kella",
+      "text": "Right. Mourning later. Run now.",
+      "portrait": "kella_determined",
+      "next": "set_flag",
+      "flag_set": "kella_cutscene_played"
+    },
+    {
+      "id": "set_flag",
+      "type": "flag_set",
+      "flag": "kella_cutscene_played",
+      "next": "end"
+    },
+    {
+      "id": "end",
+      "type": "end"
+    }
+  ]
+}

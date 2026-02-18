@@ -1,0 +1,51 @@
+{
+  "id": "bad_ending",
+  "title": "Bad Ending - The Secret Boss",
+  "nodes": [
+    {
+      "id": "start",
+      "speaker": "Narrator",
+      "text": "[You defeated the final boss. The darkness retreats. But something else stirs—something older. Something that was waiting.]",
+      "portrait": "",
+      "next": "line_2"
+    },
+    {
+      "id": "line_2",
+      "speaker": "Narrator",
+      "text": "[A shadow peels itself from the wall of the Void Spire. It has no face. It has all faces. It knows your name.]",
+      "portrait": "",
+      "next": "line_3"
+    },
+    {
+      "id": "line_3",
+      "speaker": "The Architect",
+      "text": "You destroyed my tool. How inconvenient. I suppose I'll have to handle this myself.",
+      "portrait": "architect_void",
+      "next": "line_4"
+    },
+    {
+      "id": "line_4",
+      "speaker": "Kella",
+      "text": "Who— WHAT are you?",
+      "portrait": "kella_terrified",
+      "next": "line_5"
+    },
+    {
+      "id": "line_5",
+      "speaker": "The Architect",
+      "text": "The reason there will always be kobolds.",
+      "portrait": "architect_void",
+      "next": "secret_boss_trigger"
+    },
+    {
+      "id": "secret_boss_trigger",
+      "type": "cutscene",
+      "cutscene_id": "secret_boss_intro",
+      "next": "end"
+    },
+    {
+      "id": "end",
+      "type": "end"
+    }
+  ]
+}

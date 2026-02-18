@@ -1,0 +1,237 @@
+[
+  {
+    "_comment": "=== flood_death_cutscene.json ===",
+    "_comment2": "The dragon wounds Flood. Hannah's scream triggers audio. Hannah casts her",
+    "_comment3": "ultimate spell, killing the dragon. Flood still dies. Hannah explains the cost."
+  },
+  {
+    "type": "cinematic_start",
+    "transition": "fade_to_black",
+    "duration": 0.8
+  },
+  {
+    "type": "text",
+    "speaker": "Narrator",
+    "text": "The dragon moves faster than anything that size has a right to. The strike is not aimed at the party — it is aimed at Flood, specifically, deliberately, as though it has known her name from the start."
+  },
+  {
+    "type": "animation",
+    "target": "dragon",
+    "animation": "strike_flood",
+    "wait_for_completion": true
+  },
+  {
+    "type": "animation",
+    "target": "flood",
+    "animation": "hit_critical",
+    "wait_for_completion": false
+  },
+  {
+    "type": "sound_effect",
+    "sound_id": "dragon_strike_impact",
+    "volume_db": 0.0
+  },
+  {
+    "type": "text",
+    "speaker": "Flood",
+    "text": "Gh—"
+  },
+  {
+    "type": "animation",
+    "target": "flood",
+    "animation": "collapse",
+    "wait_for_completion": true
+  },
+  {
+    "type": "text",
+    "speaker": "Narrator",
+    "text": "Flood hits the ground. She does not get up."
+  },
+  {
+    "type": "audio_manager_call",
+    "method": "play_hannah_scream",
+    "args": []
+  },
+  {
+    "type": "text",
+    "speaker": "Hannah",
+    "text": "FLOOD—!"
+  },
+  {
+    "type": "text",
+    "speaker": "Narrator",
+    "text": "Hannah does not pause. She does not speak. She does not look at the dragon as though it is a threat — she looks at it as though it has already lost and simply hasn't been told yet."
+  },
+  {
+    "type": "animation",
+    "target": "hannah",
+    "animation": "ultimate_spell_charge",
+    "wait_for_completion": true
+  },
+  {
+    "type": "sound_effect",
+    "sound_id": "hannah_ultimate_charge",
+    "volume_db": 2.0
+  },
+  {
+    "type": "text",
+    "speaker": "Narrator",
+    "text": "The light that comes from her hands is not the light of a spell. It is older than that. It fills the chamber like water fills a drowning thing — completely, and from every direction at once."
+  },
+  {
+    "type": "screen_effect",
+    "effect": "whiteout",
+    "duration": 1.5
+  },
+  {
+    "type": "animation",
+    "target": "hannah",
+    "animation": "ultimate_spell_release",
+    "wait_for_completion": true
+  },
+  {
+    "type": "sound_effect",
+    "sound_id": "hannah_ultimate_impact",
+    "volume_db": 4.0
+  },
+  {
+    "type": "animation",
+    "target": "dragon",
+    "animation": "death",
+    "wait_for_completion": true
+  },
+  {
+    "type": "sound_effect",
+    "sound_id": "dragon_death_collapse",
+    "volume_db": 0.0
+  },
+  {
+    "type": "text",
+    "speaker": "Narrator",
+    "text": "The dragon falls."
+  },
+  {
+    "type": "text",
+    "speaker": "Narrator",
+    "text": "The silence afterward is the loudest thing any of them have ever heard."
+  },
+  {
+    "type": "animation",
+    "target": "hannah",
+    "animation": "exhausted_kneel",
+    "wait_for_completion": true
+  },
+  {
+    "_comment": "--- Flood's final moment ---"
+  },
+  {
+    "type": "text",
+    "speaker": "Narrator",
+    "text": "Javin reaches Flood first. The wound is not survivable. That much is clear before anyone speaks."
+  },
+  {
+    "type": "text",
+    "speaker": "Flood",
+    "text": "Don't."
+  },
+  {
+    "type": "text",
+    "speaker": "Flood",
+    "text": "Don't apologise. I know what you're going to say and I don't want it."
+  },
+  {
+    "type": "text",
+    "speaker": "Javin",
+    "text": "Flood—"
+  },
+  {
+    "type": "text",
+    "speaker": "Flood",
+    "text": "I said don't."
+  },
+  {
+    "type": "text",
+    "speaker": "Flood",
+    "text": "Tell me it mattered. That's all. Just tell me it mattered."
+  },
+  {
+    "type": "text",
+    "speaker": "Javin",
+    "text": "It mattered."
+  },
+  {
+    "type": "text",
+    "speaker": "Flood",
+    "text": "Good."
+  },
+  {
+    "type": "animation",
+    "target": "flood",
+    "animation": "death_peaceful",
+    "wait_for_completion": true
+  },
+  {
+    "type": "sound_effect",
+    "sound_id": "flood_death_music_sting",
+    "volume_db": 0.0
+  },
+  {
+    "type": "flag_set",
+    "flags": {
+      "flood_dead": true
+    }
+  },
+  {
+    "type": "party_remove",
+    "character_id": "flood",
+    "permanent": true
+  },
+  {
+    "_comment": "--- Hannah's warning ---"
+  },
+  {
+    "type": "text",
+    "speaker": "Narrator",
+    "text": "Hannah has not moved. When she finally speaks, her voice is steady in the way that things are steady after they have already broken."
+  },
+  {
+    "type": "text",
+    "speaker": "Hannah",
+    "text": "If I were to cast a spell that strong again... it would kill me."
+  },
+  {
+    "type": "text",
+    "speaker": "Hannah",
+    "text": "I want you to know that. So you know what it cost. So it isn't just something that happened."
+  },
+  {
+    "type": "flag_set",
+    "flags": {
+      "hannah_ultimate_cost_known": true,
+      "hannah_ultimate_used": true
+    }
+  },
+  {
+    "type": "text",
+    "speaker": "Javin",
+    "text": "Hannah..."
+  },
+  {
+    "type": "text",
+    "speaker": "Hannah",
+    "text": "She was worth it. Don't let anyone tell you she wasn't."
+  },
+  {
+    "type": "music_change",
+    "track": "flood_elegy",
+    "fade_duration": 2.0
+  },
+  {
+    "type": "cinematic_end",
+    "transition": "fade_to_black",
+    "duration": 1.5
+  },
+  {
+    "type": "end"
+  }
+]

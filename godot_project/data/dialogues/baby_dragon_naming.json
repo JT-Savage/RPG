@@ -1,0 +1,59 @@
+{
+  "id": "baby_dragon_naming",
+  "title": "Name the Baby Dragon",
+  "nodes": [
+    {
+      "id": "start",
+      "speaker": "Kella",
+      "text": "The egg hatched. A tiny dragon stares up at you with enormous, blinking eyes.",
+      "portrait": "kella_surprised",
+      "next": "line_2"
+    },
+    {
+      "id": "line_2",
+      "speaker": "Narrator",
+      "text": "[It opens its mouth and makes a sound approximately like: 'mrrp.']",
+      "portrait": "",
+      "next": "line_3"
+    },
+    {
+      "id": "line_3",
+      "speaker": "Kella",
+      "text": "...It needs a name.",
+      "portrait": "kella_soft",
+      "next": "name_input"
+    },
+    {
+      "id": "name_input",
+      "type": "name_input",
+      "character": "baby_dragon",
+      "default_name": "Spark",
+      "prompt": "What will you name the baby dragon?",
+      "next": "after_name"
+    },
+    {
+      "id": "after_name",
+      "speaker": "Kella",
+      "text": "'{baby_dragon_name},' she says. The dragon makes the mrrp sound again.",
+      "portrait": "kella_fond",
+      "next": "recruit"
+    },
+    {
+      "id": "recruit",
+      "type": "recruit",
+      "character": "baby_dragon",
+      "next": "line_end"
+    },
+    {
+      "id": "line_end",
+      "speaker": "Narrator",
+      "text": "[{baby_dragon_name} joins the party. They are unreasonably small for how dangerous they will become.]",
+      "portrait": "",
+      "next": "end"
+    },
+    {
+      "id": "end",
+      "type": "end"
+    }
+  ]
+}

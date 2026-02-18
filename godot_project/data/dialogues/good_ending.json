@@ -1,0 +1,89 @@
+{
+  "id": "good_ending",
+  "title": "Good Ending - A World Restored",
+  "nodes": [
+    {
+      "id": "start",
+      "speaker": "Narrator",
+      "text": "[The Void Spire collapses. The darkness retreats. For the first time in months, the sky is simply... blue.]",
+      "portrait": "",
+      "next": "line_2"
+    },
+    {
+      "id": "line_2",
+      "speaker": "Kella",
+      "text": "Is it over?",
+      "portrait": "kella_exhausted",
+      "next": "line_3"
+    },
+    {
+      "id": "line_3",
+      "speaker": "{baby_dragon_name}",
+      "text": "mrrp.",
+      "portrait": "baby_dragon_content",
+      "next": "line_4"
+    },
+    {
+      "id": "line_4",
+      "speaker": "Kella",
+      "text": "Yeah. I think that's a yes.",
+      "portrait": "kella_relieved",
+      "next": "epilogue_check"
+    },
+    {
+      "id": "epilogue_check",
+      "type": "branch",
+      "conditions": [
+        { "flag": "michael_recruited", "goto": "michael_epilogue" },
+        { "flag": "hannah_recruited", "goto": "hannah_epilogue" }
+      ],
+      "default": "kella_epilogue"
+    },
+    {
+      "id": "michael_epilogue",
+      "speaker": "Michael",
+      "text": "We rebuild. That's what we do. We always rebuild.",
+      "portrait": "michael_hopeful",
+      "next": "hannah_check"
+    },
+    {
+      "id": "hannah_check",
+      "type": "branch",
+      "conditions": [
+        { "flag": "hannah_recruited", "goto": "hannah_epilogue" }
+      ],
+      "default": "kella_epilogue"
+    },
+    {
+      "id": "hannah_epilogue",
+      "speaker": "Hannah",
+      "text": "I'm going to sleep for approximately one thousand years. Do not wake me for anything less than another world-ending crisis.",
+      "portrait": "hannah_exhausted",
+      "next": "kella_epilogue"
+    },
+    {
+      "id": "kella_epilogue",
+      "speaker": "Kella",
+      "text": "The warren is gone. The empire is in pieces. And somehow we're still here.",
+      "portrait": "kella_thoughtful",
+      "next": "final_line"
+    },
+    {
+      "id": "final_line",
+      "speaker": "Kella",
+      "text": "Maybe that's enough. For today.",
+      "portrait": "kella_small_smile",
+      "next": "credits_roll"
+    },
+    {
+      "id": "credits_roll",
+      "type": "cutscene",
+      "cutscene_id": "good_ending_credits",
+      "next": "end"
+    },
+    {
+      "id": "end",
+      "type": "end"
+    }
+  ]
+}

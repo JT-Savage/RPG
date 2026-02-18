@@ -1,0 +1,85 @@
+{
+  "id": "jerod_explosion",
+  "title": "Jerod's Last Stand",
+  "nodes": [
+    {
+      "id": "start",
+      "speaker": "Jerod",
+      "text": "Ha. You actually made it this far.",
+      "portrait": "jerod_grim",
+      "next": "line_2"
+    },
+    {
+      "id": "line_2",
+      "speaker": "Jerod",
+      "text": "Don't look at me like that. I knew what I was signing up for.",
+      "portrait": "jerod_grim",
+      "next": "line_3"
+    },
+    {
+      "id": "line_3",
+      "speaker": "Kella",
+      "text": "Jerod, whatever you're planning—",
+      "portrait": "kella_alarmed",
+      "next": "line_4"
+    },
+    {
+      "id": "line_4",
+      "speaker": "Jerod",
+      "text": "Takes a special kind of idiot to spend their whole life building bombs. Turns out I'm that idiot.",
+      "portrait": "jerod_smiling",
+      "next": "line_5"
+    },
+    {
+      "id": "line_5",
+      "speaker": "Jerod",
+      "text": "Get everyone out. Now.",
+      "portrait": "jerod_serious",
+      "next": "set_flag"
+    },
+    {
+      "id": "set_flag",
+      "type": "flag_set",
+      "flag": "jerod_explosion_triggered",
+      "next": "line_6"
+    },
+    {
+      "id": "line_6",
+      "speaker": "Narrator",
+      "text": "[Jerod holds up a detonator. His hands are steady.]",
+      "portrait": "",
+      "next": "line_7"
+    },
+    {
+      "id": "line_7",
+      "speaker": "Jerod",
+      "text": "Tell Flood... ah, she already knows.",
+      "portrait": "jerod_sad",
+      "next": "line_8"
+    },
+    {
+      "id": "line_8",
+      "type": "cutscene",
+      "cutscene_id": "jerod_detonates",
+      "next": "aftermath"
+    },
+    {
+      "id": "aftermath",
+      "speaker": "Narrator",
+      "text": "[The explosion is tremendous. When the smoke clears, the passage behind you is sealed—and Jerod is gone.]",
+      "portrait": "",
+      "next": "kella_reaction"
+    },
+    {
+      "id": "kella_reaction",
+      "speaker": "Kella",
+      "text": "...",
+      "portrait": "kella_grief",
+      "next": "end"
+    },
+    {
+      "id": "end",
+      "type": "end"
+    }
+  ]
+}

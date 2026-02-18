@@ -1,0 +1,246 @@
+[
+  {
+    "_comment": "=== fei_grooming.json ===",
+    "_comment2": "Inn scene. Fei grooms herself, Iris reacts, panda fur cosmetic is unlocked.",
+    "_comment3": "Sets iris_panda_fur_cutscene_triggered and panda_fur_available flags."
+  },
+  {
+    "type": "condition_check",
+    "condition": "party_has_member:iris AND party_has_member:fei",
+    "if_true": "goto:scene_start",
+    "if_false": "goto:missing_characters_end"
+  },
+  {
+    "type": "label",
+    "id": "scene_start"
+  },
+  {
+    "type": "cinematic_start",
+    "transition": "soft_fade_in",
+    "duration": 0.5
+  },
+  {
+    "type": "text",
+    "speaker": "Narrator",
+    "text": "The inn is quieter at this hour. Most of the party has found a corner to collapse in. Fei, apparently, has found a mirror."
+  },
+  {
+    "type": "animation",
+    "target": "fei",
+    "animation": "grooming_sit",
+    "wait_for_completion": true
+  },
+  {
+    "type": "text",
+    "speaker": "Narrator",
+    "text": "She has produced a wide-toothed comb from somewhere and is working through the thick black-and-white fur at her shoulder with the focus of someone performing surgery. The fur, in the low lantern light, looks almost luminous."
+  },
+  {
+    "type": "animation",
+    "target": "fei",
+    "animation": "grooming_loop",
+    "wait_for_completion": false
+  },
+  {
+    "type": "sound_effect",
+    "sound_id": "ambient_inn_quiet",
+    "volume_db": -6.0
+  },
+  {
+    "type": "animation",
+    "target": "iris",
+    "animation": "notice_fei",
+    "wait_for_completion": true
+  },
+  {
+    "type": "text",
+    "speaker": "Iris",
+    "text": "...What are you doing?"
+  },
+  {
+    "type": "text",
+    "speaker": "Fei",
+    "text": "Grooming."
+  },
+  {
+    "type": "text",
+    "speaker": "Iris",
+    "text": "I can see that. I meant — why here? In the common room?"
+  },
+  {
+    "type": "text",
+    "speaker": "Fei",
+    "text": "The light is better here. The mirror in my room points at a wall."
+  },
+  {
+    "type": "text",
+    "speaker": "Iris",
+    "text": "That's... a fair point, actually."
+  },
+  {
+    "type": "text",
+    "speaker": "Narrator",
+    "text": "Iris watches for a moment longer than she probably intends to. There is something almost hypnotic about it — the rhythm of the comb, the way the fur separates and settles."
+  },
+  {
+    "type": "text",
+    "speaker": "Iris",
+    "text": "Your fur is... it's very — I mean, the pattern is unusual. I've never seen colouring like that up close."
+  },
+  {
+    "type": "text",
+    "speaker": "Fei",
+    "text": "Panda. Both sides. My mother used to say we were descended from mountain spirits, but I think she was just being poetic."
+  },
+  {
+    "type": "text",
+    "speaker": "Iris",
+    "text": "It's beautiful."
+  },
+  {
+    "type": "text",
+    "speaker": "Fei",
+    "text": "It is a lot of maintenance."
+  },
+  {
+    "type": "text",
+    "speaker": "Iris",
+    "text": "Still. Worth it, I think."
+  },
+  {
+    "type": "text",
+    "speaker": "Narrator",
+    "text": "Fei glances at Iris in the mirror. A small pause."
+  },
+  {
+    "type": "text",
+    "speaker": "Fei",
+    "text": "Would you like to try?"
+  },
+  {
+    "type": "text",
+    "speaker": "Iris",
+    "text": "I — what?"
+  },
+  {
+    "type": "text",
+    "speaker": "Fei",
+    "text": "The comb. It is easier with two people for the back sections. And you have been staring long enough that it seems polite to offer."
+  },
+  {
+    "type": "text",
+    "speaker": "Iris",
+    "text": "I wasn't staring."
+  },
+  {
+    "type": "text",
+    "speaker": "Fei",
+    "text": "You were staring."
+  },
+  {
+    "type": "text",
+    "speaker": "Iris",
+    "text": "...Okay. A little."
+  },
+  {
+    "type": "animation",
+    "target": "iris",
+    "animation": "sit_beside_fei",
+    "wait_for_completion": true
+  },
+  {
+    "type": "text",
+    "speaker": "Narrator",
+    "text": "Iris takes the comb, tentatively. Fei turns so her back is toward her and says nothing further, which Iris eventually interprets as an invitation to proceed."
+  },
+  {
+    "type": "animation",
+    "target": "iris",
+    "animation": "grooming_fei",
+    "wait_for_completion": false
+  },
+  {
+    "type": "sound_effect",
+    "sound_id": "gentle_grooming_sounds",
+    "volume_db": -8.0
+  },
+  {
+    "type": "text",
+    "speaker": "Iris",
+    "text": "It really is something. The way it catches the light..."
+  },
+  {
+    "type": "text",
+    "speaker": "Fei",
+    "text": "My grandmother called it her inheritance. The mark that something remembered us when we forgot ourselves."
+  },
+  {
+    "type": "text",
+    "speaker": "Iris",
+    "text": "That's beautiful."
+  },
+  {
+    "type": "text",
+    "speaker": "Fei",
+    "text": "It is also just fur."
+  },
+  {
+    "type": "text",
+    "speaker": "Iris",
+    "text": "It can be both."
+  },
+  {
+    "type": "text",
+    "speaker": "Narrator",
+    "text": "Fei considers this. A small sound — not quite a laugh, but close."
+  },
+  {
+    "type": "text",
+    "speaker": "Fei",
+    "text": "Yes. I suppose it can."
+  },
+  {
+    "type": "text",
+    "speaker": "Narrator",
+    "text": "They stay like that for a while. The inn settles around them. Nobody else comes in."
+  },
+  {
+    "type": "flag_set",
+    "flags": {
+      "iris_panda_fur_cutscene_triggered": true,
+      "panda_fur_available": true
+    }
+  },
+  {
+    "type": "unlock_cosmetic",
+    "cosmetic_id": "panda_fur",
+    "character_id": "fei",
+    "notification_text": "Panda Fur style unlocked for Fei!"
+  },
+  {
+    "type": "relationship_increase",
+    "character_a": "iris",
+    "character_b": "fei",
+    "amount": 15
+  },
+  {
+    "type": "cinematic_end",
+    "transition": "soft_fade_out",
+    "duration": 1.0
+  },
+  {
+    "type": "end"
+  },
+  {
+    "type": "label",
+    "id": "missing_characters_end"
+  },
+  {
+    "type": "text",
+    "speaker": "Narrator",
+    "text": "The inn is quiet. Nothing in particular happens."
+  },
+  {
+    "type": "end"
+  }
+]

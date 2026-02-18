@@ -1,0 +1,73 @@
+{
+  "id": "iris_berserk",
+  "title": "Iris Berserk Trigger",
+  "nodes": [
+    {
+      "id": "start",
+      "speaker": "Narrator",
+      "text": "[Fei falls. The light goes out of their eyes.]",
+      "portrait": "",
+      "next": "line_2"
+    },
+    {
+      "id": "line_2",
+      "speaker": "Iris",
+      "text": "...",
+      "portrait": "iris_still",
+      "next": "line_3"
+    },
+    {
+      "id": "line_3",
+      "speaker": "Narrator",
+      "text": "[Something changes in Iris's expression. Or rather, something leaves it entirely.]",
+      "portrait": "",
+      "next": "line_4"
+    },
+    {
+      "id": "line_4",
+      "speaker": "Iris",
+      "text": "...",
+      "portrait": "iris_berserk",
+      "next": "shapeshifter_check"
+    },
+    {
+      "id": "shapeshifter_check",
+      "type": "branch",
+      "conditions": [
+        { "flag": "iris_class_shapeshifter", "goto": "shapeshifter_panda" }
+      ],
+      "default": "druid_berserk"
+    },
+    {
+      "id": "shapeshifter_panda",
+      "speaker": "Narrator",
+      "text": "[Iris transforms. Not into anything elegant. A panda—enormous, silent, and going directly for whoever struck Fei.]",
+      "portrait": "",
+      "next": "berserk_flag"
+    },
+    {
+      "id": "druid_berserk",
+      "speaker": "Narrator",
+      "text": "[Iris begins casting, but not with words or gestures. Something moves through the battlefield like a cold wind.]",
+      "portrait": "",
+      "next": "berserk_flag"
+    },
+    {
+      "id": "berserk_flag",
+      "type": "flag_set",
+      "flag": "iris_berserk_active",
+      "next": "combat_note"
+    },
+    {
+      "id": "combat_note",
+      "speaker": "Narrator",
+      "text": "[Iris is now uncontrollable. They will attack whoever struck Fei until that enemy is eliminated—or until the battle ends.]",
+      "portrait": "",
+      "next": "end"
+    },
+    {
+      "id": "end",
+      "type": "end"
+    }
+  ]
+}

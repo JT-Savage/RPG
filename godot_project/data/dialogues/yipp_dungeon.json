@@ -1,0 +1,151 @@
+[
+  {
+    "_comment": "=== yipp_dungeon.json ===",
+    "_comment2": "The party rescues Yipp from a mob of enemies in a dungeon corridor.",
+    "_comment3": "On NG+ runs, if Frostbite is in the party at Yipp's spawn point,",
+    "_comment4": "she delivers a unique line before Yipp speaks."
+  },
+  {
+    "type": "condition_check",
+    "condition": "is_new_game_plus AND party_has_member:frostbite AND flag:visited_yipp_spawn_location",
+    "if_true": "goto:frostbite_ng_comment",
+    "if_false": "goto:yipp_intro"
+  },
+  {
+    "type": "label",
+    "id": "frostbite_ng_comment"
+  },
+  {
+    "type": "text",
+    "speaker": "Frostbite",
+    "text": "...Why does this smell like dead rat?"
+  },
+  {
+    "type": "text",
+    "speaker": "Frostbite",
+    "text": "Something about this spot. I've been here before. Or... near here. It's a strange feeling."
+  },
+  {
+    "type": "label",
+    "id": "yipp_intro"
+  },
+  {
+    "type": "text",
+    "speaker": "Narrator",
+    "text": "A small kobold is cornered at the end of the passage, surrounded on three sides. He clutches a cracked lantern like it might protect him."
+  },
+  {
+    "type": "battle",
+    "encounter_id": "yipp_rescue_encounter",
+    "on_win": "goto:yipp_rescued",
+    "on_lose": "goto:yipp_rescue_failed"
+  },
+  {
+    "type": "label",
+    "id": "yipp_rescued"
+  },
+  {
+    "type": "text",
+    "speaker": "Yipp",
+    "text": "Oh — oh, you — you actually — I did not think anyone was going to — thank you. Thank you very much."
+  },
+  {
+    "type": "text",
+    "speaker": "Yipp",
+    "text": "My name is Yipp. I am a scholar. Was a scholar. Am — I'm still a scholar, the infection did not take that from me. I have notes. Very important notes."
+  },
+  {
+    "type": "text",
+    "speaker": "Javin",
+    "text": "Are you hurt?"
+  },
+  {
+    "type": "text",
+    "speaker": "Yipp",
+    "text": "Scraped. Frightened. Considerably. But my notes are dry, which is the important thing."
+  },
+  {
+    "type": "text",
+    "speaker": "Yipp",
+    "text": "I've been cataloguing the spread of the infection through these tunnels. There are patterns — it is not random. Someone, or something, is directing it. I think I can help you, if you'll let me."
+  },
+  {
+    "type": "choice",
+    "prompt": "How do you respond to Yipp?",
+    "choices": [
+      {
+        "text": "\"Join us — we need someone who understands what's happening.\"",
+        "goto": "yipp_joins"
+      },
+      {
+        "text": "\"We need to move. Get to the magic shop in the city — you'll be safe there.\"",
+        "goto": "yipp_departs"
+      }
+    ]
+  },
+  {
+    "type": "label",
+    "id": "yipp_joins"
+  },
+  {
+    "type": "text",
+    "speaker": "Yipp",
+    "text": "Oh. Yes. Yes, alright. I — yes. Give me a moment to collect my satchel and I'll keep up, I promise."
+  },
+  {
+    "type": "flag_set",
+    "flags": {
+      "yipp_recruited": true,
+      "yipp_at_magic_shop": false
+    }
+  },
+  {
+    "type": "party_add",
+    "character_id": "yipp"
+  },
+  {
+    "type": "end"
+  },
+  {
+    "type": "label",
+    "id": "yipp_departs"
+  },
+  {
+    "type": "text",
+    "speaker": "Yipp",
+    "text": "The magic shop. Yes. That's — yes, that's sensible. Master Fenwick knows me there. He'll let me use the back room."
+  },
+  {
+    "type": "text",
+    "speaker": "Yipp",
+    "text": "If you ever need my research — the shop. Ask for Yipp. They'll know who you mean."
+  },
+  {
+    "type": "flag_set",
+    "flags": {
+      "yipp_recruited": false,
+      "yipp_at_magic_shop": true
+    }
+  },
+  {
+    "type": "npc_relocate",
+    "npc_id": "yipp",
+    "destination_location": "imperial_city",
+    "destination_position": "magic_shop_interior"
+  },
+  {
+    "type": "end"
+  },
+  {
+    "type": "label",
+    "id": "yipp_rescue_failed"
+  },
+  {
+    "type": "text",
+    "speaker": "Narrator",
+    "text": "The party is driven back. Yipp's fate in the corridor remains uncertain."
+  },
+  {
+    "type": "end"
+  }
+]

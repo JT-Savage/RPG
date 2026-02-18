@@ -1,0 +1,136 @@
+{
+  "id": "fritzzit_crankpot_recruitment",
+  "title": "The Inseparable Pair",
+  "nodes": [
+    {
+      "id": "start",
+      "speaker": "Fritzzit",
+      "text": "Oh! Travelers! Crankpot, look—travelers!",
+      "portrait": "fritzzit_excited",
+      "next": "line_2"
+    },
+    {
+      "id": "line_2",
+      "speaker": "Crankpot",
+      "text": "I see them, Fritzzit. I have eyes. I have always had eyes.",
+      "portrait": "crankpot_weary",
+      "next": "line_3"
+    },
+    {
+      "id": "line_3",
+      "speaker": "Fritzzit",
+      "text": "You'll take us with you, won't you? We're very useful!",
+      "portrait": "fritzzit_hopeful",
+      "next": "line_4"
+    },
+    {
+      "id": "line_4",
+      "speaker": "Kella",
+      "text": "Useful how?",
+      "portrait": "kella_skeptical",
+      "next": "line_5"
+    },
+    {
+      "id": "line_5",
+      "speaker": "Fritzzit",
+      "text": "I can fix anything! Machines, traps, locks, cursed artifacts—",
+      "portrait": "fritzzit_proud",
+      "next": "line_6"
+    },
+    {
+      "id": "line_6",
+      "speaker": "Crankpot",
+      "text": "You also broke the water pump three times this month.",
+      "portrait": "crankpot_deadpan",
+      "next": "line_7"
+    },
+    {
+      "id": "line_7",
+      "speaker": "Fritzzit",
+      "text": "I fixed it each time! That's the important part!",
+      "portrait": "fritzzit_defensive",
+      "next": "line_8"
+    },
+    {
+      "id": "line_8",
+      "speaker": "Crankpot",
+      "text": "I provide emotional counterbalance. Where she brings chaos, I bring grim resignation. Together we are... functional.",
+      "portrait": "crankpot_philosophical",
+      "next": "choice"
+    },
+    {
+      "id": "choice",
+      "type": "choice",
+      "prompt": "Take them both along?",
+      "options": [
+        { "text": "Sure, both of you.", "goto": "accept" },
+        { "text": "Just one of you.", "goto": "refuse_partial" },
+        { "text": "Neither of you.", "goto": "refuse_both" }
+      ]
+    },
+    {
+      "id": "accept",
+      "type": "recruit",
+      "character": "fritzzit",
+      "next": "recruit_crankpot"
+    },
+    {
+      "id": "recruit_crankpot",
+      "type": "recruit",
+      "character": "crankpot",
+      "next": "accept_line"
+    },
+    {
+      "id": "accept_line",
+      "speaker": "Fritzzit",
+      "text": "WONDERFUL! This is the best day!",
+      "portrait": "fritzzit_elated",
+      "next": "crankpot_accept"
+    },
+    {
+      "id": "crankpot_accept",
+      "speaker": "Crankpot",
+      "text": "It is not the worst day. That is my version of enthusiasm. Welcome to the adventure, I suppose.",
+      "portrait": "crankpot_almost_smiling",
+      "next": "end"
+    },
+    {
+      "id": "refuse_partial",
+      "speaker": "Crankpot",
+      "text": "We do not separate.",
+      "portrait": "crankpot_firm",
+      "next": "refuse_partial_2"
+    },
+    {
+      "id": "refuse_partial_2",
+      "speaker": "Fritzzit",
+      "text": "It's both of us or neither of us! That's just how it is!",
+      "portrait": "fritzzit_arms_crossed",
+      "next": "refuse_both"
+    },
+    {
+      "id": "refuse_both",
+      "speaker": "Fritzzit",
+      "text": "Oh. Well. We'll just... stay here then.",
+      "portrait": "fritzzit_dejected",
+      "next": "refuse_crankpot"
+    },
+    {
+      "id": "refuse_crankpot",
+      "speaker": "Crankpot",
+      "text": "As we have always stayed here. As we will likely always stay here.",
+      "portrait": "crankpot_resigned",
+      "next": "refuse_flag"
+    },
+    {
+      "id": "refuse_flag",
+      "type": "flag_set",
+      "flag": "fritzzit_crankpot_refused",
+      "next": "end"
+    },
+    {
+      "id": "end",
+      "type": "end"
+    }
+  ]
+}

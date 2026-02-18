@@ -1,0 +1,675 @@
+{
+  "dialogues": {
+
+    "kobold_merchant_shop": {
+      "nodes": [
+        {
+          "id": "start",
+          "speaker": "Kobold Merchant",
+          "text": "Welcome, welcome! Grix's Fine Goods — finest shop in the warren, and before you say it, yes, I know I'm the only shop in the warren.",
+          "next": "merchant_2"
+        },
+        {
+          "id": "merchant_2",
+          "speaker": "Kobold Merchant",
+          "text": "Prices are fair, considering half my stock was eaten by zombies. The other half I traded for barricade materials. What you see now is basically the third half.",
+          "next": "merchant_3"
+        },
+        {
+          "id": "merchant_3",
+          "speaker": "Kobold Merchant",
+          "text": "...I know that's not how halves work. It's been a difficult month. Are you buying or not?",
+          "next": "shop_open"
+        },
+        {
+          "id": "shop_open",
+          "speaker": "Grix",
+          "text": "[Opens shop inventory]",
+          "next": null
+        }
+      ]
+    },
+
+    "kobold_merchant_revisit": {
+      "nodes": [
+        {
+          "id": "start",
+          "speaker": "Grix",
+          "text": "Back again? Good. A live customer is a repeat customer. That's something my father used to say. He's a zombie now, so I try not to think about it too hard.",
+          "next": "shop_open"
+        },
+        {
+          "id": "shop_open",
+          "speaker": "Grix",
+          "text": "[Opens shop inventory]",
+          "next": null
+        }
+      ]
+    },
+
+    "kobold_elder_talk": {
+      "nodes": [
+        {
+          "id": "start",
+          "speaker": "Elder Vrenn",
+          "text": "You want to know about the infection. Everyone who comes through here eventually does.",
+          "next": "elder_2"
+        },
+        {
+          "id": "elder_2",
+          "speaker": "Elder Vrenn",
+          "text": "The warren was not always just ours. There were seven settlements once — tunnels running deep under these hills, connected by passage-roads we dug over generations.",
+          "next": "elder_3"
+        },
+        {
+          "id": "elder_3",
+          "speaker": "Elder Vrenn",
+          "text": "The Deephollow went first. No warning. One morning their runners simply... stopped coming. When we sent scouts, they did not return either.",
+          "next": "elder_4"
+        },
+        {
+          "id": "elder_4",
+          "speaker": "Elder Vrenn",
+          "text": "Then Ashpeak. Then Crumblewall. The infection moves through the tunnels like water through stone — slow, patient, inevitable.",
+          "next": "elder_5"
+        },
+        {
+          "id": "elder_5",
+          "speaker": "Elder Vrenn",
+          "text": "We are the last because we sealed the passages. Cost us thirty of our own to do it. I still hear them scratching, sometimes. I know it is not them anymore. But I still hear it.",
+          "next": "elder_6"
+        },
+        {
+          "id": "elder_6",
+          "speaker": "Elder Vrenn",
+          "text": "As for what the warren was originally built for... the elders before me called it a refuge. Built during a war no one alive remembers the name of.",
+          "next": "elder_7"
+        },
+        {
+          "id": "elder_7",
+          "speaker": "Elder Vrenn",
+          "text": "Something was stored here. Something the old ones wanted kept underground, kept in the dark, kept away from the surface. I used to think that was just a story to frighten hatchlings.",
+          "next": "elder_8"
+        },
+        {
+          "id": "elder_8",
+          "speaker": "Elder Vrenn",
+          "text": "I think about it differently now.",
+          "next": null
+        }
+      ]
+    },
+
+    "kobold_elder_revisit": {
+      "nodes": [
+        {
+          "id": "start",
+          "speaker": "Elder Vrenn",
+          "text": "The scratching was louder last night. I did not sleep. I am told that is something the young do not understand yet — how the world gets quieter and louder at the same time as you age.",
+          "next": null
+        }
+      ]
+    },
+
+    "kobold_children_play": {
+      "nodes": [
+        {
+          "id": "start",
+          "speaker": "Kobold Child (Pip)",
+          "text": "We're playing scouts! I'm the brave one and Twick is the captured one because Twick is always the captured one.",
+          "next": "child_2"
+        },
+        {
+          "id": "child_2",
+          "speaker": "Kobold Child (Twick)",
+          "text": "I'm not always the captured one.",
+          "next": "child_3"
+        },
+        {
+          "id": "child_3",
+          "speaker": "Kobold Child (Pip)",
+          "text": "You were the captured one yesterday too.",
+          "next": "child_4"
+        },
+        {
+          "id": "child_4",
+          "speaker": "Kobold Child (Twick)",
+          "text": "...",
+          "next": "child_5"
+        },
+        {
+          "id": "child_5",
+          "speaker": "Kobold Child (Pip)",
+          "text": "Do you want to play? You can be the scary monster if you want. Scary monsters get to make the noises.",
+          "next": "child_6"
+        },
+        {
+          "id": "child_6",
+          "speaker": "Kobold Child (Twick)",
+          "text": "My mama went up to the surface four days ago. Elder Vrenn says she's helping with something important.",
+          "next": "child_7"
+        },
+        {
+          "id": "child_7",
+          "speaker": "Kobold Child (Pip)",
+          "text": "[quietly] She didn't come back.",
+          "next": "child_8"
+        },
+        {
+          "id": "child_8",
+          "speaker": "Kobold Child (Twick)",
+          "text": "She's probably just busy. She'll come back.",
+          "next": "child_9"
+        },
+        {
+          "id": "child_9",
+          "speaker": "Kobold Child (Pip)",
+          "text": "...Do you want to play or not?",
+          "next": null
+        }
+      ]
+    },
+
+    "imperial_guard_at_gate": {
+      "nodes_no_seal": [
+        {
+          "id": "start",
+          "speaker": "Imperial Guard",
+          "text": "Halt. The Imperial Capital is closed to non-citizens and unauthorized travelers by order of the Regional Commander.",
+          "next": "guard_2_no_seal"
+        },
+        {
+          "id": "guard_2_no_seal",
+          "speaker": "Imperial Guard",
+          "text": "I don't care where you've come from or what your errand is. No seal, no entry. That's not my rule — that's the wall's rule. Move along.",
+          "next": null
+        }
+      ],
+      "nodes_with_seal": [
+        {
+          "id": "start",
+          "speaker": "Imperial Guard",
+          "text": "Imperial seal. Right.",
+          "next": "guard_2_with_seal"
+        },
+        {
+          "id": "guard_2_with_seal",
+          "speaker": "Imperial Guard",
+          "text": "Move along.",
+          "next": null
+        }
+      ]
+    },
+
+    "imperial_black_market_vendor": {
+      "nodes": [
+        {
+          "id": "start",
+          "speaker": "Shady Vendor",
+          "text": "Eyes forward, don't make it obvious you're looking at me. Good. Now: I have things you want and you have coin I need. This is the foundation of all civilization.",
+          "next": "black_market_2"
+        },
+        {
+          "id": "black_market_2",
+          "speaker": "Shady Vendor",
+          "text": "Used to sell exclusively to the palace. Fine clientele. Very reliable. Then the emperor stopped... buying. Stopped doing most things, really.",
+          "next": "black_market_3"
+        },
+        {
+          "id": "black_market_3",
+          "speaker": "Shady Vendor",
+          "text": "The official story is he's 'in retreat for spiritual reflection.' The unofficial story involves about forty locked rooms and some very alarmed physicians.",
+          "next": "black_market_4"
+        },
+        {
+          "id": "black_market_4",
+          "speaker": "Shady Vendor",
+          "text": "Either way, the empire's not buying anymore, so prices are more... negotiable. For the right customer. Which you appear to be, given that you're still standing here.",
+          "next": "black_market_5"
+        },
+        {
+          "id": "black_market_5",
+          "speaker": "Shady Vendor",
+          "text": "What are you looking for?",
+          "next": "shop_open"
+        },
+        {
+          "id": "shop_open",
+          "speaker": "Shady Vendor",
+          "text": "[Opens black market inventory]",
+          "next": null
+        }
+      ]
+    },
+
+    "imperial_citizen_1": {
+      "nodes": [
+        {
+          "id": "start",
+          "speaker": "Imperial Citizen",
+          "text": "Have you heard? There are kobolds — actual kobolds — somewhere to the south of the capital. Hundreds of them, they say. Maybe thousands.",
+          "next": "citizen_2"
+        },
+        {
+          "id": "citizen_2",
+          "speaker": "Imperial Citizen",
+          "text": "They're digging under everything. Tunneling. My neighbor says they're planning to come up underneath the city — just pop right out of the ground in the middle of the market square.",
+          "next": "citizen_choice"
+        },
+        {
+          "id": "citizen_choice",
+          "speaker": null,
+          "text": "[How do you respond?]",
+          "choices": [
+            {
+              "text": "\"That's not what's happening at all.\"",
+              "next": "citizen_correct"
+            },
+            {
+              "text": "\"Sounds serious. You should be careful.\"",
+              "next": "citizen_play_along"
+            },
+            {
+              "text": "Say nothing and walk away.",
+              "next": null
+            }
+          ]
+        },
+        {
+          "id": "citizen_correct",
+          "speaker": "Imperial Citizen",
+          "text": "What do you mean? You've been out there? What's actually happening?",
+          "next": "citizen_explain"
+        },
+        {
+          "id": "citizen_explain",
+          "speaker": "Protagonist",
+          "text": "The kobolds in the warren are survivors. There's an infection spreading through their settlements. They're not invading — they're barely holding on.",
+          "next": "citizen_reaction"
+        },
+        {
+          "id": "citizen_reaction",
+          "speaker": "Imperial Citizen",
+          "text": "An... infection? That's terrible. I had no idea. The guards just said 'kobold incursion' and I assumed...",
+          "next": "citizen_reaction_2"
+        },
+        {
+          "id": "citizen_reaction_2",
+          "speaker": "Imperial Citizen",
+          "text": "I feel awful. We've been so scared of them and they're the ones who should be scared.",
+          "next": null
+        },
+        {
+          "id": "citizen_play_along",
+          "speaker": "Imperial Citizen",
+          "text": "I knew it! I'm boarding up the cellar tonight. Thank you for taking this seriously — nobody else around here seems to care!",
+          "next": null
+        }
+      ]
+    },
+
+    "catacomb_skeleton_merchant": {
+      "nodes": [
+        {
+          "id": "start",
+          "speaker": "Skeleton Merchant",
+          "text": "Oh! A customer. A living customer. How wonderful.",
+          "next": "skel_2"
+        },
+        {
+          "id": "skel_2",
+          "speaker": "Skeleton Merchant",
+          "text": "Business has been rather slow. Mostly because everyone who comes in is also dead. They don't tend to need supplies so much as they need... direction, I suppose. A sense of purpose.",
+          "next": "skel_3"
+        },
+        {
+          "id": "skel_3",
+          "speaker": "Skeleton Merchant",
+          "text": "I try to help where I can, but my counseling skills are limited. I was a merchant in life and I remain a merchant in death. One must have a sense of continuity.",
+          "next": "skel_4"
+        },
+        {
+          "id": "skel_4",
+          "speaker": "Skeleton Merchant",
+          "text": "You're refreshing, incidentally. Not dead. That's quite refreshing.",
+          "next": "skel_5"
+        },
+        {
+          "id": "skel_5",
+          "speaker": "Skeleton Merchant",
+          "text": "My name is Osbert. I don't know why I'm still here — most of my colleagues have wandered off to do terrible things. I prefer commerce. Now, what can I interest you in?",
+          "next": "shop_open"
+        },
+        {
+          "id": "shop_open",
+          "speaker": "Osbert",
+          "text": "[Opens catacomb shop inventory]",
+          "next": null
+        }
+      ]
+    },
+
+    "catacomb_skeleton_merchant_revisit": {
+      "nodes": [
+        {
+          "id": "start",
+          "speaker": "Osbert",
+          "text": "Ah, you again. Still alive, I see. Statistically speaking, the longer you survive down here, the more impressive that becomes. I've done the math. Shall we do business?",
+          "next": "shop_open"
+        },
+        {
+          "id": "shop_open",
+          "speaker": "Osbert",
+          "text": "[Opens catacomb shop inventory]",
+          "next": null
+        }
+      ]
+    },
+
+    "swamp_herbalist": {
+      "nodes": [
+        {
+          "id": "start",
+          "speaker": "Herbalist Mura",
+          "text": "You've got a druidess with you. Good. Very good. I was starting to think the old knowledge had died out completely.",
+          "next": "herb_2"
+        },
+        {
+          "id": "herb_2",
+          "speaker": "Herbalist Mura",
+          "text": "The swamp teaches you things that can't be taught anywhere else. Connection to growth, to rot, to the cycle that runs underneath everything.",
+          "next": "herb_3"
+        },
+        {
+          "id": "herb_3",
+          "speaker": "Herbalist Mura",
+          "text": "Her Mend ability — tell her to use it on the plants around enemies, not on her allies. The overgrowth drains them. Most druids don't figure that out until they're much older.",
+          "next": "herb_4"
+        },
+        {
+          "id": "herb_4",
+          "speaker": "Herbalist Mura",
+          "text": "And the Sporecloud — it doesn't just poison. It lowers their guard. Things hit harder right after. There's a rhythm to it if she listens for it.",
+          "next": "herb_5"
+        },
+        {
+          "id": "herb_5",
+          "speaker": "Herbalist Mura",
+          "text": "I have some swamp root for sale if you need it. It's the base ingredient for most of the poultices she can make. The swamp grows it fresh every season — one of its few gifts.",
+          "next": "herb_choice"
+        },
+        {
+          "id": "herb_choice",
+          "speaker": null,
+          "text": "[What would you like to do?]",
+          "choices": [
+            {
+              "text": "Buy swamp root.",
+              "next": "shop_open"
+            },
+            {
+              "text": "Ask about the swamp.",
+              "next": "herb_swamp_lore"
+            },
+            {
+              "text": "Leave.",
+              "next": null
+            }
+          ]
+        },
+        {
+          "id": "shop_open",
+          "speaker": "Herbalist Mura",
+          "text": "[Opens herbalist inventory]",
+          "next": null
+        },
+        {
+          "id": "herb_swamp_lore",
+          "speaker": "Herbalist Mura",
+          "text": "The swamp is older than the empire. Older than the roads. Things live here that have no names because nothing human has ever looked at them long enough to name them.",
+          "next": "herb_swamp_lore_2"
+        },
+        {
+          "id": "herb_swamp_lore_2",
+          "speaker": "Herbalist Mura",
+          "text": "Don't drink the standing water. Don't follow lights that move on their own. Don't answer anything that calls your name in a voice that sounds almost right.",
+          "next": "herb_swamp_lore_3"
+        },
+        {
+          "id": "herb_swamp_lore_3",
+          "speaker": "Herbalist Mura",
+          "text": "Follow those rules and you'll probably be fine. Probably.",
+          "next": null
+        }
+      ]
+    },
+
+    "mountain_hermit": {
+      "nodes": [
+        {
+          "id": "start",
+          "speaker": "Mountain Hermit",
+          "text": "Still climbing. Most people turn back at the second ridge. Used to be three of you that made it this far. Now it's just me, and I stopped climbing years ago.",
+          "next": "hermit_2"
+        },
+        {
+          "id": "hermit_2",
+          "speaker": "Mountain Hermit",
+          "text": "You're looking for the island. Anyone who gets this high and keeps moving is looking for the island.",
+          "next": "hermit_3"
+        },
+        {
+          "id": "hermit_3",
+          "speaker": "Mountain Hermit",
+          "text": "The old one at the top of the sky. She's been there for a very long time. Longer than the empire. Longer than the roads and the towns and everything people built to convince themselves the world is organized.",
+          "next": "hermit_4"
+        },
+        {
+          "id": "hermit_4",
+          "speaker": "Mountain Hermit",
+          "text": "She's been waiting. I could feel it, the one time I got close enough. A patience that isn't peace — it's just waiting. The way a stone waits at the bottom of a river.",
+          "next": "hermit_5"
+        },
+        {
+          "id": "hermit_5",
+          "speaker": "Mountain Hermit",
+          "text": "She's been waiting for someone to say no.",
+          "next": "hermit_6"
+        },
+        {
+          "id": "hermit_6",
+          "speaker": "Protagonist",
+          "text": "Say no to what?",
+          "next": "hermit_7"
+        },
+        {
+          "id": "hermit_7",
+          "speaker": "Mountain Hermit",
+          "text": "I don't know. I turned back. Whatever the question is, I wasn't the one meant to answer it.",
+          "next": "hermit_8"
+        },
+        {
+          "id": "hermit_8",
+          "speaker": "Mountain Hermit",
+          "text": "Maybe you are. Maybe you aren't. The mountain doesn't keep records.",
+          "next": null
+        }
+      ]
+    },
+
+    "mountain_hermit_revisit": {
+      "nodes": [
+        {
+          "id": "start",
+          "speaker": "Mountain Hermit",
+          "text": "You came back down. That means one of two things: you found what you were looking for, or you found something else entirely.",
+          "next": "hermit_revisit_2"
+        },
+        {
+          "id": "hermit_revisit_2",
+          "speaker": "Mountain Hermit",
+          "text": "Either way, come in out of the wind. I'll put something on the fire.",
+          "next": null
+        }
+      ]
+    },
+
+    "floating_island_sage": {
+      "nodes": [
+        {
+          "id": "start",
+          "speaker": "Scholar Adrenne",
+          "text": "You've come from below. I can tell — you still have gravity in your posture. It takes a few days up here before you stop bracing for a world that pushes back harder.",
+          "next": "sage_2"
+        },
+        {
+          "id": "sage_2",
+          "speaker": "Scholar Adrenne",
+          "text": "I've been studying the island for eleven years. Its composition, its orbit, the way it interacts with weather systems below. All of that is interesting and none of it explains why it exists.",
+          "next": "sage_3"
+        },
+        {
+          "id": "sage_3",
+          "speaker": "Scholar Adrenne",
+          "text": "The Dreamwalker — you're here about her, yes? Everyone who makes the climb is here about her eventually.",
+          "next": "sage_4"
+        },
+        {
+          "id": "sage_4",
+          "speaker": "Scholar Adrenne",
+          "text": "Psychic ability is poorly understood. The academies will tell you it's a discipline — something you develop through study and practice, like surgery or navigation.",
+          "next": "sage_5"
+        },
+        {
+          "id": "sage_5",
+          "speaker": "Scholar Adrenne",
+          "text": "That's wrong. Or rather, that's true for very small psychic ability. The kind that reads emotions or lights candles. Parlor tricks.",
+          "next": "sage_6"
+        },
+        {
+          "id": "sage_6",
+          "speaker": "Scholar Adrenne",
+          "text": "What she has — true dreamwalking, the ability to enter another mind entirely — doesn't come from training. It comes from breaking. In a very specific way.",
+          "next": "sage_7"
+        },
+        {
+          "id": "sage_7",
+          "speaker": "Scholar Adrenne",
+          "text": "Something has to happen to you that the mind cannot fully process. Something that leaves a crack. And through the crack, if you're the right kind of person, other things start to come in.",
+          "next": "sage_8"
+        },
+        {
+          "id": "sage_8",
+          "speaker": "Scholar Adrenne",
+          "text": "I've documented eleven subjects over the years. All of them had a specific kind of rupture in their history. All of them describe the ability as something that 'happened to them,' not something they developed.",
+          "next": "sage_9"
+        },
+        {
+          "id": "sage_9",
+          "speaker": "Scholar Adrenne",
+          "text": "She hasn't told me what her rupture was. I haven't asked. Some data you collect and some data you leave where it is.",
+          "next": null
+        }
+      ]
+    },
+
+    "floating_island_sage_revisit": {
+      "nodes": [
+        {
+          "id": "start",
+          "speaker": "Scholar Adrenne",
+          "text": "Still here. Still studying. The island has begun doing something new with its altitude cycle — rising an additional forty meters each dawn and descending by nightfall. I have no theory for this yet. I find that exciting.",
+          "next": null
+        }
+      ]
+    },
+
+    "slaver_island_prisoner": {
+      "nodes": [
+        {
+          "id": "start",
+          "speaker": "Prisoner",
+          "text": "You're... you're not with them. You're not guards.",
+          "next": "prisoner_2"
+        },
+        {
+          "id": "prisoner_2",
+          "speaker": "Prisoner",
+          "text": "Please — I've been here for three months. They took me from a village on the coast. My name is Sella. I had a name before all this. I keep reminding myself.",
+          "next": "prisoner_3"
+        },
+        {
+          "id": "prisoner_3",
+          "speaker": "Prisoner",
+          "text": "The empire's been collapsing for two years now. You probably know that. What you might not know is what that collapse looks like from the bottom.",
+          "next": "prisoner_4"
+        },
+        {
+          "id": "prisoner_4",
+          "speaker": "Prisoner",
+          "text": "The trade routes broke first. Then the garrisons. Once the garrisons left, the coastal villages had nothing — and certain people saw an opportunity.",
+          "next": "prisoner_5"
+        },
+        {
+          "id": "prisoner_5",
+          "speaker": "Prisoner",
+          "text": "They started small. Picking up people who wouldn't be missed. Then they got bolder. When the empire stops watching, what's left is just whoever is strongest and has the fewest reasons to hold back.",
+          "next": "prisoner_6"
+        },
+        {
+          "id": "prisoner_6",
+          "speaker": "Prisoner",
+          "text": "There are more of us here. I can take you to the others if you'll help us get out.",
+          "next": "prisoner_choice"
+        },
+        {
+          "id": "prisoner_choice",
+          "speaker": null,
+          "text": "[What do you do?]",
+          "choices": [
+            {
+              "text": "\"We'll get everyone out. Show us the way.\"",
+              "next": "prisoner_rescue"
+            },
+            {
+              "text": "\"We'll come back for the others. Let's get you out first.\"",
+              "next": "prisoner_partial"
+            }
+          ]
+        },
+        {
+          "id": "prisoner_rescue",
+          "speaker": "Prisoner",
+          "text": "Thank you. Thank you. Follow me — I know where they're keeping the rest.",
+          "next": null,
+          "flag": "rescue_all_prisoners"
+        },
+        {
+          "id": "prisoner_partial",
+          "speaker": "Prisoner",
+          "text": "Alright. Alright. But please come back. They're counting on someone to remember they're here.",
+          "next": null,
+          "flag": "rescue_sella_only"
+        }
+      ]
+    },
+
+    "slaver_island_prisoner_rescued": {
+      "nodes": [
+        {
+          "id": "start",
+          "speaker": "Sella",
+          "text": "We made it. I keep waiting to stop feeling surprised about that.",
+          "next": "rescued_2"
+        },
+        {
+          "id": "rescued_2",
+          "speaker": "Sella",
+          "text": "I don't know what I go back to. The village is probably different now. Everything is probably different. But at least I get to find out.",
+          "next": null
+        }
+      ]
+    }
+
+  }
+}

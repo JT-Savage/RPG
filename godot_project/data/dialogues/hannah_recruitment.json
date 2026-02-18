@@ -1,0 +1,87 @@
+{
+  "id": "hannah_recruitment",
+  "title": "Hannah Joins the Party",
+  "nodes": [
+    {
+      "id": "start",
+      "speaker": "Hannah",
+      "text": "Oh thank the gods, actual living people. Do you know how long I've been stuck down here with THESE?",
+      "portrait": "hannah_exasperated",
+      "next": "line_2"
+    },
+    {
+      "id": "line_2",
+      "speaker": "Hannah",
+      "text": "Don't answer that. The skeletons keep saying 'forever' and I think they mean it literally.",
+      "portrait": "hannah_traumatized",
+      "next": "line_3"
+    },
+    {
+      "id": "line_3",
+      "speaker": "Kella",
+      "text": "You're a healer?",
+      "portrait": "kella_curious",
+      "next": "line_4"
+    },
+    {
+      "id": "line_4",
+      "speaker": "Hannah",
+      "text": "Saint-in-training. Well. Was. My order is... probably also skeletons now.",
+      "portrait": "hannah_sad",
+      "next": "line_5"
+    },
+    {
+      "id": "line_5",
+      "speaker": "Hannah",
+      "text": "Take me with you. Please. I will heal everyone. I will heal you so hard. Just GET ME OUT OF THIS CATACOMB.",
+      "portrait": "hannah_desperate",
+      "next": "choice"
+    },
+    {
+      "id": "choice",
+      "type": "choice",
+      "prompt": "Take Hannah with you?",
+      "options": [
+        { "text": "Welcome aboard.", "goto": "accept" },
+        { "text": "We travel light.", "goto": "refuse" }
+      ]
+    },
+    {
+      "id": "accept",
+      "type": "recruit",
+      "character": "hannah",
+      "next": "accept_line"
+    },
+    {
+      "id": "accept_line",
+      "speaker": "Hannah",
+      "text": "Oh thank you. Thank you. You have no idea. THANK YOU.",
+      "portrait": "hannah_relieved",
+      "next": "end"
+    },
+    {
+      "id": "refuse",
+      "speaker": "Hannah",
+      "text": "...",
+      "portrait": "hannah_stare",
+      "next": "refuse_2"
+    },
+    {
+      "id": "refuse_2",
+      "speaker": "Hannah",
+      "text": "I'm following you anyway. You can't stop me. I'm a healer, not a fighter, but I WILL scream.",
+      "portrait": "hannah_determined",
+      "next": "force_recruit"
+    },
+    {
+      "id": "force_recruit",
+      "type": "recruit",
+      "character": "hannah",
+      "next": "end"
+    },
+    {
+      "id": "end",
+      "type": "end"
+    }
+  ]
+}

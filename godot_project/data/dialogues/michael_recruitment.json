@@ -1,0 +1,119 @@
+[
+  {
+    "_comment": "=== michael_recruitment.json ===",
+    "_comment2": "Michael encounters Javin in the Imperial City. He explains his mission,",
+    "_comment3": "grants Javin the Sentimental Traveler's Pouch automatically, then offers",
+    "_comment4": "to join the party. Refusing keeps Michael in place so the player can try again."
+  },
+  {
+    "type": "text",
+    "speaker": "Michael",
+    "text": "You... you're Javin, aren't you? I'd recognise that face anywhere. Hells, I've been looking for you for the better part of three weeks."
+  },
+  {
+    "type": "text",
+    "speaker": "Javin",
+    "text": "I don't believe we've met."
+  },
+  {
+    "type": "text",
+    "speaker": "Michael",
+    "text": "No, but I know who you are. My name is Michael. I work — worked — as a courier for the Wayfarers' Guild before the roads went to pieces. I was carrying a package addressed to you when the whole route collapsed."
+  },
+  {
+    "type": "text",
+    "speaker": "Michael",
+    "text": "It's been in my satchel through sandstorms, an inn fire, and a very unpleasant border inspection. I'm just glad it's still in one piece."
+  },
+  {
+    "type": "key_item",
+    "item_id": "sentimental_travelers_pouch",
+    "display_name": "Sentimental Traveler's Pouch",
+    "auto_give": true,
+    "notification_text": "Received the Sentimental Traveler's Pouch!"
+  },
+  {
+    "type": "text",
+    "speaker": "Michael",
+    "text": "There. Delivered. First successful delivery in six months — I'll take it."
+  },
+  {
+    "type": "text",
+    "speaker": "Michael",
+    "text": "The truth is... the Guild is gone. The roads aren't safe. And I've got nothing waiting for me here in the city. I heard what you're trying to do about the kobold situation, and — well. I know these roads better than anyone still breathing. I could be useful."
+  },
+  {
+    "type": "text",
+    "speaker": "Javin",
+    "text": "Are you asking to join us?"
+  },
+  {
+    "type": "text",
+    "speaker": "Michael",
+    "text": "I'm saying I'd rather be useful doing something dangerous than useless doing nothing safe. But it's your call."
+  },
+  {
+    "type": "choice",
+    "prompt": "What do you say to Michael?",
+    "choices": [
+      {
+        "text": "\"We could use a guide. Welcome aboard.\"",
+        "goto": "michael_joins"
+      },
+      {
+        "text": "\"I appreciate the delivery, but this isn't your fight.\"",
+        "goto": "michael_stays"
+      }
+    ]
+  },
+  {
+    "type": "label",
+    "id": "michael_joins"
+  },
+  {
+    "type": "text",
+    "speaker": "Michael",
+    "text": "Ha. Alright then. Don't expect me to be cheerful about it — I just mean I'll keep up."
+  },
+  {
+    "type": "text",
+    "speaker": "Javin",
+    "text": "That's all anyone's doing."
+  },
+  {
+    "type": "flag_set",
+    "flags": {
+      "michael_recruited": true
+    }
+  },
+  {
+    "type": "party_add",
+    "character_id": "michael"
+  },
+  {
+    "type": "end"
+  },
+  {
+    "type": "label",
+    "id": "michael_stays"
+  },
+  {
+    "type": "text",
+    "speaker": "Michael",
+    "text": "Right. I figured you'd say that. The offer stands, for what it's worth. I'll be around the city if you change your mind."
+  },
+  {
+    "type": "text",
+    "speaker": "Javin",
+    "text": "I'll remember that."
+  },
+  {
+    "type": "flag_set",
+    "flags": {
+      "michael_offer_declined_once": true
+    }
+  },
+  {
+    "type": "end"
+  }
+]

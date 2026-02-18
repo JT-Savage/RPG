@@ -36,9 +36,11 @@ env/
 .DS_Store
 Thumbs.db
 
-# Game saves
+# Game saves (runtime save files ignored, but game data JSON tracked)
 *.json
 !data/*.json
+!godot_project/data/**/*.json
+!godot_project/data/dialogues/*.json
 
 # Logs
 *.log

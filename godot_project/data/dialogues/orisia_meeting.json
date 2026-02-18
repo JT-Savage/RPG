@@ -1,0 +1,363 @@
+[
+  {
+    "_comment": "=== orisia_meeting.json ===",
+    "_comment2": "Orisia meets the full party at the Army Camp. She assigns personal sidequests",
+    "_comment3": "to each recruited member. Flood's sidequest check has a special branch.",
+    "_comment4": "The scene ends with the point-of-no-return confirmation prompt."
+  },
+  {
+    "type": "text",
+    "speaker": "Orisia",
+    "text": "So. This is the party that's been making noise across every region between here and the capital. I expected more of you — or less. It's hard to say."
+  },
+  {
+    "type": "text",
+    "speaker": "Orisia",
+    "text": "My name is Orisia. I command what's left of the Third Accord's forward force. We've been holding this position for eleven days. That ends when you and I finish this conversation."
+  },
+  {
+    "type": "text",
+    "speaker": "Orisia",
+    "text": "Before we move, I want to know who I'm marching with. Each of you — I have something that needs doing. Consider it a test. Consider it preparation. Consider it whatever helps you sleep."
+  },
+  {
+    "_comment": "--- Per-character sidequest assignments ---",
+    "_comment2": "Each block is only shown if the character is in the party."
+  },
+  {
+    "type": "condition_check",
+    "condition": "party_has_member:michael",
+    "if_true": "goto:michael_sidequest",
+    "if_false": "goto:check_cookie"
+  },
+  {
+    "type": "label",
+    "id": "michael_sidequest"
+  },
+  {
+    "type": "text",
+    "speaker": "Orisia",
+    "text": "Michael. You know the roads. I need you to map the three supply corridors east of camp and mark any blocked passages. We're blind out there and that has to change before tomorrow."
+  },
+  {
+    "type": "text",
+    "speaker": "Michael",
+    "text": "Give me a blank chart and three hours. I'll have something usable."
+  },
+  {
+    "type": "flag_set",
+    "flags": {
+      "michael_sidequest_assigned": true
+    }
+  },
+  {
+    "type": "label",
+    "id": "check_cookie"
+  },
+  {
+    "type": "condition_check",
+    "condition": "party_has_member:cookie",
+    "if_true": "goto:cookie_sidequest",
+    "if_false": "goto:check_iris"
+  },
+  {
+    "type": "label",
+    "id": "cookie_sidequest"
+  },
+  {
+    "type": "text",
+    "speaker": "Orisia",
+    "text": "Cookie. My soldiers haven't had a proper meal in four days. Whatever you can do with what's in the camp stores — do it. Morale is a weapon and ours is running low."
+  },
+  {
+    "type": "text",
+    "speaker": "Cookie",
+    "text": "Four days? That's... I'll see what I can manage. Don't expect miracles. Expect stew."
+  },
+  {
+    "type": "flag_set",
+    "flags": {
+      "cookie_sidequest_assigned": true
+    }
+  },
+  {
+    "type": "label",
+    "id": "check_iris"
+  },
+  {
+    "type": "condition_check",
+    "condition": "party_has_member:iris",
+    "if_true": "goto:iris_sidequest",
+    "if_false": "goto:check_yipp"
+  },
+  {
+    "type": "label",
+    "id": "iris_sidequest"
+  },
+  {
+    "type": "text",
+    "speaker": "Orisia",
+    "text": "Iris. We have wounded who haven't been properly treated. I need assessments — who can walk, who can fight, who can't. Be honest with them. They'll respect that more than false comfort."
+  },
+  {
+    "type": "text",
+    "speaker": "Iris",
+    "text": "I'll start at the east tent. How many are we talking?"
+  },
+  {
+    "type": "text",
+    "speaker": "Orisia",
+    "text": "Thirty-two. Maybe thirty-three. We stopped counting after the sixth day."
+  },
+  {
+    "type": "flag_set",
+    "flags": {
+      "iris_sidequest_assigned": true
+    }
+  },
+  {
+    "type": "label",
+    "id": "check_yipp"
+  },
+  {
+    "type": "condition_check",
+    "condition": "party_has_member:yipp",
+    "if_true": "goto:yipp_sidequest",
+    "if_false": "goto:check_fritzzit"
+  },
+  {
+    "type": "label",
+    "id": "yipp_sidequest"
+  },
+  {
+    "type": "text",
+    "speaker": "Orisia",
+    "text": "Yipp. You've been studying the infection. I need a written summary — something my officers can read without a scholarly background. Simple. Actionable. What spreads it, what slows it, what we can do in the field."
+  },
+  {
+    "type": "text",
+    "speaker": "Yipp",
+    "text": "I — yes. Yes, I can do that. I've been meaning to write a condensed version anyway. I'll have it ready before we march."
+  },
+  {
+    "type": "flag_set",
+    "flags": {
+      "yipp_sidequest_assigned": true
+    }
+  },
+  {
+    "type": "label",
+    "id": "check_fritzzit"
+  },
+  {
+    "type": "condition_check",
+    "condition": "party_has_member:fritzzit",
+    "if_true": "goto:fritzzit_sidequest",
+    "if_false": "goto:check_frostbite"
+  },
+  {
+    "type": "label",
+    "id": "fritzzit_sidequest"
+  },
+  {
+    "type": "text",
+    "speaker": "Orisia",
+    "text": "Fritzzit. And Crankpot, I assume you go where he goes — I need the camp's siege equipment inspected. Half of it has been sitting in the rain for a week and I need to know what still fires straight."
+  },
+  {
+    "type": "text",
+    "speaker": "Fritzzit",
+    "text": "Oh, now this is a language I understand. Come on, Crankpot — let's see how badly they've been treating these beautiful machines."
+  },
+  {
+    "type": "flag_set",
+    "flags": {
+      "fritzzit_sidequest_assigned": true
+    }
+  },
+  {
+    "type": "label",
+    "id": "check_frostbite"
+  },
+  {
+    "type": "condition_check",
+    "condition": "party_has_member:frostbite",
+    "if_true": "goto:frostbite_sidequest",
+    "if_false": "goto:check_flood"
+  },
+  {
+    "type": "label",
+    "id": "frostbite_sidequest"
+  },
+  {
+    "type": "text",
+    "speaker": "Orisia",
+    "text": "Frostbite. I don't know exactly what you are or what you can do — and that means the enemy doesn't either. I need you at the northern perimeter. Show yourself just enough to make them uncertain."
+  },
+  {
+    "type": "text",
+    "speaker": "Frostbite",
+    "text": "Uncertainty. I can do uncertainty."
+  },
+  {
+    "type": "flag_set",
+    "flags": {
+      "frostbite_sidequest_assigned": true
+    }
+  },
+  {
+    "type": "label",
+    "id": "check_flood"
+  },
+  {
+    "_comment": "Special Flood branch: if all other sidequests are assigned (or characters absent),",
+    "_comment2": "Orisia delivers her line about Flood's power before checking if Flood is present."
+  },
+  {
+    "type": "condition_check",
+    "condition": "flags_all_set:michael_sidequest_assigned,cookie_sidequest_assigned,iris_sidequest_assigned,yipp_sidequest_assigned,fritzzit_sidequest_assigned,frostbite_sidequest_assigned OR flags_all_absent:michael_sidequest_assigned,cookie_sidequest_assigned,iris_sidequest_assigned,yipp_sidequest_assigned,fritzzit_sidequest_assigned,frostbite_sidequest_assigned",
+    "if_true": "goto:flood_special_line",
+    "if_false": "goto:flood_standard"
+  },
+  {
+    "type": "label",
+    "id": "flood_special_line"
+  },
+  {
+    "type": "condition_check",
+    "condition": "party_has_member:flood AND NOT flag:flood_dead",
+    "if_true": "goto:flood_power_comment",
+    "if_false": "goto:point_of_no_return"
+  },
+  {
+    "type": "label",
+    "id": "flood_power_comment"
+  },
+  {
+    "type": "text",
+    "speaker": "Orisia",
+    "text": "And Flood."
+  },
+  {
+    "type": "text",
+    "speaker": "Orisia",
+    "text": "She's already as powerful as she will ever be."
+  },
+  {
+    "type": "text",
+    "speaker": "Orisia",
+    "text": "I have nothing to assign her that she isn't already doing simply by being here."
+  },
+  {
+    "type": "text",
+    "speaker": "Flood",
+    "text": "..."
+  },
+  {
+    "type": "flag_set",
+    "flags": {
+      "flood_sidequest_comment_played": true
+    }
+  },
+  {
+    "type": "goto",
+    "label": "point_of_no_return"
+  },
+  {
+    "type": "label",
+    "id": "flood_standard"
+  },
+  {
+    "type": "condition_check",
+    "condition": "party_has_member:flood AND NOT flag:flood_dead",
+    "if_true": "goto:flood_assignment",
+    "if_false": "goto:point_of_no_return"
+  },
+  {
+    "type": "label",
+    "id": "flood_assignment"
+  },
+  {
+    "type": "text",
+    "speaker": "Orisia",
+    "text": "Flood. You'll be our anchor when things go sideways — and they will go sideways. Stay close to the main column. If the line breaks, you hold it."
+  },
+  {
+    "type": "text",
+    "speaker": "Flood",
+    "text": "Understood."
+  },
+  {
+    "type": "flag_set",
+    "flags": {
+      "flood_sidequest_assigned": true
+    }
+  },
+  {
+    "_comment": "--- Point of no return ---"
+  },
+  {
+    "type": "label",
+    "id": "point_of_no_return"
+  },
+  {
+    "type": "text",
+    "speaker": "Orisia",
+    "text": "That's everyone. When you're all ready, we move."
+  },
+  {
+    "type": "text",
+    "speaker": "Orisia",
+    "text": "I'll say this plainly: once we march, there is no coming back to this camp. The supply lines will be cut to prevent pursuit. Anyone who isn't with us when the order goes out will be left behind."
+  },
+  {
+    "type": "text",
+    "speaker": "Orisia",
+    "text": "Are you ready? You cannot return."
+  },
+  {
+    "type": "choice",
+    "prompt": "This is the point of no return.",
+    "choices": [
+      {
+        "text": "\"We're ready. Give the order.\"",
+        "goto": "confirm_march"
+      },
+      {
+        "text": "\"We need more time.\"",
+        "goto": "delay_march"
+      }
+    ]
+  },
+  {
+    "type": "label",
+    "id": "confirm_march"
+  },
+  {
+    "type": "text",
+    "speaker": "Orisia",
+    "text": "Then we march at dawn."
+  },
+  {
+    "type": "flag_set",
+    "flags": {
+      "recruitment_deadline_passed": true,
+      "army_blocks_return": true
+    }
+  },
+  {
+    "type": "end"
+  },
+  {
+    "type": "label",
+    "id": "delay_march"
+  },
+  {
+    "type": "text",
+    "speaker": "Orisia",
+    "text": "Then take the time you need. But don't take too long — the longer we wait, the more ground we lose."
+  },
+  {
+    "type": "end"
+  }
+]

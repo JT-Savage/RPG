@@ -1,0 +1,96 @@
+{
+  "id": "ng_plus_commentary",
+  "title": "New Game Plus Commentary Lines",
+  "commentary": {
+    "warren_entry_ng": {
+      "speaker": "Kella",
+      "text": "Again. Of course. Well. At least I know where the chest is this time.",
+      "condition": "ng_plus_active"
+    },
+    "warren_entry_ng_all_recruited": {
+      "speaker": "Kella",
+      "text": "Everyone's waiting for me. Don't blow it this time.",
+      "condition": "ng_plus_active AND previous_all_recruited"
+    },
+    "baby_dragon_chest_ng": {
+      "speaker": "Kella",
+      "text": "There you are. Hello again, little one.",
+      "condition": "ng_plus_active"
+    },
+    "michael_meeting_ng": {
+      "speaker": "Kella",
+      "text": "I know what you're going to say. Say it anyway.",
+      "condition": "ng_plus_active AND previous_michael_recruited"
+    },
+    "michael_meeting_ng_never": {
+      "speaker": "Kella",
+      "text": "...I didn't bring you along last time. I won't make that mistake again.",
+      "condition": "ng_plus_active AND NOT previous_michael_recruited"
+    },
+    "hannah_catacomb_ng": {
+      "speaker": "Kella",
+      "text": "I know you're down here. Hang on.",
+      "condition": "ng_plus_active AND previous_hannah_recruited"
+    },
+    "orisia_ng_good_ending": {
+      "speaker": "Kella",
+      "text": "Last time I helped you. I don't regret it. Ask me again.",
+      "condition": "ng_plus_active AND previous_ending_good"
+    },
+    "orisia_ng_normal_ending": {
+      "speaker": "Kella",
+      "text": "We reached a compromise before. Let's see if we can do better.",
+      "condition": "ng_plus_active AND previous_ending_normal"
+    },
+    "orisia_ng_bad_ending": {
+      "speaker": "Kella",
+      "text": "Last time something else showed up after. I need to be ready for that.",
+      "condition": "ng_plus_active AND previous_ending_bad"
+    },
+    "flood_death_ng": {
+      "speaker": "Kella",
+      "text": "No. Not this time. Flood, move.",
+      "condition": "ng_plus_active AND previous_flood_died"
+    },
+    "slaver_island_ng": {
+      "speaker": "Kella",
+      "text": "Came back to finish it right.",
+      "condition": "ng_plus_active AND previous_best_ending"
+    },
+    "yipp_spawn_ng": {
+      "speaker": "Kella",
+      "text": "Different dungeon this time. Of course.",
+      "condition": "ng_plus_active AND yipp_dungeon_differs_from_previous"
+    },
+    "vampire_meeting_ng": {
+      "speaker": "Kella",
+      "text": "I know what you're going to say about mortals. Skip ahead to the part where you join us.",
+      "condition": "ng_plus_active AND previous_vampire_recruited"
+    },
+    "jerod_preexplosion_ng": {
+      "speaker": "Kella",
+      "text": "Jerod. I know what you're planning. Don't.",
+      "condition": "ng_plus_active"
+    },
+    "jerod_preexplosion_ng_response": {
+      "speaker": "Jerod",
+      "text": "...",
+      "condition": "ng_plus_active"
+    },
+    "jerod_preexplosion_ng_response_2": {
+      "speaker": "Jerod",
+      "text": "So you've done this before. Hm.",
+      "condition": "ng_plus_active"
+    },
+    "jerod_preexplosion_ng_response_3": {
+      "speaker": "Jerod",
+      "text": "Does it work?",
+      "condition": "ng_plus_active"
+    },
+    "jerod_preexplosion_ng_kella": {
+      "speaker": "Kella",
+      "text": "Not if I can help it.",
+      "condition": "ng_plus_active"
+    }
+  }
+}

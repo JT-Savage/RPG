@@ -1,0 +1,87 @@
+{
+  "id": "vampire_recruitment",
+  "title": "The Vampire's Proposition",
+  "nodes": [
+    {
+      "id": "start",
+      "speaker": "Narrator",
+      "text": "[The coffin lid slides open. A figure sits up with practiced elegance, as if rising from a coffin is something one should do with dignity.]",
+      "portrait": "",
+      "next": "line_2"
+    },
+    {
+      "id": "line_2",
+      "speaker": "Vampire",
+      "text": "Mortals. How delightful. How... tiresome.",
+      "portrait": "vampire_haughty",
+      "next": "line_3"
+    },
+    {
+      "id": "line_3",
+      "speaker": "Kella",
+      "text": "We need your help.",
+      "portrait": "kella_direct",
+      "next": "line_4"
+    },
+    {
+      "id": "line_4",
+      "speaker": "Vampire",
+      "text": "Everyone who wakes me 'needs my help.' It is never interesting.",
+      "portrait": "vampire_bored",
+      "next": "line_5"
+    },
+    {
+      "id": "line_5",
+      "speaker": "Vampire",
+      "text": "An ancient darkness threatens the world? How very... original.",
+      "portrait": "vampire_sarcastic",
+      "next": "line_6"
+    },
+    {
+      "id": "line_6",
+      "speaker": "Hannah",
+      "text": "With respect, if the world ends, there's no one left to not-drink-from.",
+      "portrait": "hannah_pointed",
+      "next": "line_7",
+      "condition_flag": "hannah_recruited"
+    },
+    {
+      "id": "line_7",
+      "speaker": "Vampire",
+      "text": "...",
+      "portrait": "vampire_thinking",
+      "next": "line_8"
+    },
+    {
+      "id": "line_8",
+      "speaker": "Vampire",
+      "text": "That is, unexpectedly, the most compelling argument anyone has made to me in four centuries.",
+      "portrait": "vampire_reluctant",
+      "next": "line_9"
+    },
+    {
+      "id": "line_9",
+      "speaker": "Vampire",
+      "text": "Very well. But I travel in style. And I do not do mornings.",
+      "portrait": "vampire_smug",
+      "next": "recruit"
+    },
+    {
+      "id": "recruit",
+      "type": "recruit",
+      "character": "vampire",
+      "next": "end_line"
+    },
+    {
+      "id": "end_line",
+      "speaker": "Narrator",
+      "text": "[The Vampire joins the party. They are somehow both an asset and a liability simultaneously.]",
+      "portrait": "",
+      "next": "end"
+    },
+    {
+      "id": "end",
+      "type": "end"
+    }
+  ]
+}

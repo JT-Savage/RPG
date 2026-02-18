@@ -1,0 +1,94 @@
+{
+  "id": "best_ending",
+  "title": "Best Ending - Post-Credits",
+  "nodes": [
+    {
+      "id": "start",
+      "speaker": "Narrator",
+      "text": "[Post-credits. The screen stays black longer than it should. Then—]",
+      "portrait": "",
+      "next": "line_2"
+    },
+    {
+      "id": "line_2",
+      "speaker": "Narrator",
+      "text": "[A beach. An island. The sound of chains.]",
+      "portrait": "",
+      "next": "line_3"
+    },
+    {
+      "id": "line_3",
+      "speaker": "Escaped Slave",
+      "text": "You came.",
+      "portrait": "slave_gaunt",
+      "next": "line_4"
+    },
+    {
+      "id": "line_4",
+      "speaker": "Kella",
+      "text": "Someone had to.",
+      "portrait": "kella_grim",
+      "next": "line_5"
+    },
+    {
+      "id": "line_5",
+      "speaker": "Narrator",
+      "text": "[Kella looks out at the island. The slavers don't know they're here. Not yet.]",
+      "portrait": "",
+      "next": "line_6"
+    },
+    {
+      "id": "line_6",
+      "speaker": "Kella",
+      "text": "Alright. One more job. Then we go home.",
+      "portrait": "kella_determined",
+      "next": "party_check"
+    },
+    {
+      "id": "party_check",
+      "type": "branch",
+      "conditions": [
+        { "flag": "michael_recruited", "goto": "michael_comment" }
+      ],
+      "default": "slaver_island_start"
+    },
+    {
+      "id": "michael_comment",
+      "speaker": "Michael",
+      "text": "Last time you said that, it took six months and we fought a god.",
+      "portrait": "michael_dry",
+      "next": "kella_retort"
+    },
+    {
+      "id": "kella_retort",
+      "speaker": "Kella",
+      "text": "This time there's no god. Just slavers.",
+      "portrait": "kella_almost_smiling",
+      "next": "michael_response"
+    },
+    {
+      "id": "michael_response",
+      "speaker": "Michael",
+      "text": "Somehow that's more frightening.",
+      "portrait": "michael_resigned",
+      "next": "slaver_island_start"
+    },
+    {
+      "id": "slaver_island_start",
+      "type": "flag_set",
+      "flag": "slaver_island_unlocked",
+      "next": "transition"
+    },
+    {
+      "id": "transition",
+      "type": "scene_change",
+      "scene": "res://scenes/locations/slaver_island.tscn",
+      "spawn": "beach_entry",
+      "next": "end"
+    },
+    {
+      "id": "end",
+      "type": "end"
+    }
+  ]
+}
