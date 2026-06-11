@@ -68,7 +68,7 @@ func _confirm_option() -> void:
 		"Continue":
 			_quick_continue()
 		"Load Game":
-			SceneTransition.change_scene("res://scenes/title/save_select_screen.tscn")
+			SceneTransition.change_scene("res://scenes/ui/save_select.tscn")
 		"Settings":
 			SceneTransition.change_scene("res://scenes/ui/settings_menu.tscn")
 		"Credits":

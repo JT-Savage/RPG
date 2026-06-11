@@ -37,14 +37,17 @@ var _save_point_node: Node = null
 # ---------------------------------------------------------------------------
 const NPC_SCENE_PATH: String = "res://scenes/entities/npc.tscn"
 const ENCOUNTER_ZONE_SCENE_PATH: String = "res://scenes/gameplay/encounter_zone.tscn"
-const SAVE_POINT_SCENE_PATH: String = "res://scenes/ui/save_point.tscn"
-const PLAYER_SCENE_PATH: String = "res://scenes/entities/player.tscn"
+const SAVE_POINT_SCENE_PATH: String = "res://scenes/gameplay/save_point.tscn"
+const PLAYER_SCENE_PATH: String = "res://scenes/player/player.tscn"
 
 
 # ---------------------------------------------------------------------------
 # _ready
 # ---------------------------------------------------------------------------
 func _ready() -> void:
+	# 0. Load the pre-rendered map background + boundary collision.
+	_setup_map_background()
+
 	# 1. Add / position the player.
 	_add_player()
 
@@ -85,7 +88,10 @@ func go_to_location(dest_location_id: String, spawn_point: String = "default") -
 	# Persist current state before leaving.
 	_run_autosave()
 
-	SceneTransition.change_scene(dest_location_id, spawn_point)
+	var dest_path := dest_location_id
+	if not dest_path.begins_with("res://"):
+		dest_path = "res://scenes/locations/%s.tscn" % dest_location_id
+	SceneTransition.change_scene(dest_path, spawn_point)
 
 
 ## Show the save-point UI (pause menu variant with save option highlighted).
@@ -93,11 +99,8 @@ func show_save_point() -> void:
 	if _save_point_node and _save_point_node.has_method("show_save_ui"):
 		_save_point_node.show_save_ui()
 	else:
-		# Fallback: ask SaveManager directly.
-		if has_node("/root/SaveManager"):
-			get_node("/root/SaveManager").open_save_menu()
-		else:
-			push_warning("BaseLocation.show_save_point: no SaveManager autoload found.")
+		# Fallback: ask SaveSystem directly.
+		SaveSystem.open_save_menu()
 
 
 ## Spawn an NPC into the scene.
@@ -225,14 +228,85 @@ func _play_music() -> void:
 
 
 func _run_autosave() -> void:
-	if has_node("/root/SaveManager"):
-		get_node("/root/SaveManager").autosave()
-	else:
-		push_warning("BaseLocation._run_autosave: SaveManager autoload not found.")
+	SaveSystem.autosave()
 
 
 func _mark_visited() -> void:
 	if location_id.is_empty():
 		return
-	if has_node("/root/GameFlags"):
-		get_node("/root/GameFlags").set_flag("visited_" + location_id, true)
+	FlagManager.set_flag("visited_" + location_id, true)
+	GameManager.change_location(location_id)
+
+
+# ---------------------------------------------------------------------------
+# Map background + boundary collision
+# ---------------------------------------------------------------------------
+
+## Loads the pre-rendered map image for this location (if one exists) as a
+## background sprite, builds StaticBody2D walls around the map perimeter,
+## and clamps the player camera to the map bounds.
+func _setup_map_background() -> void:
+	if location_id.is_empty():
+		return
+	var map_path := "res://assets/maps/%s.png" % location_id
+	if not ResourceLoader.exists(map_path):
+		return
+
+	var tex: Texture2D = load(map_path)
+	if tex == null:
+		return
+
+	# Centered on the origin: spawn points and encounter zones in the
+	# location scripts use origin-centred coordinates.
+	var bg := Sprite2D.new()
+	bg.name = "MapBackground"
+	bg.texture = tex
+	bg.centered = true
+	bg.position = Vector2.ZERO
+	bg.z_index = -10
+	bg.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	add_child(bg)
+	move_child(bg, 0)
+
+	var map_size := Vector2(tex.get_width(), tex.get_height())
+	_build_boundary_walls(map_size)
+	call_deferred("_apply_camera_limits", map_size)
+
+
+## Four static walls just inside the painted 16 px border of the map.
+## The map sprite is centred on the origin, so walls span -half .. +half.
+func _build_boundary_walls(map_size: Vector2) -> void:
+	const WALL := 16.0
+	var half := map_size / 2.0
+	var body := StaticBody2D.new()
+	body.name = "MapBounds"
+	add_child(body)
+
+	var edges := [
+		# [center, size]
+		[Vector2(0, -half.y + WALL / 2.0), Vector2(map_size.x, WALL)],   # top
+		[Vector2(0, half.y - WALL / 2.0), Vector2(map_size.x, WALL)],    # bottom
+		[Vector2(-half.x + WALL / 2.0, 0), Vector2(WALL, map_size.y)],   # left
+		[Vector2(half.x - WALL / 2.0, 0), Vector2(WALL, map_size.y)],    # right
+	]
+	for edge in edges:
+		var shape := CollisionShape2D.new()
+		var rect := RectangleShape2D.new()
+		rect.size = edge[1]
+		shape.shape = rect
+		shape.position = edge[0]
+		body.add_child(shape)
+
+
+## Clamp the player's camera to the (origin-centred) map rectangle.
+func _apply_camera_limits(map_size: Vector2) -> void:
+	if _player_node == null:
+		return
+	var cam: Camera2D = _player_node.get_node_or_null("Camera2D")
+	if cam == null:
+		return
+	var half := map_size / 2.0
+	cam.limit_left = int(-half.x)
+	cam.limit_top = int(-half.y)
+	cam.limit_right = int(half.x)
+	cam.limit_bottom = int(half.y)

@@ -232,7 +232,7 @@ func _show_save_tab() -> void:
 	options.add_child(save_btn)
 
 	var load_btn := _make_button("Load Game", func():
-		SceneTransition.change_scene("res://scenes/title/save_select_screen.tscn")
+		SceneTransition.change_scene("res://scenes/ui/save_select.tscn")
 	)
 	options.add_child(load_btn)
 

@@ -11,6 +11,10 @@ extends Area2D
 
 var _steps_since_last := 0
 
+func _ready() -> void:
+	add_to_group("encounter_zone")
+	monitoring = true
+
 ## Configure this zone from a Rect2, rate, pool, and background string.
 ## Called at runtime when zones are built procedurally from map data.
 func configure(rect: Rect2, rate: float, pool: Array, bg: String) -> void:
