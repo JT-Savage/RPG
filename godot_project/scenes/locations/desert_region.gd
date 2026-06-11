@@ -212,7 +212,7 @@ func _spawn_randomised_chests() -> void:
 
 	# Distribute equipment evenly across chests.
 	var eq_pool: Array = BIS_EQUIPMENT_POOL.duplicate()
-	var chest_scene_path: String = "res://scenes/interactables/treasure_chest.tscn"
+	var chest_scene_path: String = "res://scenes/gameplay/chest.tscn"
 	var chest_scene: PackedScene = load(chest_scene_path)
 
 	for i in CHEST_COUNT:

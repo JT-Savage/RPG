@@ -1,11 +1,13 @@
 # PROJECT STATUS — THERE WILL BE KOBOLDS
-*Last updated: 2026-02-18*
+*Last updated: 2026-06-11*
 
 ## EXECUTIVE SUMMARY
 
-The Godot 4.3 project build is **substantially complete** at `godot_project/`.
-All core systems, all locations, all data databases, all dialogue scripts, all pixel art assets, and all UI scenes have been built.
-The game is in a **playable prototype state** — open in Godot 4.3 and run.
+The Godot 4.3 project build is **feature-complete** at `godot_project/`.
+All core systems, all locations, all data databases, all dialogue scripts, all pixel art assets,
+all UI scenes, **all audio (68 chiptune WAV files)**, and **all 14 map backgrounds** have been built.
+Open in Godot 4.3 and run — title screen, new game, exploration, random encounters,
+ATB battles, shops, saves, endings, and NG+ are all wired end to end.
 
 ---
 
@@ -169,7 +171,9 @@ The game is in a **playable prototype state** — open in Godot 4.3 and run.
 | UI elements | ✅ DONE | Bars, panels, icons, cursor, save crystal |
 | Spell animations (9+) | ✅ DONE | All elements + specials |
 | Overworld icons (12) | ✅ DONE | All location types |
-| Audio | ⚠️ REQUIRED | See `assets/audio/AUDIO_REQUIRED.txt` |
+| Audio (31 music + 37 SFX) | ✅ DONE | Chiptune WAVs via `assets/generate_audio.py` |
+| Map backgrounds (14) | ✅ DONE | 512×448 biome maps via `assets/generate_maps.py` |
+| Project icon | ✅ DONE | `assets/sprites/ui/icon.png` |
 
 ---
 
@@ -188,11 +192,20 @@ The game is in a **playable prototype state** — open in Godot 4.3 and run.
 ## REMAINING TASKS
 
 ### Required to complete before final build:
-1. **Audio files** — Source royalty-free .ogg music and .wav SFX (see AUDIO_REQUIRED.txt)
-2. **TileMap painting** — Open Godot editor and paint tile layers for each location
-3. **Godot import** — Import project in Godot 4.3, resolve any import errors
-4. **Testing pass** — Full playthrough to find runtime bugs
-5. **Balance pass** — Enemy HP/damage, player stat growth, shop prices
+1. **Godot import** — Import project in Godot 4.3, resolve any import warnings
+2. **Testing pass** — Full playthrough to find runtime bugs
+3. **Balance pass** — Enemy HP/damage, player stat growth, shop prices
+
+### Done this pass (previously listed as required):
+- ~~Audio files~~ — 68 procedurally generated chiptune WAVs (music loops via
+  AudioStreamWAV.LOOP_FORWARD set at runtime in AudioManager)
+- ~~TileMap painting~~ — replaced with pre-rendered 512×448 map background PNGs
+  loaded by BaseLocation (origin-centred, with boundary collision walls and
+  camera limits applied automatically)
+- ~~Player controller~~ — scenes/player/player.gd rewritten: distance-based
+  encounter steps, SpriteCache animations, overlay pause menu, zone tracking
+- ~~Broken references~~ — project-wide res:// path audit now passes with zero
+  missing resources
 
 ### Nice to have:
 - Additional NPC dialogue variety per location visit

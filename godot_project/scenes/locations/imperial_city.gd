@@ -16,10 +16,10 @@ const MUSIC: String = "town"
 # ---------------------------------------------------------------------------
 # Shop scene paths
 # ---------------------------------------------------------------------------
-const WEAPON_SHOP_SCENE: String = "res://scenes/shops/weapon_shop.tscn"
-const MAGIC_SHOP_SCENE: String  = "res://scenes/shops/magic_shop.tscn"
-const ITEM_SHOP_SCENE: String   = "res://scenes/shops/item_shop.tscn"
-const INN_SCENE: String         = "res://scenes/shops/inn.tscn"
+const SHOP_SCENE: String = "res://scenes/shop/shop_scene.tscn"
+const SHOP_ID_MARKET: String = "imperial_city_market"
+const SHOP_ID_BLACK_MARKET: String = "imperial_city_black_market"
+const INN_COST: int = 50
 
 # ---------------------------------------------------------------------------
 # NPC identifiers and their world-space spawn positions
@@ -233,14 +233,16 @@ func _connect_door(door: Area2D, callback: String) -> void:
 		door.body_entered.connect(Callable(self, callback))
 
 
-func _open_shop(scene_path: String, shop_label: String) -> void:
-	var shop_scene: PackedScene = load(scene_path)
+func _open_shop(shop_id: String, shop_label: String) -> void:
+	var shop_scene: PackedScene = load(SHOP_SCENE)
 	if shop_scene == null:
-		push_error("ImperialCity._open_shop: Could not load '%s'." % scene_path)
+		push_error("ImperialCity._open_shop: Could not load '%s'." % SHOP_SCENE)
 		return
 
 	var shop: Node = shop_scene.instantiate()
 	shop.name = shop_label
+	if shop.has_method("setup"):
+		shop.setup(shop_id)
 	get_tree().root.add_child(shop)
 
 	# Pause the location while shop is open.
@@ -254,23 +256,34 @@ func _open_shop(scene_path: String, shop_label: String) -> void:
 # ---------------------------------------------------------------------------
 func _on_weapon_shop_door_entered(body: Node) -> void:
 	if body.is_in_group("player"):
-		_open_shop(WEAPON_SHOP_SCENE, "WeaponShop")
+		_open_shop(SHOP_ID_MARKET, "WeaponShop")
 
 
 func _on_magic_shop_door_entered(body: Node) -> void:
 	if body.is_in_group("player"):
-		_open_shop(MAGIC_SHOP_SCENE, "MagicShop")
+		_open_shop(SHOP_ID_BLACK_MARKET, "MagicShop")
 
 
 func _on_item_shop_door_entered(body: Node) -> void:
 	if body.is_in_group("player"):
-		_open_shop(ITEM_SHOP_SCENE, "ItemShop")
+		_open_shop(SHOP_ID_MARKET, "ItemShop")
 
 
 func _on_inn_door_entered(body: Node) -> void:
 	if not body.is_in_group("player"):
 		return
-	_open_shop(INN_SCENE, "Inn")
+	_rest_at_inn()
+
+
+func _rest_at_inn() -> void:
+	if GameManager.gil < INN_COST:
+		NotificationManager.show_message("Not enough gil to rest (%d needed)" % INN_COST, Color.RED)
+		return
+	GameManager.gil -= INN_COST
+	PartyManager.restore_all_hp_mp()
+	AudioManager.play_sfx("save_point")
+	NotificationManager.show_message("The party rested. HP/MP restored!", Color.GREEN)
+	SaveSystem.autosave()
 
 
 # ---------------------------------------------------------------------------
