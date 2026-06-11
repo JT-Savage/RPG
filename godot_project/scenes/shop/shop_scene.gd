@@ -139,7 +139,4 @@ func _on_sell_pressed() -> void:
 
 
 func _on_exit_pressed() -> void:
-	if SceneManager:
-		SceneManager.return_to_previous()
-	else:
-		queue_free()
+	SceneTransition.back()

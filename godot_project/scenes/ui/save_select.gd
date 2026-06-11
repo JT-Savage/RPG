@@ -86,9 +86,9 @@ func _on_load_pressed() -> void:
 	if selected_slot < 1:
 		return
 	if SaveSystem:
-		SaveSystem.load_slot(selected_slot)
-	if SceneManager:
-		SceneManager.transition_to_game()
+		if SaveSystem.load_slot(selected_slot):
+			SceneTransition.change_scene(
+				"res://scenes/locations/%s.tscn" % GameManager.current_location)
 
 
 func _on_delete_pressed() -> void:

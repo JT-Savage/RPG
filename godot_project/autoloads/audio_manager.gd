@@ -13,22 +13,37 @@ var is_fading := false
 var fade_tween: Tween
 
 const MUSIC_TRACKS := {
-	"title": "res://assets/audio/music/title_theme.ogg",
-	"overworld": "res://assets/audio/music/overworld.ogg",
-	"battle": "res://assets/audio/music/battle.ogg",
-	"battle_kobold_heavy": "res://assets/audio/music/battle_kobold_heavy.ogg",
-	"boss_battle": "res://assets/audio/music/boss_battle.ogg",
-	"final_boss": "res://assets/audio/music/final_boss.ogg",
-	"town": "res://assets/audio/music/town.ogg",
-	"desert": "res://assets/audio/music/desert.ogg",
-	"dungeon": "res://assets/audio/music/dungeon.ogg",
-	"catacomb": "res://assets/audio/music/catacomb.ogg",
-	"sad_theme": "res://assets/audio/music/sad_theme.ogg",
-	"victory": "res://assets/audio/music/victory.ogg",
-	"game_over": "res://assets/audio/music/game_over.ogg",
-	"ending_good": "res://assets/audio/music/ending_good.ogg",
-	"ending_best": "res://assets/audio/music/ending_best.ogg",
-	"new_game_plus": "res://assets/audio/music/new_game_plus.ogg",
+	"title": "res://assets/audio/music/title_theme.wav",
+	"overworld": "res://assets/audio/music/overworld.wav",
+	"battle": "res://assets/audio/music/battle.wav",
+	"battle_kobold_heavy": "res://assets/audio/music/battle_kobold_heavy.wav",
+	"boss_battle": "res://assets/audio/music/boss_battle.wav",
+	"final_boss": "res://assets/audio/music/final_boss.wav",
+	"town": "res://assets/audio/music/town.wav",
+	"desert": "res://assets/audio/music/desert.wav",
+	"dungeon": "res://assets/audio/music/dungeon.wav",
+	"catacomb": "res://assets/audio/music/catacomb.wav",
+	"sad_theme": "res://assets/audio/music/sad_theme.wav",
+	"victory": "res://assets/audio/music/victory.wav",
+	"game_over": "res://assets/audio/music/game_over.wav",
+	"ending_good": "res://assets/audio/music/ending_good.wav",
+	"ending_best": "res://assets/audio/music/ending_best.wav",
+	"new_game_plus": "res://assets/audio/music/new_game_plus.wav",
+	"ending_normal": "res://assets/audio/music/ending_normal.wav",
+	"ending_bad": "res://assets/audio/music/ending_bad.wav",
+	"town_chaos": "res://assets/audio/music/town_chaos.wav",
+	"battle_boss": "res://assets/audio/music/battle_boss.wav",
+	"battle_secret_boss": "res://assets/audio/music/battle_secret_boss.wav",
+	"battle_final": "res://assets/audio/music/battle_final.wav",
+	"orisia_theme": "res://assets/audio/music/orisia_theme.wav",
+	"overworld_map": "res://assets/audio/music/overworld_map.wav",
+	"village": "res://assets/audio/music/village.wav",
+	"grim": "res://assets/audio/music/grim.wav",
+	"ethereal": "res://assets/audio/music/ethereal.wav",
+	"mountain": "res://assets/audio/music/mountain.wav",
+	"swamp": "res://assets/audio/music/swamp.wav",
+	"dungeon_dark": "res://assets/audio/music/dungeon_dark.wav",
+	"final_dungeon": "res://assets/audio/music/final_dungeon.wav",
 }
 
 const SFX_FILES := {
@@ -62,6 +77,18 @@ const SFX_FILES := {
 	"skeleton_summon": "res://assets/audio/sfx/skeleton_summon.wav",
 	"panda_transform": "res://assets/audio/sfx/panda_transform.wav",
 	"hannah_ultimate_spell": "res://assets/audio/sfx/hannah_ultimate_spell.wav",
+	"player_death": "res://assets/audio/sfx/player_death.wav",
+	"victory_fanfare": "res://assets/audio/sfx/victory_fanfare.wav",
+	"cursor_move": "res://assets/audio/sfx/cursor_move.wav",
+	"error": "res://assets/audio/sfx/error.wav",
+	"confirm": "res://assets/audio/sfx/confirm.wav",
+	"puzzle_wrong": "res://assets/audio/sfx/puzzle_wrong.wav",
+	"puzzle_click": "res://assets/audio/sfx/puzzle_click.wav",
+	"puzzle_solved": "res://assets/audio/sfx/puzzle_solved.wav",
+	"chest_open": "res://assets/audio/sfx/chest_open.wav",
+	"status_poison": "res://assets/audio/sfx/status_poison.wav",
+	"jerod_explosion": "res://assets/audio/sfx/jerod_explosion.wav",
+	"flood_death": "res://assets/audio/sfx/flood_death.wav",
 }
 
 func _ready() -> void:
@@ -93,6 +120,12 @@ func play_music(track_name: String, fade_time: float = 1.0) -> void:
 		return
 
 	var stream := load(path) if ResourceLoader.exists(path) else null
+
+	# Imported WAVs do not loop by default; force looping for music.
+	if stream is AudioStreamWAV:
+		stream.loop_mode = AudioStreamWAV.LOOP_FORWARD
+		stream.loop_begin = 0
+		stream.loop_end = stream.data.size() / 2  # 16-bit mono: 2 bytes/frame
 
 	if fade_time > 0 and get_node_or_null("MusicPlayer") != null:
 		_fade_to_track(stream, fade_time)
