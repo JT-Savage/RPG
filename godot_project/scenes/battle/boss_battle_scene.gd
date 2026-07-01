@@ -24,7 +24,7 @@ class_name BossBattleScene
 # ---------------------------------------------------------------------------
 var boss_id: String = ""
 var boss_data: Dictionary = {}
-var _command_menu: Node = null
+var _command_menu = null
 var _battle_active: bool = false
 var _party_ui_nodes: Array[Control] = []
 

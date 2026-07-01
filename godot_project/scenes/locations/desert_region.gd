@@ -80,7 +80,7 @@ const SENSORY_DEPRIVATION_VENDOR_ID: String = "desert_vendor_oasis"
 # ---------------------------------------------------------------------------
 @onready var exit_forward_trigger: Area2D = $Exits/ForwardTrigger
 @onready var exit_back_trigger: Area2D    = $Exits/BackTrigger
-@onready var army_blockade_overlay: Node  = $ArmyBlockadeOverlay
+@onready var army_blockade_overlay  = $ArmyBlockadeOverlay
 @onready var rest_point_markers: Node     = $RestPointMarkers   # parent of Marker2D children
 
 
@@ -107,7 +107,7 @@ func _ready() -> void:
 # Story triggers (override)
 # ---------------------------------------------------------------------------
 func handle_story_triggers() -> void:
-	var flags: Node = get_node_or_null("/root/GameFlags")
+	var flags = get_node_or_null("/root/GameFlags")
 	if flags == null:
 		push_warning("DesertRegion.handle_story_triggers: GameFlags autoload missing.")
 		return
@@ -151,7 +151,7 @@ func _setup_rest_points() -> void:
 	]
 
 	for i in REST_POINT_COUNT:
-		var rp: Node = sp_scene.instantiate()
+		var rp = sp_scene.instantiate()
 		rp.name = "RestPoint_%d" % i
 		add_child(rp)
 
@@ -173,7 +173,7 @@ func _setup_rest_points() -> void:
 # ---------------------------------------------------------------------------
 func _spawn_vendors() -> void:
 	for vendor_id in VENDOR_SPAWNS:
-		var vendor: Node = add_npc(vendor_id, VENDOR_SPAWNS[vendor_id])
+		var vendor = add_npc(vendor_id, VENDOR_SPAWNS[vendor_id])
 		if vendor == null:
 			continue
 
@@ -190,7 +190,7 @@ func _spawn_vendors() -> void:
 # Private – randomised chests
 # ---------------------------------------------------------------------------
 func _spawn_randomised_chests() -> void:
-	var flags: Node = get_node_or_null("/root/GameFlags")
+	var flags = get_node_or_null("/root/GameFlags")
 
 	# Determine positions. Use a stored seed per run so positions are stable
 	# within a single playthrough but differ between NG runs.
@@ -221,7 +221,7 @@ func _spawn_randomised_chests() -> void:
 			push_warning("DesertRegion: Could not load treasure_chest scene.")
 			break
 
-		var chest: Node = chest_scene.instantiate()
+		var chest = chest_scene.instantiate()
 		chest.name = "DesertChest_%d" % i
 		add_child(chest)
 		chest.global_position = chosen_positions[i]
@@ -241,7 +241,7 @@ func _spawn_randomised_chests() -> void:
 
 
 func _on_chest_opened(chest_flag: String) -> void:
-	var flags: Node = get_node_or_null("/root/GameFlags")
+	var flags = get_node_or_null("/root/GameFlags")
 	if flags:
 		flags.set_flag(chest_flag, true)
 
@@ -258,7 +258,7 @@ func _connect_exit_triggers() -> void:
 
 
 func _apply_army_blockade_state() -> void:
-	var flags: Node = get_node_or_null("/root/GameFlags")
+	var flags = get_node_or_null("/root/GameFlags")
 	if flags and flags.get_flag("army_blocks_return"):
 		_block_backward_exit()
 
@@ -287,10 +287,10 @@ func _on_exit_back_entered(body: Node) -> void:
 	if not body.is_in_group("player"):
 		return
 
-	var flags: Node = get_node_or_null("/root/GameFlags")
+	var flags = get_node_or_null("/root/GameFlags")
 	if flags and flags.get_flag("army_blocks_return"):
 		# Show a message; do not transition.
-		var notify: Node = get_node_or_null("/root/NotificationManager")
+		var notify = get_node_or_null("/root/NotificationManager")
 		if notify and notify.has_method("show_message"):
 			notify.show_message(
 				"The army's blockade seals the path. There is no going back."

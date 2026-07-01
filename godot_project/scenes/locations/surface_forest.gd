@@ -54,7 +54,7 @@ func _ready() -> void:
 # Story triggers (override)
 # ---------------------------------------------------------------------------
 func handle_story_triggers() -> void:
-	var flags: Node = get_node_or_null("/root/GameFlags")
+	var flags = get_node_or_null("/root/GameFlags")
 	if flags == null:
 		push_warning("SurfaceForest.handle_story_triggers: GameFlags autoload missing.")
 		return
@@ -74,7 +74,7 @@ func _setup_encounter_zones() -> void:
 # Private – NPCs
 # ---------------------------------------------------------------------------
 func _spawn_ally_npcs() -> void:
-	var flags: Node = get_node_or_null("/root/GameFlags")
+	var flags = get_node_or_null("/root/GameFlags")
 	if flags and flags.get_flag("kobold_ally_npc_removed"):
 		return
 	add_npc(NPC_KOBOLD_ALLY_ID, NPC_KOBOLD_ALLY_POSITION)

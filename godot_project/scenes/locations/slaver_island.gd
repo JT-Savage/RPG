@@ -65,7 +65,7 @@ func _ready() -> void:
 # Story triggers (override)
 # ---------------------------------------------------------------------------
 func handle_story_triggers() -> void:
-	var flags: Node = get_node_or_null("/root/GameFlags")
+	var flags = get_node_or_null("/root/GameFlags")
 	if flags == null:
 		push_warning("SlaverIsland.handle_story_triggers: GameFlags autoload missing.")
 		return
@@ -103,7 +103,7 @@ func _setup_encounter_zones() -> void:
 # Private – NPC spawning
 # ---------------------------------------------------------------------------
 func _spawn_escaped_slave_npcs() -> void:
-	var flags: Node = get_node_or_null("/root/GameFlags")
+	var flags = get_node_or_null("/root/GameFlags")
 
 	if not (flags and flags.get_flag("slave_a_rescued")):
 		add_npc(NPC_ESCAPED_SLAVE_A_ID, NPC_ESCAPED_SLAVE_A_POSITION)
@@ -148,7 +148,7 @@ func _check_mission_complete(flags: Node) -> void:
 func _on_rescue_trigger_body_entered(body: Node, slave_id: String) -> void:
 	if not body.is_in_group("player"):
 		return
-	var flags: Node = get_node_or_null("/root/GameFlags")
+	var flags = get_node_or_null("/root/GameFlags")
 	var flag_key: String = slave_id + "_rescued"
 	if flags and flags.get_flag(flag_key):
 		return
@@ -165,7 +165,7 @@ func _on_rescue_trigger_body_entered(body: Node, slave_id: String) -> void:
 	}
 	var npc_id: String = npc_id_map.get(slave_id, "")
 	if npc_id and npc_id in _npc_nodes:
-		var npc: Node = _npc_nodes[npc_id]
+		var npc = _npc_nodes[npc_id]
 		if npc and npc.has_method("play_rescued_animation"):
 			npc.play_rescued_animation()
 
@@ -175,11 +175,11 @@ func _on_rescue_trigger_body_entered(body: Node, slave_id: String) -> void:
 func _on_mission_complete_trigger_body_entered(body: Node) -> void:
 	if not body.is_in_group("player"):
 		return
-	var flags: Node = get_node_or_null("/root/GameFlags")
+	var flags = get_node_or_null("/root/GameFlags")
 	if flags and not flags.get_flag("true_ending_complete"):
 		return
 	# Fire the true ending credits / epilogue sequence.
-	var ending_manager: Node = get_node_or_null("/root/EndingManager")
+	var ending_manager = get_node_or_null("/root/EndingManager")
 	if ending_manager and ending_manager.has_method("play_ending"):
 		ending_manager.play_ending("true_ending_epilogue")
 	emit_signal("story_trigger_fired", "true_ending_epilogue_started")

@@ -47,7 +47,7 @@ const EXIT_TO_DESERT_SPAWN: String = "from_army_camp"
 # ---------------------------------------------------------------------------
 @onready var orisia_gate_trigger: Area2D = $Gates/OrisiaTrigger
 @onready var desert_exit_trigger: Area2D = $Gates/DesertExitTrigger
-@onready var point_of_no_return_prompt: Node = $UI/PointOfNoReturnPrompt
+@onready var point_of_no_return_prompt = $UI/PointOfNoReturnPrompt
 
 
 # ---------------------------------------------------------------------------
@@ -69,7 +69,7 @@ func _ready() -> void:
 # Story triggers (override)
 # ---------------------------------------------------------------------------
 func handle_story_triggers() -> void:
-	var flags: Node = get_node_or_null("/root/GameFlags")
+	var flags = get_node_or_null("/root/GameFlags")
 	if flags == null:
 		push_warning("ArmyCamp.handle_story_triggers: GameFlags autoload missing.")
 		return
@@ -106,22 +106,22 @@ func _spawn_camp_npcs() -> void:
 func _handle_backup_recruitments(flags: Node) -> void:
 	# Cookie
 	if not flags.get_flag("cookie_recruited"):
-		var cookie: Node = add_npc(NPC_COOKIE, NPC_SPAWNS[NPC_COOKIE])
+		var cookie = add_npc(NPC_COOKIE, NPC_SPAWNS[NPC_COOKIE])
 		if cookie and cookie.has_method("set_dialogue"):
 			cookie.set_dialogue("cookie_backup_recruitment")
 		emit_signal("story_trigger_fired", "cookie_backup_spawn")
 
 	# Iris
 	if not flags.get_flag("iris_recruited"):
-		var iris: Node = add_npc(NPC_IRIS, NPC_SPAWNS[NPC_IRIS])
+		var iris = add_npc(NPC_IRIS, NPC_SPAWNS[NPC_IRIS])
 		if iris and iris.has_method("set_dialogue"):
 			iris.set_dialogue("iris_backup_recruitment")
 		emit_signal("story_trigger_fired", "iris_backup_spawn")
 
 	# Fritzzit & Crankpot (they always come as a pair)
 	if not flags.get_flag("fritzzit_recruited"):
-		var fritzzit: Node = add_npc(NPC_FRITZZIT, NPC_SPAWNS[NPC_FRITZZIT])
-		var crankpot: Node = add_npc(NPC_CRANKPOT, NPC_SPAWNS[NPC_CRANKPOT])
+		var fritzzit = add_npc(NPC_FRITZZIT, NPC_SPAWNS[NPC_FRITZZIT])
+		var crankpot = add_npc(NPC_CRANKPOT, NPC_SPAWNS[NPC_CRANKPOT])
 		if fritzzit and fritzzit.has_method("set_dialogue"):
 			fritzzit.set_dialogue("fritzzit_backup_recruitment")
 		if crankpot and crankpot.has_method("set_dialogue"):
@@ -133,7 +133,7 @@ func _handle_backup_recruitments(flags: Node) -> void:
 # Private – Orisia meeting
 # ---------------------------------------------------------------------------
 func _trigger_orisia_first_meeting() -> void:
-	var orisia: Node = _npc_nodes.get(NPC_ORISIA)
+	var orisia = _npc_nodes.get(NPC_ORISIA)
 	if orisia == null:
 		push_warning("ArmyCamp._trigger_orisia_first_meeting: Orisia NPC not found.")
 		return
@@ -145,7 +145,7 @@ func _trigger_orisia_first_meeting() -> void:
 	if orisia.has_method("play_cutscene"):
 		orisia.play_cutscene("orisia_meeting")
 
-	var flags: Node = get_node_or_null("/root/GameFlags")
+	var flags = get_node_or_null("/root/GameFlags")
 	if flags:
 		flags.set_flag("orisia_met", true)
 
@@ -153,7 +153,7 @@ func _trigger_orisia_first_meeting() -> void:
 
 
 func _enable_orisia_repeat_greeting() -> void:
-	var orisia: Node = _npc_nodes.get(NPC_ORISIA)
+	var orisia = _npc_nodes.get(NPC_ORISIA)
 	if orisia and orisia.has_method("set_dialogue"):
 		orisia.set_dialogue("orisia_repeat_greeting")
 
@@ -173,7 +173,7 @@ func _on_orisia_gate_entered(body: Node) -> void:
 	if not body.is_in_group("player"):
 		return
 
-	var flags: Node = get_node_or_null("/root/GameFlags")
+	var flags = get_node_or_null("/root/GameFlags")
 
 	# The gate only opens after Orisia's briefing is complete and the player
 	# confirms the point-of-no-return prompt from orisia_meeting dialogue.
@@ -191,7 +191,7 @@ func _show_point_of_no_return_prompt() -> void:
 		point_of_no_return_prompt.show()
 	else:
 		# Fallback: start the dialogue directly.
-		var dm: Node = get_node_or_null("/root/DialogueManager")
+		var dm = get_node_or_null("/root/DialogueManager")
 		if dm and dm.has_method("start_dialogue"):
 			dm.start_dialogue("orisia_meeting", "point_of_no_return_label")
 
@@ -200,9 +200,9 @@ func _on_desert_exit_entered(body: Node) -> void:
 	if not body.is_in_group("player"):
 		return
 
-	var flags: Node = get_node_or_null("/root/GameFlags")
+	var flags = get_node_or_null("/root/GameFlags")
 	if flags and flags.get_flag("recruitment_deadline_passed"):
-		var notify: Node = get_node_or_null("/root/NotificationManager")
+		var notify = get_node_or_null("/root/NotificationManager")
 		if notify and notify.has_method("show_message"):
 			notify.show_message(
 				"You have already committed to the march on Orisia. "

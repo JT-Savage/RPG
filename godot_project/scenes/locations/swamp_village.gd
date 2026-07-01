@@ -58,7 +58,7 @@ func _ready() -> void:
 # Story triggers (override)
 # ---------------------------------------------------------------------------
 func handle_story_triggers() -> void:
-	var flags: Node = get_node_or_null("/root/GameFlags")
+	var flags = get_node_or_null("/root/GameFlags")
 	if flags == null:
 		push_warning("SwampVillage.handle_story_triggers: GameFlags autoload missing.")
 		return

@@ -67,7 +67,7 @@ const SPAWNS: Dictionary = {
 @onready var inn_door: Area2D          = $Inn/InnDoor
 
 # Fast-travel board node.
-@onready var fast_travel_board: Node   = $FastTravelBoard
+@onready var fast_travel_board   = $FastTravelBoard
 
 
 # ---------------------------------------------------------------------------
@@ -93,7 +93,7 @@ func _ready() -> void:
 # Story triggers (override)
 # ---------------------------------------------------------------------------
 func handle_story_triggers() -> void:
-	var flags: Node = get_node_or_null("/root/GameFlags")
+	var flags = get_node_or_null("/root/GameFlags")
 	if flags == null:
 		push_warning("ImperialCity.handle_story_triggers: GameFlags autoload missing.")
 		return
@@ -162,29 +162,29 @@ func _spawn_city_npcs() -> void:
 
 
 func _enable_michael_recruitment() -> void:
-	var michael: Node = add_npc(NPC_MICHAEL, SPAWNS[NPC_MICHAEL])
+	var michael = add_npc(NPC_MICHAEL, SPAWNS[NPC_MICHAEL])
 	if michael and michael.has_method("set_dialogue"):
 		michael.set_dialogue("michael_recruitment")
 	emit_signal("story_trigger_fired", "michael_recruitment")
 
 
 func _enable_flood_recruitment() -> void:
-	var flood: Node = add_npc(NPC_FLOOD, SPAWNS[NPC_FLOOD])
+	var flood = add_npc(NPC_FLOOD, SPAWNS[NPC_FLOOD])
 	if flood and flood.has_method("set_dialogue"):
 		flood.set_dialogue("flood_recruitment")
 	emit_signal("story_trigger_fired", "flood_recruitment")
 
 
 func _enable_hannah_recruitment() -> void:
-	var hannah: Node = add_npc(NPC_HANNAH, SPAWNS[NPC_HANNAH])
+	var hannah = add_npc(NPC_HANNAH, SPAWNS[NPC_HANNAH])
 	if hannah and hannah.has_method("set_dialogue"):
 		hannah.set_dialogue("hannah_recruitment")
 	emit_signal("story_trigger_fired", "hannah_recruitment")
 
 
 func _spawn_fritzzit_crankpot() -> void:
-	var fritzzit: Node = add_npc(NPC_FRITZZIT, SPAWNS[NPC_FRITZZIT])
-	var crankpot: Node = add_npc(NPC_CRANKPOT, SPAWNS[NPC_CRANKPOT])
+	var fritzzit = add_npc(NPC_FRITZZIT, SPAWNS[NPC_FRITZZIT])
+	var crankpot = add_npc(NPC_CRANKPOT, SPAWNS[NPC_CRANKPOT])
 
 	if fritzzit and fritzzit.has_method("set_dialogue"):
 		fritzzit.set_dialogue("fritzzit_introduction")
@@ -211,7 +211,7 @@ func _play_kobolds_released_state() -> void:
 		Vector2(-300, 5), Vector2(310, -10),
 	]
 	for i in kobold_panic_positions.size():
-		var kob: Node = add_npc("panicking_kobold_%d" % i, kobold_panic_positions[i])
+		var kob = add_npc("panicking_kobold_%d" % i, kobold_panic_positions[i])
 		if kob and kob.has_method("set_behaviour"):
 			kob.set_behaviour("flee_random")
 
@@ -239,7 +239,7 @@ func _open_shop(shop_id: String, shop_label: String) -> void:
 		push_error("ImperialCity._open_shop: Could not load '%s'." % SHOP_SCENE)
 		return
 
-	var shop: Node = shop_scene.instantiate()
+	var shop = shop_scene.instantiate()
 	shop.name = shop_label
 	if shop.has_method("setup"):
 		shop.setup(shop_id)
@@ -293,7 +293,7 @@ func _setup_fast_travel() -> void:
 	if fast_travel_board == null:
 		return
 
-	var flags: Node = get_node_or_null("/root/GameFlags")
+	var flags = get_node_or_null("/root/GameFlags")
 	# Fast travel unlocks after visiting the city at least once.
 	# The base class already sets visited_imperial_city=true during _ready.
 	var unlock: bool = (flags != null and flags.get_flag("visited_imperial_city"))

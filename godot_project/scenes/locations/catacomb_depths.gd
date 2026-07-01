@@ -33,7 +33,7 @@ const SPAWN_FROM_CATACOMB: String = "from_catacomb"
 # ---------------------------------------------------------------------------
 @onready var exit_to_entrance_trigger: Area2D = $ExitToEntranceTrigger
 @onready var exit_to_swamp_trigger: Area2D = $ExitToSwampTrigger
-@onready var pressure_plate_puzzle: Node = $PressurePlatePuzzle
+@onready var pressure_plate_puzzle = $PressurePlatePuzzle
 @onready var boss_trigger: Area2D = $BossTrigger
 
 # ---------------------------------------------------------------------------
@@ -64,7 +64,7 @@ func _ready() -> void:
 # Story triggers (override)
 # ---------------------------------------------------------------------------
 func handle_story_triggers() -> void:
-	var flags: Node = get_node_or_null("/root/GameFlags")
+	var flags = get_node_or_null("/root/GameFlags")
 	if flags == null:
 		push_warning("CatacombDepths.handle_story_triggers: GameFlags autoload missing.")
 		return
@@ -117,7 +117,7 @@ func _on_exit_to_entrance_body_entered(body: Node) -> void:
 func _on_exit_to_swamp_body_entered(body: Node) -> void:
 	if not body.is_in_group("player"):
 		return
-	var flags: Node = get_node_or_null("/root/GameFlags")
+	var flags = get_node_or_null("/root/GameFlags")
 	if flags and not flags.get_flag("catacomb_lich_defeated"):
 		# Silently block; the puzzle/boss gate should communicate this visually.
 		return
@@ -126,11 +126,11 @@ func _on_exit_to_swamp_body_entered(body: Node) -> void:
 func _on_boss_trigger_body_entered(body: Node) -> void:
 	if not body.is_in_group("player"):
 		return
-	var flags: Node = get_node_or_null("/root/GameFlags")
+	var flags = get_node_or_null("/root/GameFlags")
 	if flags and flags.get_flag("catacomb_lich_defeated"):
 		return
 	# Initiate boss battle.
-	var battle_manager: Node = get_node_or_null("/root/BattleManager")
+	var battle_manager = get_node_or_null("/root/BattleManager")
 	if battle_manager and battle_manager.has_method("start_boss_battle"):
 		battle_manager.start_boss_battle("catacomb_lich", BATTLE_BG)
 		if battle_manager.has_signal("battle_won"):
@@ -138,7 +138,7 @@ func _on_boss_trigger_body_entered(body: Node) -> void:
 				battle_manager.battle_won.connect(_on_catacomb_lich_defeated, CONNECT_ONE_SHOT)
 
 func _on_catacomb_lich_defeated() -> void:
-	var flags: Node = get_node_or_null("/root/GameFlags")
+	var flags = get_node_or_null("/root/GameFlags")
 	if flags:
 		flags.set_flag("catacomb_lich_defeated", true)
 	if exit_to_swamp_trigger:
@@ -146,7 +146,7 @@ func _on_catacomb_lich_defeated() -> void:
 	emit_signal("story_trigger_fired", "catacomb_lich_defeated")
 
 func _on_pressure_plate_puzzle_solved() -> void:
-	var flags: Node = get_node_or_null("/root/GameFlags")
+	var flags = get_node_or_null("/root/GameFlags")
 	if flags:
 		flags.set_flag("pressure_plate_puzzle_solved", true)
 	emit_signal("story_trigger_fired", "pressure_plate_puzzle_solved")

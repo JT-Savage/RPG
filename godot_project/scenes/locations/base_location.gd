@@ -27,10 +27,10 @@ signal story_trigger_fired(trigger_id: String)
 # ---------------------------------------------------------------------------
 # Internal references (resolved in _ready)
 # ---------------------------------------------------------------------------
-var _player_node: Node = null
+var _player_node = null
 var _encounter_zones: Array[Node] = []
 var _npc_nodes: Dictionary = {}          # npc_id -> Node
-var _save_point_node: Node = null
+var _save_point_node = null
 
 # ---------------------------------------------------------------------------
 # Preloaded packed scenes (project-relative paths expected to exist)
@@ -117,7 +117,7 @@ func add_npc(npc_id: String, position: Vector2) -> Node:
 		push_error("BaseLocation.add_npc: Could not load NPC scene at '%s'." % NPC_SCENE_PATH)
 		return null
 
-	var npc: Node = npc_scene.instantiate()
+	var npc = npc_scene.instantiate()
 	npc.name = npc_id
 
 	# Let the NPC node configure itself from the database if it supports it.
@@ -147,7 +147,7 @@ func spawn_encounter_zone(
 		push_error("BaseLocation.spawn_encounter_zone: Could not load EncounterZone scene.")
 		return null
 
-	var ez: Node = ez_scene.instantiate()
+	var ez = ez_scene.instantiate()
 	add_child(ez)
 
 	if ez.has_method("configure"):
@@ -172,14 +172,7 @@ func _add_player() -> void:
 		_position_player_at_spawn()
 		return
 
-	if SceneTransition and SceneTransition.has_method("get_player_node"):
-		_player_node = SceneTransition.get_player_node()
-		if _player_node:
-			add_child(_player_node)
-			_position_player_at_spawn()
-			return
-
-	# Last resort: instantiate a fresh player.
+	# Instantiate a fresh player.
 	var player_scene: PackedScene = load(PLAYER_SCENE_PATH)
 	if player_scene:
 		_player_node = player_scene.instantiate()
@@ -194,7 +187,7 @@ func _position_player_at_spawn() -> void:
 	var spawn_id: String = SceneTransition.requested_spawn_point \
 		if SceneTransition and "requested_spawn_point" in SceneTransition else "default"
 
-	var spawn_node: Node = _find_spawn_point(spawn_id)
+	var spawn_node = _find_spawn_point(spawn_id)
 	if spawn_node == null:
 		spawn_node = _find_spawn_point("default")
 

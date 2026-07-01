@@ -31,8 +31,8 @@ const SPAWN_FROM_ISLAND: String = "from_island"
 # Child node paths
 # ---------------------------------------------------------------------------
 @onready var exit_trigger: Area2D = $ExitTrigger
-@onready var chest_holy_symbol: Node = $ChestHolySymbol
-@onready var chest_wine_glass: Node = $ChestWineGlass
+@onready var chest_holy_symbol = $ChestHolySymbol
+@onready var chest_wine_glass = $ChestWineGlass
 @onready var psychic_tutorial_trigger: Area2D = $PsychicTutorialTrigger
 
 # ---------------------------------------------------------------------------
@@ -65,7 +65,7 @@ func _ready() -> void:
 # Story triggers (override)
 # ---------------------------------------------------------------------------
 func handle_story_triggers() -> void:
-	var flags: Node = get_node_or_null("/root/GameFlags")
+	var flags = get_node_or_null("/root/GameFlags")
 	if flags == null:
 		push_warning("FloatingIsland.handle_story_triggers: GameFlags autoload missing.")
 		return
@@ -96,7 +96,7 @@ func _setup_encounter_zones() -> void:
 func _spawn_dreamwalker() -> void:
 	var dw: Node = add_npc(NPC_DREAMWALKER_ID, NPC_DREAMWALKER_POSITION)
 	if dw and dw.has_method("play_cutscene"):
-		var flags: Node = get_node_or_null("/root/GameFlags")
+		var flags = get_node_or_null("/root/GameFlags")
 		if flags and not flags.get_flag("dreamwalker_introduced"):
 			dw.set_meta("cutscene_id", "dreamwalker_introduction")
 			dw.set_meta("trigger_proximity", 96.0)
@@ -105,7 +105,7 @@ func _spawn_dreamwalker() -> void:
 # Private – Yipp backup item chests
 # ---------------------------------------------------------------------------
 func _configure_yipp_chests() -> void:
-	var flags: Node = get_node_or_null("/root/GameFlags")
+	var flags = get_node_or_null("/root/GameFlags")
 
 	# Show holy symbol chest only if the item was not obtained elsewhere.
 	if chest_holy_symbol:
@@ -130,10 +130,10 @@ func _on_exit_trigger_body_entered(body: Node) -> void:
 	go_to_location(EXIT_TO_MOUNTAIN, SPAWN_FROM_ISLAND)
 
 func _on_chest_holy_symbol_interacted() -> void:
-	var flags: Node = get_node_or_null("/root/GameFlags")
+	var flags = get_node_or_null("/root/GameFlags")
 	if flags and flags.get_flag("yipp_holy_symbol_obtained"):
 		return
-	var inventory: Node = get_node_or_null("/root/Inventory")
+	var inventory = get_node_or_null("/root/Inventory")
 	if inventory and inventory.has_method("add_item"):
 		inventory.add_item("yipp_holy_symbol")
 	if flags:
@@ -143,10 +143,10 @@ func _on_chest_holy_symbol_interacted() -> void:
 		chest_holy_symbol.set_opened(true)
 
 func _on_chest_wine_glass_interacted() -> void:
-	var flags: Node = get_node_or_null("/root/GameFlags")
+	var flags = get_node_or_null("/root/GameFlags")
 	if flags and flags.get_flag("yipp_wine_glass_obtained"):
 		return
-	var inventory: Node = get_node_or_null("/root/Inventory")
+	var inventory = get_node_or_null("/root/Inventory")
 	if inventory and inventory.has_method("add_item"):
 		inventory.add_item("yipp_wine_glass")
 	if flags:
@@ -158,10 +158,10 @@ func _on_chest_wine_glass_interacted() -> void:
 func _on_psychic_tutorial_trigger_body_entered(body: Node) -> void:
 	if not body.is_in_group("player"):
 		return
-	var flags: Node = get_node_or_null("/root/GameFlags")
+	var flags = get_node_or_null("/root/GameFlags")
 	if flags and flags.get_flag("psychic_tutorial_shown"):
 		return
-	var ui_manager: Node = get_node_or_null("/root/UIManager")
+	var ui_manager = get_node_or_null("/root/UIManager")
 	if ui_manager and ui_manager.has_method("show_tutorial_popup"):
 		ui_manager.show_tutorial_popup("psychic_damage_tutorial")
 	if flags:

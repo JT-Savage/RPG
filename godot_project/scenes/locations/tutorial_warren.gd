@@ -38,7 +38,7 @@ const SAVE_POINT_SPAWN: Vector2 = Vector2(-360, 0)
 # Child node paths (set in scene editor, declared here for reference)
 # ---------------------------------------------------------------------------
 @onready var exit_trigger: Area2D = $ExitTrigger
-@onready var baby_dragon_chest: Node = $BabyDragonChest
+@onready var baby_dragon_chest = $BabyDragonChest
 @onready var save_point_marker: Marker2D = $SavePointMarker
 @onready var tutorial_prompt_label: Label = $UI/TutorialPromptLabel
 
@@ -76,7 +76,7 @@ func _ready() -> void:
 # Story triggers (override)
 # ---------------------------------------------------------------------------
 func handle_story_triggers() -> void:
-	var flags: Node = get_node_or_null("/root/GameFlags")
+	var flags = get_node_or_null("/root/GameFlags")
 	if flags == null:
 		push_warning("TutorialWarren.handle_story_triggers: GameFlags autoload missing.")
 		return
@@ -158,7 +158,7 @@ func _enable_baby_dragon_chest() -> void:
 
 
 func _spawn_kella_for_cutscene() -> void:
-	var kella: Node = add_npc(KELLA_NPC_ID, KELLA_SPAWN_POSITION)
+	var kella = add_npc(KELLA_NPC_ID, KELLA_SPAWN_POSITION)
 	if kella and kella.has_method("play_cutscene"):
 		# Cutscene plays when the player reaches the warren exit area.
 		# Kella's NPC script will handle the trigger proximity check.
@@ -170,7 +170,7 @@ func _spawn_kella_for_cutscene() -> void:
 # Private – tutorial hints
 # ---------------------------------------------------------------------------
 func _show_tutorial_hints() -> void:
-	var flags: Node = get_node_or_null("/root/GameFlags")
+	var flags = get_node_or_null("/root/GameFlags")
 	if flags and flags.get_flag("tutorial_complete"):
 		# Skip hints on repeat playthroughs / after tutorial is done.
 		if tutorial_prompt_label:
@@ -193,12 +193,12 @@ func _on_exit_trigger_body_entered(body: Node) -> void:
 	if not body.is_in_group("player"):
 		return
 
-	var flags: Node = get_node_or_null("/root/GameFlags")
+	var flags = get_node_or_null("/root/GameFlags")
 
 	# Kella cutscene must play before the player can leave.
 	if flags and not flags.get_flag("kella_cutscene_played"):
 		# Kella blocks the exit – her NPC script handles the blocking behaviour.
-		var kella: Node = _npc_nodes.get(KELLA_NPC_ID)
+		var kella = _npc_nodes.get(KELLA_NPC_ID)
 		if kella and kella.has_method("force_cutscene"):
 			kella.force_cutscene()
 		return
@@ -207,12 +207,12 @@ func _on_exit_trigger_body_entered(body: Node) -> void:
 
 
 func _on_baby_dragon_chest_interacted() -> void:
-	var flags: Node = get_node_or_null("/root/GameFlags")
+	var flags = get_node_or_null("/root/GameFlags")
 	if flags and flags.get_flag("baby_dragon_chest_opened"):
 		return
 
 	# Give the player the baby dragon item.
-	var inventory: Node = get_node_or_null("/root/Inventory")
+	var inventory = get_node_or_null("/root/Inventory")
 	if inventory and inventory.has_method("add_item"):
 		inventory.add_item("baby_dragon_egg")
 
@@ -222,6 +222,6 @@ func _on_baby_dragon_chest_interacted() -> void:
 	emit_signal("story_trigger_fired", "baby_dragon_chest_opened")
 
 	# Show a small notification.
-	var notify: Node = get_node_or_null("/root/NotificationManager")
+	var notify = get_node_or_null("/root/NotificationManager")
 	if notify and notify.has_method("show_key_item"):
 		notify.show_key_item("baby_dragon_egg")

@@ -378,7 +378,7 @@ func _action_play_sfx(action: Dictionary) -> void:
 	var volume_db: float = action.get("volume_db", 0.0)
 	var pitch_scale: float = action.get("pitch_scale", 1.0)
 
-	var sfx_player: Node = _context.get("sfx_player", null)
+	var sfx_player = _context.get("sfx_player", null)
 	if sfx_player == null:
 		push_warning("CutscenePlayer: no sfx_player in context for sfx '%s'." % sfx_name)
 		return
@@ -395,7 +395,7 @@ func _action_play_music(action: Dictionary) -> void:
 	var track_name: String = action.get("track_name", "")
 	var fade_in: float = action.get("fade_in", 0.0)
 
-	var music_player: Node = _context.get("music_player", null)
+	var music_player = _context.get("music_player", null)
 	if music_player == null:
 		push_warning("CutscenePlayer: no music_player in context for track '%s'." % track_name)
 		return
@@ -458,7 +458,7 @@ func _action_shake_camera(action: Dictionary) -> void:
 	var strength_key: String = action.get("strength", "medium")
 	var duration: float = action.get("duration", 0.5)
 
-	var camera: Node = _context.get("camera", null)
+	var camera = _context.get("camera", null)
 	if camera == null:
 		push_warning("CutscenePlayer: no camera in context for shake_camera.")
 		await get_tree().create_timer(duration).timeout
@@ -504,7 +504,7 @@ func _action_move_npc(action: Dictionary) -> void:
 
 
 func _action_set_flag(action: Dictionary) -> void:
-	var flag_manager: Node = _context.get("flag_manager", null)
+	var flag_manager = _context.get("flag_manager", null)
 	var mode: String = action.get("mode", "single")
 	var base_flag: String = action.get("flag", "")
 	var value: Variant = action.get("value", true)
@@ -532,7 +532,7 @@ func _action_spawn_effect(action: Dictionary) -> void:
 	var anchor_key: String = action.get("anchor", "screen_center")
 	var override_pos: Variant = action.get("position", null)
 
-	var effect_spawner: Node = _context.get("effect_spawner", null)
+	var effect_spawner = _context.get("effect_spawner", null)
 	if effect_spawner == null:
 		push_warning("CutscenePlayer: no effect_spawner in context for effect '%s'." % effect_name)
 		return
@@ -553,14 +553,9 @@ func _action_spawn_effect(action: Dictionary) -> void:
 func _action_dialogue(action: Dictionary) -> void:
 	var dialogue_id: String = action.get("dialogue_id", "")
 	# Assumes a DialogueManager autoload or similar exists.
-	if Engine.has_singleton("DialogueManager"):
-		# Await dialogue completion via signal.
-		var dm := Engine.get_singleton("DialogueManager")
-		if dm.has_method("start_dialogue"):
-			dm.start_dialogue(dialogue_id)
-			await dm.dialogue_ended
-	else:
-		push_warning("CutscenePlayer: no DialogueManager autoload found for dialogue '%s'." % dialogue_id)
+	# DialogueManager is an autoload (not an Engine singleton) — call directly.
+	DialogueManager.start_dialogue(dialogue_id)
+	await DialogueManager.dialogue_ended
 
 # ---------------------------------------------------------------------------
 # Helpers

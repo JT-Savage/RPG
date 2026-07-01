@@ -62,13 +62,8 @@ func _ready() -> void:
 	# Record the panel's designed position before any animation touches it.
 	_panel_rest_position = panel.position
 
-	# Connect to the global banter system if it is registered as an autoload.
-	if Engine.has_singleton("BanterSystem"):
-		BanterSystem.banter_triggered.connect(_on_banter_triggered)
-	else:
-		# Fallback: allow callers to invoke show_banter() directly, e.g. from
-		# a battle manager that holds its own reference to BanterSystem.
-		push_warning("BanterPopup: BanterSystem singleton not found; connect manually.")
+	# BanterSystem is an autoload — connect directly.
+	BanterSystem.banter_triggered.connect(_on_banter_triggered)
 
 # ---------------------------------------------------------------------------
 # Public API

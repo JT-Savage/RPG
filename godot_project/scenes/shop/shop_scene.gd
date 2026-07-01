@@ -53,9 +53,7 @@ func _populate_item_list() -> void:
 	description_label.text = "Select an item."
 
 	if sell_mode:
-		var inventory: Array = []
-		if GameManager:
-			inventory = GameManager.get_inventory()
+		var inventory: Array = _get_sell_inventory()
 		for entry in inventory:
 			var item_name: String = entry.get("name", "???")
 			var sell_price: int = int(entry.get("price", 0) * 0.5)
@@ -68,17 +66,14 @@ func _populate_item_list() -> void:
 
 
 func _refresh_gil() -> void:
-	var gil: int = 0
-	if GameManager:
-		gil = GameManager.get_gil()
-	gil_label.text = "Gil: %d" % gil
+	gil_label.text = "Gil: %d" % GameManager.gil
 
 
 func _on_item_selected(index: int) -> void:
 	selected_item_index = index
 	var desc: String = ""
 	if sell_mode:
-		var inventory: Array = GameManager.get_inventory() if GameManager else []
+		var inventory: Array = _get_sell_inventory()
 		if index < inventory.size():
 			desc = inventory[index].get("description", "")
 	else:
@@ -101,7 +96,7 @@ func _on_buy_pressed() -> void:
 
 	var item: Dictionary = shop_items[selected_item_index]
 	var price: int = item.get("price", 0)
-	var current_gil: int = GameManager.get_gil() if GameManager else 0
+	var current_gil: int = GameManager.gil
 
 	if current_gil < price:
 		description_label.text = "Not enough Gil!"
@@ -123,13 +118,12 @@ func _on_sell_pressed() -> void:
 	else:
 		# Confirm sell
 		if selected_item_index >= 0:
-			var inventory: Array = GameManager.get_inventory() if GameManager else []
+			var inventory: Array = _get_sell_inventory()
 			if selected_item_index < inventory.size():
 				var item: Dictionary = inventory[selected_item_index]
 				var sell_price: int = int(item.get("price", 0) * 0.5)
-				if GameManager:
-					GameManager.gain_gil(sell_price)
-					GameManager.remove_item_at(selected_item_index)
+				GameManager.gil += sell_price
+				GameManager.remove_item(item.get("id", ""), 1)
 				_refresh_gil()
 				description_label.text = "Sold for %d Gil." % sell_price
 		sell_mode = false
@@ -140,3 +134,22 @@ func _on_sell_pressed() -> void:
 
 func _on_exit_pressed() -> void:
 	SceneTransition.back()
+
+
+## Builds a sellable inventory list from GameManager's item dictionary,
+## enriched with names and prices from ItemDatabase.
+func _get_sell_inventory() -> Array:
+	var result: Array = []
+	var all_items: Dictionary = GameManager.get_all_items()
+	for item_id in all_items:
+		var qty: int = all_items[item_id]
+		if qty <= 0:
+			continue
+		var data: Dictionary = ItemDatabase.get_item(item_id)
+		result.append({
+			"id": item_id,
+			"name": data.get("name", item_id.capitalize()),
+			"price": data.get("price", 10),
+			"quantity": qty,
+		})
+	return result

@@ -62,7 +62,7 @@ func _ready() -> void:
 # Story triggers (override)
 # ---------------------------------------------------------------------------
 func handle_story_triggers() -> void:
-	var flags: Node = get_node_or_null("/root/GameFlags")
+	var flags = get_node_or_null("/root/GameFlags")
 	if flags == null:
 		push_warning("OrisiaIsland.handle_story_triggers: GameFlags autoload missing.")
 		return
@@ -78,17 +78,17 @@ func handle_story_triggers() -> void:
 # Private – story helpers
 # ---------------------------------------------------------------------------
 func _spawn_orisia() -> void:
-	var orisia: Node = add_npc(NPC_ORISIA_ID, NPC_ORISIA_POSITION)
+	var orisia = add_npc(NPC_ORISIA_ID, NPC_ORISIA_POSITION)
 	if orisia:
 		# Orisia's NPC script handles the branching dialogue internally;
 		# we pass context so it knows whether the meeting has already occurred.
-		var flags: Node = get_node_or_null("/root/GameFlags")
+		var flags = get_node_or_null("/root/GameFlags")
 		if orisia.has_method("set_meeting_state"):
 			var already_met: bool = flags != null and flags.get_flag("orisia_meeting_done")
 			orisia.set_meeting_state(already_met)
 
 func _check_class_evolutions(flags: Node) -> void:
-	var party_manager: Node = get_node_or_null("/root/PartyManager")
+	var party_manager = get_node_or_null("/root/PartyManager")
 	for sidequest_flag: String in CLASS_EVOLUTION_FLAGS:
 		var evolution_flag: String = CLASS_EVOLUTION_FLAGS[sidequest_flag]
 		if flags.get_flag(sidequest_flag) and not flags.get_flag(evolution_flag):
@@ -100,11 +100,11 @@ func _check_class_evolutions(flags: Node) -> void:
 			emit_signal("story_trigger_fired", "class_evolution_" + evolution_flag)
 
 func _trigger_orisia_meeting(player: Node) -> void:
-	var flags: Node = get_node_or_null("/root/GameFlags")
+	var flags = get_node_or_null("/root/GameFlags")
 	if flags and flags.get_flag("orisia_meeting_done"):
 		return
 
-	var orisia: Node = _npc_nodes.get(NPC_ORISIA_ID)
+	var orisia = _npc_nodes.get(NPC_ORISIA_ID)
 	if orisia and orisia.has_method("play_cutscene"):
 		orisia.play_cutscene("orisia_meeting")
 		# The cutscene script is responsible for setting orisia_meeting_done
@@ -114,7 +114,7 @@ func _trigger_orisia_meeting(player: Node) -> void:
 				orisia.cutscene_finished.connect(_on_orisia_meeting_finished, CONNECT_ONE_SHOT)
 
 func _on_orisia_meeting_finished(choice: String) -> void:
-	var flags: Node = get_node_or_null("/root/GameFlags")
+	var flags = get_node_or_null("/root/GameFlags")
 	if flags:
 		flags.set_flag("orisia_meeting_done", true)
 		if choice == "yes":

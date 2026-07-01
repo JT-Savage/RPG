@@ -122,7 +122,7 @@ func _check_proximity_trigger() -> void:
 	var player_nodes: Array = get_tree().get_nodes_in_group("player")
 	if player_nodes.is_empty():
 		return
-	var player: Node = player_nodes[0]
+	var player = player_nodes[0]
 	if global_position.distance_to(player.global_position) <= trigger_proximity:
 		_trigger_cutscene()
 

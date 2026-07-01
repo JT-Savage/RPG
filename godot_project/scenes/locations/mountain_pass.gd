@@ -32,7 +32,7 @@ const SPAWN_FROM_MOUNTAIN_TOP: String = "from_mountain"
 # ---------------------------------------------------------------------------
 @onready var exit_to_swamp_trigger: Area2D = $ExitToSwampTrigger
 @onready var exit_to_island_trigger: Area2D = $ExitToIslandTrigger
-@onready var snow_weather_effect: Node = $SnowWeatherEffect
+@onready var snow_weather_effect = $SnowWeatherEffect
 
 # ---------------------------------------------------------------------------
 # _ready override
@@ -58,7 +58,7 @@ func _ready() -> void:
 # Story triggers (override)
 # ---------------------------------------------------------------------------
 func handle_story_triggers() -> void:
-	var flags: Node = get_node_or_null("/root/GameFlags")
+	var flags = get_node_or_null("/root/GameFlags")
 	if flags == null:
 		push_warning("MountainPass.handle_story_triggers: GameFlags autoload missing.")
 		return
@@ -87,7 +87,7 @@ func _enable_snow_effect() -> void:
 # Private – Yipp random encounter
 # ---------------------------------------------------------------------------
 func _maybe_spawn_yipp() -> void:
-	var flags: Node = get_node_or_null("/root/GameFlags")
+	var flags = get_node_or_null("/root/GameFlags")
 	# Don't spawn if already recruited or if Yipp already appeared here this cycle.
 	if flags and (flags.get_flag("yipp_recruited") or flags.get_flag("yipp_seen_mountain")):
 		return

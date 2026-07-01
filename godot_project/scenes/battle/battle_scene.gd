@@ -4,7 +4,7 @@ extends Node2D
 @onready var background_sprite: Sprite2D = $Background
 @onready var party_ui: Control = $UI/PartyPanel
 @onready var enemy_ui: Control = $UI/EnemyPanel
-@onready var command_menu: Control = $UI/CommandMenu
+@onready var command_menu = $UI/CommandMenu
 @onready var message_label: Label = $UI/MessageLabel
 @onready var damage_container: Control = $UI/DamageNumbers
 @onready var portraits_panel: Control = $UI/Portraits
@@ -14,7 +14,7 @@ var _battle_data: Dictionary = {}
 var _enemy_slots: Array = []
 var _party_slots: Array = []
 var _waiting_for_input := false
-var _banter_popup: Control = null
+var _banter_popup = null
 
 func _ready() -> void:
 	# Get pending battle data

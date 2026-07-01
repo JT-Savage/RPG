@@ -10,8 +10,8 @@ class_name CatacombPuzzle
 # ---------------------------------------------------------------------------
 # Node refs
 # ---------------------------------------------------------------------------
-@onready var puzzle_system: Node = $PuzzleSystem
-@onready var door_to_depths: Node2D = $DoorToDepths
+@onready var puzzle_system = $PuzzleSystem
+@onready var door_to_depths = $DoorToDepths
 @onready var plate_a: Area2D = $PlateA
 @onready var plate_b: Area2D = $PlateB
 @onready var plate_c: Area2D = $PlateC

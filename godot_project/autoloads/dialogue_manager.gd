@@ -14,7 +14,7 @@ var is_typing := false
 var skip_requested := false
 
 # Dialogue UI reference (set by battle/world scene)
-var dialogue_ui: Control = null
+var dialogue_ui = null
 
 func start_dialogue(dialogue_id: String, context: Dictionary = {}) -> void:
 	var dialogue_data := _load_dialogue(dialogue_id, context)

@@ -69,7 +69,7 @@ func _ready() -> void:
 # Story triggers (override)
 # ---------------------------------------------------------------------------
 func handle_story_triggers() -> void:
-	var flags: Node = get_node_or_null("/root/GameFlags")
+	var flags = get_node_or_null("/root/GameFlags")
 	if flags == null:
 		push_warning("FinalDungeon.handle_story_triggers: GameFlags autoload missing.")
 		return
@@ -101,7 +101,7 @@ func _setup_encounter_zones() -> void:
 # Private – ending resolution
 # ---------------------------------------------------------------------------
 func _resolve_ending() -> void:
-	var flags: Node = get_node_or_null("/root/GameFlags")
+	var flags = get_node_or_null("/root/GameFlags")
 	if flags == null:
 		return
 
@@ -109,7 +109,7 @@ func _resolve_ending() -> void:
 	flags.set_flag("ending_reached_" + ending_id, true)
 	emit_signal("story_trigger_fired", "ending_" + ending_id)
 
-	var ending_manager: Node = get_node_or_null("/root/EndingManager")
+	var ending_manager = get_node_or_null("/root/EndingManager")
 	if ending_manager and ending_manager.has_method("play_ending"):
 		ending_manager.play_ending(ending_id)
 	else:
@@ -131,7 +131,7 @@ func _determine_ending(flags: Node) -> String:
 		return "bitter_sacrifice"
 
 func _on_final_boss_defeated() -> void:
-	var flags: Node = get_node_or_null("/root/GameFlags")
+	var flags = get_node_or_null("/root/GameFlags")
 	if flags:
 		flags.set_flag("final_boss_defeated", true)
 	emit_signal("story_trigger_fired", "final_boss_defeated")
@@ -143,7 +143,7 @@ func _on_final_boss_defeated() -> void:
 func _on_teleporter_floor_2_body_entered(body: Node) -> void:
 	if not body.is_in_group("player"):
 		return
-	var flags: Node = get_node_or_null("/root/GameFlags")
+	var flags = get_node_or_null("/root/GameFlags")
 	if flags:
 		flags.set_flag("void_spire_floor_2_cleared", true)
 	# Teleport within the same scene to floor 2 spawn.
@@ -152,7 +152,7 @@ func _on_teleporter_floor_2_body_entered(body: Node) -> void:
 func _on_teleporter_floor_3_body_entered(body: Node) -> void:
 	if not body.is_in_group("player"):
 		return
-	var flags: Node = get_node_or_null("/root/GameFlags")
+	var flags = get_node_or_null("/root/GameFlags")
 	if flags:
 		flags.set_flag("void_spire_floor_3_cleared", true)
 	_teleport_player_to_spawn(SPAWN_FLOOR_3)
@@ -163,7 +163,7 @@ func _on_teleporter_top_body_entered(body: Node) -> void:
 	_teleport_player_to_spawn(SPAWN_TOP_FLOOR)
 
 func _teleport_player_to_spawn(spawn_id: String) -> void:
-	var spawn_node: Node = _find_spawn_point(spawn_id)
+	var spawn_node = _find_spawn_point(spawn_id)
 	if spawn_node and _player_node:
 		_player_node.global_position = spawn_node.global_position
 	else:
@@ -174,10 +174,10 @@ func _teleport_player_to_spawn(spawn_id: String) -> void:
 func _on_boss_trigger_body_entered(body: Node) -> void:
 	if not body.is_in_group("player"):
 		return
-	var flags: Node = get_node_or_null("/root/GameFlags")
+	var flags = get_node_or_null("/root/GameFlags")
 	if flags and flags.get_flag("final_boss_defeated"):
 		return
-	var battle_manager: Node = get_node_or_null("/root/BattleManager")
+	var battle_manager = get_node_or_null("/root/BattleManager")
 	if battle_manager and battle_manager.has_method("start_boss_battle"):
 		battle_manager.start_boss_battle("final_boss", BATTLE_BG)
 		if battle_manager.has_signal("battle_won"):

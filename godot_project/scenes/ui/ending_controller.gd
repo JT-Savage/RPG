@@ -53,24 +53,27 @@ func play_ending(ending_type: String) -> void:
 # ---------------------------------------------------------------------------
 func _play_good_ending() -> void:
 	AudioManager.play_music("ending_good")
-	await DialogueManager.start_dialogue_async("good_ending")
+	DialogueManager.start_dialogue("good_ending")
+	await DialogueManager.dialogue_ended
 	await _roll_credits(ENDING_GOOD)
 
 
 func _play_normal_ending() -> void:
 	AudioManager.play_music("ending_normal")
 	# Brief ending narration
-	await DialogueManager.start_dialogue_direct(
-		"Narrator",
-		"The darkness was beaten back. Not destroyed—it never is. But pushed back far enough that sunlight returned to places that had forgotten it.\n\nFor now, that has to be enough."
-	)
+	DialogueManager.start_dialogue_direct([
+		{"id": "line", "type": "text", "speaker": "Narrator", "text": "The darkness was beaten back. Not destroyed—it never is. But pushed back far enough that sunlight returned to places that had forgotten it.", "next": "end"},
+		{"id": "end", "type": "end"}
+	])
+	await DialogueManager.dialogue_ended
 	await _roll_credits(ENDING_NORMAL)
 
 
 func _play_bad_ending() -> void:
 	# Secret boss defeated
 	AudioManager.play_music("ending_bad")
-	await DialogueManager.start_dialogue_async("bad_ending")
+	DialogueManager.start_dialogue("bad_ending")
+	await DialogueManager.dialogue_ended
 	FlagManager.set_flag("secret_boss_defeated", true)
 	await _roll_credits(ENDING_BAD)
 
@@ -78,11 +81,13 @@ func _play_bad_ending() -> void:
 func _play_best_ending() -> void:
 	AudioManager.play_music("ending_best")
 	FlagManager.set_flag("best_ending_achieved", true)
-	await DialogueManager.start_dialogue_async("good_ending")   # Good ending first
+	DialogueManager.start_dialogue("good_ending")
+	await DialogueManager.dialogue_ended   # Good ending first
 	await _roll_credits(ENDING_BEST)
 	# Post-credits sequence
 	await get_tree().create_timer(1.0).timeout
-	await DialogueManager.start_dialogue_async("best_ending")   # Then post-credits
+	DialogueManager.start_dialogue("best_ending")
+	await DialogueManager.dialogue_ended   # Then post-credits
 
 
 # ---------------------------------------------------------------------------
@@ -94,7 +99,7 @@ func _roll_credits(ending_type: String) -> void:
 		push_error("EndingController: Could not load credits_screen.tscn")
 		return
 
-	var credits: Node = credits_scene.instantiate()
+	var credits = credits_scene.instantiate()
 	credits.set_meta("ending_type", ending_type)
 	get_tree().root.add_child(credits)
 
