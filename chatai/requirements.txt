@@ -1,0 +1,13 @@
+# Private character-chat AI — runtime dependencies
+fastapi>=0.110
+uvicorn[standard]>=0.27
+httpx>=0.26
+pydantic>=2.5
+python-multipart>=0.0.9
+
+# Optional, improves token accounting for OpenAI-compatible models.
+# The app falls back to a heuristic estimator if this is missing.
+# tiktoken>=0.6
+
+# Dev/test only
+pytest>=8.0

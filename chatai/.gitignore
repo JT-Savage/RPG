@@ -1,0 +1,10 @@
+# Runtime data — chats, personas, characters, settings, avatars.
+# This is local, personal chat data and should never be committed.
+data/*
+!data/.gitkeep
+!data/README.md
+
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/

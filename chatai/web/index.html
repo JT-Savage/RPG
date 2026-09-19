@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Private Character Chat</title>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <div id="app">
+    <aside id="sidebar">
+      <div class="sidebar-header">
+        <div class="app-title"><span class="dot"></span> Private Character Chat</div>
+        <select id="persona-select" class="persona-select"></select>
+      </div>
+      <div class="tabs">
+        <div class="tab active" data-tab="chats">Chats</div>
+        <div class="tab" data-tab="characters">Characters</div>
+      </div>
+      <div id="chats-list" class="sidebar-list"></div>
+      <div id="characters-list" class="sidebar-list" style="display:none"></div>
+      <div class="sidebar-footer">
+        <button class="btn block" id="btn-new-character">+ Character</button>
+        <button class="btn icon" id="btn-settings" title="Settings">⚙</button>
+      </div>
+    </aside>
+
+    <main id="main">
+      <div id="chat-header">
+        <div class="who">
+          <div class="avatar" id="header-avatar">?</div>
+          <div>
+            <div class="name" id="header-name">No chat open</div>
+            <div class="persona-line" id="header-sub"></div>
+          </div>
+        </div>
+        <div>
+          <button class="btn small" id="btn-export-char" style="display:none">Export card</button>
+          <button class="btn small" id="btn-delete-chat" style="display:none">Delete chat</button>
+        </div>
+      </div>
+      <div id="messages">
+        <div class="empty-state">
+          <h2>Pick or create a character</h2>
+          <p>Everything runs locally against the model server you configure in Settings.
+             Nothing is sent anywhere else.</p>
+        </div>
+      </div>
+      <div id="composer" style="display:none">
+        <textarea id="composer-input" rows="1" placeholder="Say something…"></textarea>
+        <button class="btn primary" id="btn-send">Send</button>
+      </div>
+    </main>
+  </div>
+
+  <div id="modal-root"></div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
