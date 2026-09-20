@@ -8,3 +8,10 @@ data/*
 __pycache__/
 *.pyc
 .pytest_cache/
+
+# Self-signed TLS certificate/key for LAN HTTPS (generated locally).
+certs/
+
+# The repository root .gitignore ignores *.json globally (game save files);
+# the bundled example character card is source, not runtime data.
+!characters/*.json

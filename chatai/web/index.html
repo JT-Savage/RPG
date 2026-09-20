@@ -2,42 +2,72 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- viewport-fit=cover + the safe-area padding in style.css keeps the UI
+       clear of the iPhone notch/home indicator in standalone mode. -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no" />
+  <meta name="color-scheme" content="dark" />
+  <meta name="theme-color" content="#14151a" />
+  <meta name="description" content="Self-hosted character AI chat that runs against your own model server." />
+
   <title>Private Character Chat</title>
+
+  <!-- Installable web app -->
+  <link rel="manifest" href="/manifest.webmanifest" />
+  <link rel="icon" href="/static/icons/favicon-32.png" sizes="32x32" type="image/png" />
+
+  <!-- iOS home-screen app: these are what make "Add to Home Screen" open
+       full-screen with the right icon and title instead of a Safari tab. -->
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Chat" />
+  <link rel="apple-touch-icon" href="/static/icons/apple-touch-icon-180.png" />
+
   <link rel="stylesheet" href="/static/style.css" />
 </head>
 <body>
   <div id="app">
+    <div id="scrim" hidden></div>
+
     <aside id="sidebar">
       <div class="sidebar-header">
-        <div class="app-title"><span class="dot"></span> Private Character Chat</div>
-        <select id="persona-select" class="persona-select"></select>
+        <div class="app-title">
+          <span class="dot"></span> Private Character Chat
+          <button class="btn icon sidebar-close" id="btn-close-sidebar" aria-label="Close menu">✕</button>
+        </div>
+        <select id="persona-select" class="persona-select" aria-label="Your persona"></select>
       </div>
-      <div class="tabs">
-        <div class="tab active" data-tab="chats">Chats</div>
-        <div class="tab" data-tab="characters">Characters</div>
+      <div class="tabs" role="tablist">
+        <div class="tab active" data-tab="chats" role="tab">Chats</div>
+        <div class="tab" data-tab="characters" role="tab">Characters</div>
       </div>
       <div id="chats-list" class="sidebar-list"></div>
       <div id="characters-list" class="sidebar-list" style="display:none"></div>
       <div class="sidebar-footer">
         <button class="btn block" id="btn-new-character">+ Character</button>
-        <button class="btn icon" id="btn-settings" title="Settings">⚙</button>
+        <button class="btn icon" id="btn-settings" title="Settings" aria-label="Settings">⚙</button>
       </div>
     </aside>
 
     <main id="main">
       <div id="chat-header">
         <div class="who">
+          <button class="btn icon menu-toggle" id="btn-menu" aria-label="Open menu">☰</button>
           <div class="avatar" id="header-avatar">?</div>
-          <div>
+          <div class="who-text">
             <div class="name" id="header-name">No chat open</div>
             <div class="persona-line" id="header-sub"></div>
           </div>
         </div>
-        <div>
+        <div class="header-actions">
           <button class="btn small" id="btn-export-char" style="display:none">Export card</button>
           <button class="btn small" id="btn-delete-chat" style="display:none">Delete chat</button>
         </div>
+      </div>
+      <div id="install-hint" hidden>
+        <span id="install-hint-text"></span>
+        <button class="btn small" id="btn-install">Install</button>
+        <button class="btn small" id="btn-install-dismiss" aria-label="Dismiss">✕</button>
       </div>
       <div id="messages">
         <div class="empty-state">
@@ -47,13 +77,15 @@
         </div>
       </div>
       <div id="composer" style="display:none">
-        <textarea id="composer-input" rows="1" placeholder="Say something…"></textarea>
-        <button class="btn primary" id="btn-send">Send</button>
+        <textarea id="composer-input" rows="1" placeholder="Say something…"
+                  enterkeyhint="send" autocapitalize="sentences"></textarea>
+        <button class="btn primary" id="btn-send" aria-label="Send">Send</button>
       </div>
     </main>
   </div>
 
   <div id="modal-root"></div>
+  <div id="toast" hidden></div>
 
   <script src="/static/app.js"></script>
 </body>

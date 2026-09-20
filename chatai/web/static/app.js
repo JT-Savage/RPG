@@ -15,6 +15,20 @@ const state = {
 const $ = (sel, root = document) => root.querySelector(sel);
 const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
 
+const isNarrow = () => window.matchMedia("(max-width: 820px)").matches;
+
+// Native alert() blocks the whole app and looks broken in an installed
+// home-screen app, so status goes through a toast instead.
+let toastTimer = null;
+function toast(message, kind = "info", ms = 4000) {
+  const el = $("#toast");
+  el.textContent = message;
+  el.classList.toggle("error", kind === "error");
+  el.hidden = false;
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => { el.hidden = true; }, ms);
+}
+
 async function api(path, opts = {}) {
   const res = await fetch(path, {
     headers: { "Content-Type": "application/json" },
@@ -168,6 +182,9 @@ async function openChat(chatId) {
   const chat = await api(`/api/chats/${chatId}`);
   state.activeChat = chat;
   state.activeCharacter = state.characters.find(c => c.id === chat.character_id) || null;
+  // Reopened automatically next time the app is launched from the home screen.
+  try { localStorage.setItem("chatai_last_chat", chatId); } catch (_) {}
+  closeDrawer();
   renderSidebar();
   renderChatHeader();
   renderMessages();
@@ -196,6 +213,7 @@ $("#btn-delete-chat").addEventListener("click", async () => {
   state.activeChat = null;
   state.activeCharacter = null;
   $("#composer").style.display = "none";
+  try { localStorage.removeItem("chatai_last_chat"); } catch (_) {}
   $("#messages").innerHTML = `<div class="empty-state"><h2>Pick or create a character</h2></div>`;
   renderChatHeader();
   renderSidebar();
@@ -236,7 +254,7 @@ $("#messages").addEventListener("click", async (e) => {
   } else if (e.target.classList.contains("msg-edit")) {
     const msg = state.activeChat.messages.find(m => m.id === id);
     const current = msg.swipes.length ? msg.swipes[msg.active_swipe] : msg.content;
-    const next = prompt("Edit message:", current);
+    const next = await editTextModal("Edit message", current);
     if (next !== null) {
       state.activeChat = await api(`/api/chats/${state.activeChat.id}/messages/${id}`, {
         method: "PUT", body: JSON.stringify({ content: next }),
@@ -299,7 +317,7 @@ function streamGeneration(mode) {
       if (data.error) {
         es.close();
         if (placeholder) placeholder.remove();
-        alert(data.error);
+        toast(data.error, "error", 6000);
         resolve();
         return;
       }
@@ -460,7 +478,7 @@ function openCharacterModal(character) {
       renderSidebar();
       openCharacterModal(imported);
     } catch (err) {
-      alert("Import failed: " + err.message);
+      toast("Import failed: " + err.message, "error", 6000);
     }
   });
 
@@ -557,7 +575,7 @@ function openPersonaModal() {
       renderPersonaSelect();
     }));
     $$(".p-delete").forEach(btn => btn.addEventListener("click", async () => {
-      if (state.personas.length <= 1) { alert("Keep at least one persona."); return; }
+      if (state.personas.length <= 1) { toast("Keep at least one persona."); return; }
       await api(`/api/personas/${btn.dataset.id}`, { method: "DELETE" });
       state.personas = state.personas.filter(p => p.id !== btn.dataset.id);
       renderPersonaSelect();
@@ -695,6 +713,181 @@ async function openSettingsModal() {
   });
 }
 
-loadAll().catch(err => {
+// ---------- Text edit modal ----------
+
+// Returns the edited string, or null if cancelled. Used instead of
+// window.prompt(), which is cramped and easy to mis-tap on a phone.
+function editTextModal(title, value) {
+  return new Promise((resolve) => {
+    const root = $("#modal-root");
+    root.innerHTML = `
+      <div class="modal-backdrop">
+        <div class="modal">
+          <div class="modal-header"><span>${escapeHtml(title)}</span><button class="btn icon" id="et-close">✕</button></div>
+          <div class="modal-body">
+            <div class="field">
+              <textarea id="et-text" style="min-height:40vh">${escapeHtml(value)}</textarea>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button class="btn" id="et-cancel">Cancel</button>
+            <button class="btn primary" id="et-save">Save</button>
+          </div>
+        </div>
+      </div>`;
+    const done = (result) => { closeModal(); resolve(result); };
+    $("#et-close").addEventListener("click", () => done(null));
+    $("#et-cancel").addEventListener("click", () => done(null));
+    $("#et-save").addEventListener("click", () => done($("#et-text").value));
+    $("#et-text").focus();
+  });
+}
+
+// ---------- Mobile drawer ----------
+
+const appEl = $("#app");
+
+function openDrawer() { appEl.classList.add("drawer-open"); }
+function closeDrawer() { appEl.classList.remove("drawer-open"); }
+function toggleDrawer() { appEl.classList.toggle("drawer-open"); }
+
+$("#btn-menu").addEventListener("click", toggleDrawer);
+$("#btn-close-sidebar").addEventListener("click", closeDrawer);
+$("#scrim").addEventListener("click", closeDrawer);
+document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeDrawer(); });
+
+// Starting a chat from the Characters tab should also get out of the way.
+$("#characters-list").addEventListener("click", (e) => {
+  if (e.target.closest(".char-start-chat")) closeDrawer();
+});
+
+// Swipe in from the left edge to open the drawer, swipe left to close it.
+(function edgeSwipe() {
+  let startX = 0, startY = 0, tracking = false;
+  document.addEventListener("touchstart", (e) => {
+    if (!isNarrow() || e.touches.length !== 1) return;
+    const t = e.touches[0];
+    const open = appEl.classList.contains("drawer-open");
+    if (!open && t.clientX > 28) return;   // only from the very edge
+    startX = t.clientX;
+    startY = t.clientY;
+    tracking = true;
+  }, { passive: true });
+
+  document.addEventListener("touchend", (e) => {
+    if (!tracking) return;
+    tracking = false;
+    const t = e.changedTouches[0];
+    const dx = t.clientX - startX;
+    const dy = Math.abs(t.clientY - startY);
+    if (dy > 60) return;                    // that was a scroll
+    if (dx > 55) openDrawer();
+    else if (dx < -55) closeDrawer();
+  }, { passive: true });
+})();
+
+// ---------- iOS keyboard / viewport ----------
+
+// In standalone mode the on-screen keyboard shrinks the visual viewport
+// without changing 100dvh on older iOS, which buries the composer. Track
+// the real visible height and hand it to CSS.
+(function trackViewport() {
+  const vv = window.visualViewport;
+  if (!vv) return;
+  const apply = () => {
+    const height = Math.round(vv.height);
+    document.documentElement.style.setProperty("--app-height", height + "px");
+    // Keep the newest message in view as the keyboard animates in.
+    const box = $("#messages");
+    if (box && document.activeElement === $("#composer-input")) {
+      box.scrollTop = box.scrollHeight;
+    }
+  };
+  vv.addEventListener("resize", apply);
+  vv.addEventListener("scroll", apply);
+  apply();
+})();
+
+// ---------- Install / service worker ----------
+
+const isStandalone = () =>
+  window.matchMedia("(display-mode: standalone)").matches || window.navigator.standalone === true;
+
+if ("serviceWorker" in navigator && window.isSecureContext) {
+  // Secure context only: over plain http:// on a LAN address the browser
+  // refuses to register, which is fine — the app just runs online-only.
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("/sw.js").catch(() => {});
+  });
+}
+
+(function installHint() {
+  const hint = $("#install-hint");
+  const text = $("#install-hint-text");
+  const installBtn = $("#btn-install");
+  let deferredPrompt = null;
+
+  const dismissed = () => {
+    try { return localStorage.getItem("chatai_install_hint") === "dismissed"; } catch (_) { return false; }
+  };
+  const dismiss = () => {
+    hint.hidden = true;
+    try { localStorage.setItem("chatai_install_hint", "dismissed"); } catch (_) {}
+  };
+
+  $("#btn-install-dismiss").addEventListener("click", dismiss);
+  installBtn.addEventListener("click", async () => {
+    if (!deferredPrompt) return;
+    deferredPrompt.prompt();
+    await deferredPrompt.userChoice;
+    deferredPrompt = null;
+    dismiss();
+  });
+
+  // Chrome/Edge/Android: a real install prompt.
+  window.addEventListener("beforeinstallprompt", (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    if (dismissed() || isStandalone()) return;
+    text.textContent = "Install this app for a full-screen, home-screen version.";
+    installBtn.hidden = false;
+    hint.hidden = false;
+  });
+
+  // iOS Safari has no install event — it needs Share → Add to Home Screen.
+  const isIOS = /iP(hone|ad|od)/.test(navigator.userAgent)
+    || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+  const isSafari = /^((?!chrome|android|crios|fxios|edgios).)*safari/i.test(navigator.userAgent);
+  if (isIOS && isSafari && !isStandalone() && !dismissed()) {
+    text.innerHTML = "Add to your Home Screen: tap <strong>Share</strong> &#x2191; then "
+      + "<strong>Add to Home Screen</strong>.";
+    installBtn.hidden = true;
+    hint.hidden = false;
+  }
+})();
+
+// ---------- Boot ----------
+
+async function boot() {
+  await loadAll();
+
+  const params = new URLSearchParams(location.search);
+  if (params.get("tab") === "characters") {
+    state.activeTab = "characters";
+    renderSidebar();
+    if (isNarrow()) openDrawer();
+  }
+
+  // Launching from the home screen drops you back where you left off.
+  let last = null;
+  try { last = localStorage.getItem("chatai_last_chat"); } catch (_) {}
+  if (last && state.chats.some(c => c.id === last)) {
+    await openChat(last);
+  } else if (isNarrow() && !state.activeChat) {
+    openDrawer();
+  }
+}
+
+boot().catch(err => {
   $("#messages").innerHTML = `<div class="empty-state"><h2>Could not load app</h2><p>${escapeHtml(err.message)}</p></div>`;
 });

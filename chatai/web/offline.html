@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#14151a" />
+  <title>Offline — Private Character Chat</title>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <div class="offline-shell">
+    <div class="empty-state">
+      <h2>Can't reach your server</h2>
+      <p>This app talks to the chat server running on your own machine. Check that
+         the computer running it is awake, on the same Wi-Fi, and that
+         <code>run.sh</code> / <code>run.ps1</code> is still going.</p>
+      <p><button class="btn primary" onclick="location.reload()">Try again</button></p>
+    </div>
+  </div>
+</body>
+</html>
