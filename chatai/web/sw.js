@@ -24,6 +24,7 @@ const SHELL_ASSETS = [
   "/manifest.webmanifest",
   "/static/style.css",
   "/static/app.js",
+  "/static/models.json",
   "/static/icons/icon-192.png",
   "/static/icons/icon-512.png",
   "/static/icons/maskable-512.png",

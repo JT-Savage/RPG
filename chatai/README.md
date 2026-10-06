@@ -96,6 +96,13 @@ Click the ⚙ Settings button:
 - **Base URL**: `http://127.0.0.1:11434` for Ollama, or whatever your
   server printed (LM Studio defaults to `http://127.0.0.1:1234`).
 - Click **Refresh list** and pick your model.
+- **Suggested models** is a short curated list grouped by how much VRAM
+  each one needs, with a one-line note on what it's good for. Picking
+  one either selects it (if you've already pulled it) or shows you the
+  `ollama pull` command to run. The list lives in
+  `chatai/web/static/models.json` — edit it to taste; model names on
+  the Ollama library drift, so treat it as a starting point rather than
+  gospel.
 - Adjust sampling settings if you like (the defaults are reasonable for
   most models).
 
@@ -217,6 +224,7 @@ chatai/
     routers/                      characters / personas / chats / generate / settings
   web/                 no-build vanilla HTML/CSS/JS frontend
     manifest.webmanifest  PWA manifest (icons, name, standalone display)
+    static/models.json     curated model suggestions shown in Settings
     sw.js                  service worker: caches the shell, never the API
     offline.html            shown when the server can't be reached
   tools/               icon generator, LAN IP lookup, self-signed cert helper

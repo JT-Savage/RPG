@@ -10,6 +10,7 @@ const state = {
   activeCharacter: null,
   activeTab: "chats",
   settings: null,
+  modelPresets: null,     // lazily loaded from /static/models.json
 };
 
 const $ = (sel, root = document) => root.querySelector(sel);
@@ -585,10 +586,46 @@ function openPersonaModal() {
   render();
 }
 
+// ---------- Model presets ----------
+
+// A curated starting list, so you don't have to remember model names on a
+// phone keyboard. Served as a static file rather than hardcoded here so it
+// can be edited without touching the app.
+async function loadModelPresets() {
+  if (state.modelPresets) return state.modelPresets;
+  try {
+    const res = await fetch("/static/models.json");
+    state.modelPresets = await res.json();
+  } catch (_) {
+    state.modelPresets = { tiers: [] };
+  }
+  return state.modelPresets;
+}
+
+function flattenPresets(catalogue) {
+  const out = [];
+  (catalogue.tiers || []).forEach((tier, ti) => {
+    (tier.presets || []).forEach((preset, pi) => out.push({ key: `${ti}:${pi}`, tier, preset }));
+  });
+  return out;
+}
+
+// Ollama reports "dolphin3:8b" for an explicit tag and "dolphin3:latest"
+// for a bare pull, so match on the base name too.
+function findInstalled(installed, pull) {
+  const base = pull.split(":")[0];
+  return installed.find(m => m === pull)
+      || installed.find(m => m.split(":")[0] === base)
+      || null;
+}
+
 // ---------- Settings modal ----------
 
 async function openSettingsModal() {
   const s = await api("/api/settings");
+  const catalogue = await loadModelPresets();
+  const presetList = flattenPresets(catalogue);
+  let installedModels = [];
   const root = $("#modal-root");
   root.innerHTML = `
     <div class="modal-backdrop">
@@ -625,6 +662,19 @@ async function openSettingsModal() {
               <button class="btn small" id="s-refresh-models">Refresh list</button>
             </div>
           </div>
+
+          ${presetList.length ? `<div class="field">
+            <label>Suggested models</label>
+            <select id="s-preset">
+              <option value="">Browse suggestions…</option>
+              ${(catalogue.tiers || []).map((tier, ti) => `
+                <optgroup label="${escapeHtml(tier.label)}">
+                  ${(tier.presets || []).map((preset, pi) =>
+                    `<option value="${ti}:${pi}">${escapeHtml(preset.name)} — ${escapeHtml(preset.vram)}</option>`).join("")}
+                </optgroup>`).join("")}
+            </select>
+            <div class="hint" id="s-preset-hint">${escapeHtml(catalogue.quant_note || "")}</div>
+          </div>` : ""}
 
           <div class="field">
             <label>Temperature</label>
@@ -677,13 +727,79 @@ async function openSettingsModal() {
       };
       await api("/api/settings", { method: "PUT", body: JSON.stringify(tempSettings) });
       const { models } = await api("/api/settings/models");
+      installedModels = models;
       modelSelect.innerHTML = models.map(m => `<option value="${escapeHtml(m)}" ${m === s.provider.model ? "selected" : ""}>${escapeHtml(m)}</option>`).join("")
         || `<option value="">No models found</option>`;
     } catch (err) {
+      installedModels = [];
       modelSelect.innerHTML = `<option value="">Could not reach server</option>`;
     }
+    applyPreset();   // a model picked from the list survives a refresh
   }
   $("#s-refresh-models").addEventListener("click", refreshModels);
+
+  // ----- suggested models -----
+
+  function selectedPreset() {
+    const picker = $("#s-preset");
+    if (!picker || !picker.value) return null;
+    const found = presetList.find(entry => entry.key === picker.value);
+    return found ? found.preset : null;
+  }
+
+  function applyPreset() {
+    const hint = $("#s-preset-hint");
+    if (!hint) return;
+    const preset = selectedPreset();
+    if (!preset) {
+      hint.textContent = catalogue.quant_note || "";
+      return;
+    }
+
+    if (preset.search) {
+      hint.innerHTML = `${escapeHtml(preset.flavor)}
+        <a href="${escapeHtml(preset.search)}" target="_blank" rel="noopener">Open the library search</a>`;
+      return;
+    }
+
+    const installed = findInstalled(installedModels, preset.pull);
+    const modelSelect = $("#s-model");
+    if (installed) {
+      modelSelect.value = installed;
+      hint.innerHTML = `${escapeHtml(preset.flavor)}
+        <div class="preset-status ok">Installed as <strong>${escapeHtml(installed)}</strong> — selected above.</div>`;
+      return;
+    }
+
+    // Not pulled yet: keep it selectable so saving works the moment it is.
+    if (!Array.from(modelSelect.options).some(o => o.value === preset.pull)) {
+      modelSelect.add(new Option(`${preset.pull} (not installed)`, preset.pull));
+    }
+    modelSelect.value = preset.pull;
+    hint.innerHTML = `${escapeHtml(preset.flavor)}
+      <div class="preset-status">Not installed yet. Run this on the machine with Ollama:</div>
+      <div class="pull-cmd"><code>ollama pull ${escapeHtml(preset.pull)}</code>
+        <button type="button" class="btn small" id="s-preset-copy">Copy</button></div>
+      <div class="preset-status">${escapeHtml(catalogue.caveat || "")}</div>`;
+  }
+
+  if (presetList.length) {
+    $("#s-preset").addEventListener("change", applyPreset);
+    $("#s-preset-hint").addEventListener("click", async (e) => {
+      if (e.target.id !== "s-preset-copy") return;
+      const preset = selectedPreset();
+      if (!preset || !preset.pull) return;
+      const command = `ollama pull ${preset.pull}`;
+      try {
+        // Only available on a secure origin; over plain http it throws.
+        await navigator.clipboard.writeText(command);
+        toast("Copied: " + command);
+      } catch (_) {
+        toast("Copy it by hand: " + command, "info", 8000);
+      }
+    });
+  }
+
   refreshModels();
 
   $("#modal-close").addEventListener("click", closeModal);
